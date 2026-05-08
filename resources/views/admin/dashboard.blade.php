@@ -21,9 +21,6 @@
 
         <div class="flex flex-wrap gap-3 mt-6">
 
-            <div class="bg-emerald-500/20 border border-emerald-500 px-4 py-2 rounded-2xl text-emerald-400 text-sm">
-                ● Sensor Aktif
-            </div>
 
             <div class="bg-cyan-500/20 border border-cyan-500 px-4 py-2 rounded-2xl text-cyan-400 text-sm">
                 ⚡ Realtime Monitoring

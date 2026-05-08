@@ -33,7 +33,7 @@ DB::table('sensors')->insert([
 $latest = DB::table('sensors')->latest()->first();
 $data = DB::table('sensors')->latest()->limit(10)->get();
 
-    return view('dashboard', compact('latest', 'data'));
+    return view('user.dashboard', compact('latest', 'data'));
 }
 
 public function latest()

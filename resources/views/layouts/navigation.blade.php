@@ -9,7 +9,7 @@
             <div class="flex items-center gap-8">
 
                 <!-- LOGO -->
-                <a href="{{ route('user.dashboard') }}"
+                <a href="{{ route('dashboard') }}"
                     class="flex items-center gap-3">
 
                     <div class="w-10 h-10 rounded-2xl bg-emerald-500 flex items-center justify-center text-white text-lg shadow-lg">
@@ -31,16 +31,18 @@
                 <!-- DESKTOP MENU -->
                 <div class="hidden md:flex items-center gap-3">
 
+                    <!-- USER -->                  
+                    <a href="{{ route('dashboard') }}"
+class="px-4 py-2 rounded-xl transition duration-300
+{{ request()->routeIs('dashboard')
+    ? 'bg-emerald-500 text-white shadow-lg'
+    : 'text-gray-200 hover:bg-gray-700 hover:text-white' }}">
+                        📊 Dashboard
+                    </a>
+
                     {{-- ADMIN ONLY --}}
                     @if(Auth::user()->role == 'admin')
 
-                    <a href="{{ route('admin') }}"
-class="px-4 py-2 rounded-xl transition duration-300
-{{ request()->routeIs('admin')
-    ? 'bg-emerald-500 text-white shadow-lg'
-    : 'text-gray-200 hover:bg-gray-700 hover:text-white' }}">
-                            📊 Dashboard
-                        </a>
 
 <a href="{{ route('admin.history') }}"
 class="px-4 py-2 rounded-xl transition duration-300
@@ -60,15 +62,6 @@ class="px-4 py-2 rounded-xl transition duration-300
 
                     @endif
 
-                    <!-- USER -->
-                    <a href="{{ route('user.dashboard') }}"
-class="px-4 py-2 rounded-xl transition duration-300
-{{ request()->routeIs('user.dashboard')
-    ? 'bg-emerald-500 text-white shadow-lg'
-    : 'text-gray-200 hover:bg-gray-700 hover:text-white' }}">
-                        🖥️ Dashboard User
-                    </a>
-
                     <a href="{{ route('help') }}"
                         class="px-4 py-2 rounded-xl transition duration-300
                         {{ request()->routeIs('help')
@@ -76,6 +69,10 @@ class="px-4 py-2 rounded-xl transition duration-300
                             : 'text-gray-200 hover:bg-gray-700 hover:text-white' }}">
                         ❓ Bantuan
                     </a>
+
+                    <div class="ml-4 text-sm text-emerald-400 font-semibold">
+    🕒 <span id="live-clock">--:--:--</span>
+</div>
 
                 </div>
 
@@ -211,7 +208,7 @@ class="px-4 py-2 rounded-xl transition duration-300
 
             @endif
 
-            <a href="{{ route('user.dashboard') }}"
+            <a href="{{ route('dashboard') }}"
                 class="block bg-emerald-500 hover:bg-emerald-600 text-white px-4 py-3 rounded-2xl transition shadow-lg">
                 🖥️ Dashboard User
             </a>

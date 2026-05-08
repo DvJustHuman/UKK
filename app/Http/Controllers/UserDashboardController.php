@@ -10,7 +10,7 @@ class UserDashboardController extends Controller
     {
         $latest = Sensor::latest()->first();
 
-        return view('user.dashboard', [
+        return view('dashboard', [
             'suhu' => $latest->suhu ?? 0,
             'kelembaban' => $latest->kelembaban ?? 0,
         ]);
