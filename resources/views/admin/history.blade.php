@@ -25,13 +25,24 @@
 
         <!-- FILTER AREA -->
         <div class="bg-white dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 p-6 mb-6">
-            <form action="{{ route('admin.history') }}" method="GET" class="grid grid-cols-1 md:grid-cols-4 gap-4">
+            <form action="{{ route('admin.history') }}" method="GET" class="grid grid-cols-1 md:grid-cols-5 gap-4">
                 <!-- Search -->
                 <div>
                     <label class="block text-[10px] text-zinc-500 uppercase tracking-widest mb-1">> Search</label>
                     <input type="text" name="search" value="{{ request('search') }}" 
                         placeholder="Search value..."
                         class="w-full bg-zinc-50 dark:bg-zinc-900 border-zinc-200 dark:border-zinc-800 text-zinc-900 dark:text-zinc-100 text-xs focus:ring-0 focus:border-zinc-400">
+                </div>
+
+                <!-- Date Range -->
+                <div class="md:col-span-1">
+                    <label class="block text-[10px] text-zinc-500 uppercase tracking-widest mb-1">> Date Range</label>
+                    <div class="flex gap-2">
+                        <input type="date" name="from" value="{{ request('from') }}"
+                            class="w-1/2 bg-zinc-50 dark:bg-zinc-900 border-zinc-200 dark:border-zinc-800 text-zinc-900 dark:text-zinc-100 text-xs focus:ring-0 focus:border-zinc-400 p-2">
+                        <input type="date" name="to" value="{{ request('to') }}"
+                            class="w-1/2 bg-zinc-50 dark:bg-zinc-900 border-zinc-200 dark:border-zinc-800 text-zinc-900 dark:text-zinc-100 text-xs focus:ring-0 focus:border-zinc-400 p-2">
+                    </div>
                 </div>
 
                 <!-- Temperature Range -->
@@ -58,10 +69,13 @@
 
                 <!-- Actions -->
                 <div class="flex items-end gap-2">
-                    <button type="submit" class="flex-1 bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 text-[10px] uppercase font-bold py-2 px-4 hover:bg-zinc-800 dark:hover:bg-zinc-200 transition-colors">
-                        Apply Filter
+                    <button type="submit" title="Apply Filter" class="flex-1 bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 text-[10px] uppercase font-bold py-2 px-3 hover:bg-zinc-800 dark:hover:bg-zinc-200 transition-colors">
+                        Filter
                     </button>
-                    <a href="{{ route('admin.history') }}" class="bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 text-[10px] uppercase font-bold py-2 px-4 hover:bg-zinc-200 dark:hover:bg-zinc-700 transition-colors">
+                    <a href="{{ route('admin.history.download', request()->all()) }}" title="Download CSV" class="flex-1 bg-emerald-600 text-white text-[10px] uppercase font-bold py-2 px-3 hover:bg-emerald-700 transition-colors text-center">
+                        CSV
+                    </a>
+                    <a href="{{ route('admin.history') }}" title="Reset" class="bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 text-[10px] uppercase font-bold py-2 px-3 hover:bg-zinc-200 dark:hover:bg-zinc-700 transition-colors">
                         Reset
                     </a>
                 </div>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Sensor;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class AdminController extends Controller
 {
@@ -34,16 +35,73 @@ class AdminController extends Controller
     public function history(Request $request)
     {
         $query = Sensor::query();
+        $query = $this->applyFilters($query, $request);
 
-        // 🔍 Search (Opsional, jika masih ingin ada search teks)
+        $data = $query->orderBy('id', 'desc')->paginate(10)->withQueryString();
+
+        return view('admin.history', compact('data'));
+    }
+
+    // 📥 DOWNLOAD CSV
+    public function download(Request $request)
+    {
+        $query = Sensor::query();
+        $query = $this->applyFilters($query, $request);
+        
+        $data = $query->orderBy('id', 'desc')->get();
+
+        $response = new StreamedResponse(function () use ($data) {
+            $handle = fopen('php://output', 'w');
+            
+            // Header CSV
+            fputcsv($handle, ['ID', 'Temperature (C)', 'Humidity (%)', 'Status', 'Timestamp']);
+
+            foreach ($data as $item) {
+                // Logic status yang sama dengan di Blade
+                $status = '';
+                if($item->suhu > 28 || $item->kelembaban > 65) {
+                    $status = 'TIDAK NYAMAN (PANAS/LEMBAB)';
+                } elseif($item->suhu < 18 || $item->kelembaban < 50) {
+                    $status = 'TIDAK NYAMAN (DINGIN/KERING)';
+                } else {
+                    $status = 'NYAMAN';
+                }
+
+                fputcsv($handle, [
+                    $item->id,
+                    $item->suhu,
+                    $item->kelembaban,
+                    $status,
+                    $item->created_at->toDateTimeString()
+                ]);
+            }
+
+            fclose($handle);
+        });
+
+        $response->headers->set('Content-Type', 'text/csv');
+        $response->headers->set('Content-Disposition', 'attachment; filename="history_sensor_'.date('Ymd_His').'.csv"');
+
+        return $response;
+    }
+
+    // 🛠️ PRIVATE FILTER LOGIC
+    private function applyFilters($query, Request $request)
+    {
+        // 🔍 Search
         if ($request->search) {
-            $query->where('suhu', 'like', '%' . $request->search . '%')
+            $query->where(function($q) use ($request) {
+                $q->where('suhu', 'like', '%' . $request->search . '%')
                   ->orWhere('kelembaban', 'like', '%' . $request->search . '%');
+            });
         }
 
-        // 📅 Filter tanggal
-        if ($request->from && $request->to) {
-            $query->whereBetween('created_at', [$request->from, $request->to]);
+        // 📅 Filter tanggal (Menggunakan whereDate agar lebih akurat untuk range harian)
+        if ($request->from) {
+            $query->whereDate('created_at', '>=', $request->from);
+        }
+        if ($request->to) {
+            $query->whereDate('created_at', '<=', $request->to);
         }
 
         // 🌡️ Filter Suhu (Min/Max)
@@ -62,8 +120,6 @@ class AdminController extends Controller
             $query->where('kelembaban', '<=', $request->max_kelembaban);
         }
 
-        $data = $query->orderBy('id', 'desc')->paginate(10)->withQueryString();
-
-        return view('admin.history', compact('data'));
+        return $query;
     }
 }
