@@ -1,156 +1,161 @@
 <x-app-layout>
-    <div class="p-6 max-w-7xl mx-auto" style="font-family: 'JetBrains Mono', monospace;">
+    <div class="p-6 max-w-7xl mx-auto space-y-8">
 
-        <!-- HEADER (Mengikuti style yang kamu kirim) -->
-        <div class="bg-white dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 p-6 md:p-8 mb-6 relative">
-            <div class="absolute right-6 top-6 text-zinc-200 dark:text-zinc-800 text-4xl select-none font-bold">
-                [LOGS]
+        <!-- HEADER -->
+        <div class="relative overflow-hidden bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 p-8 md:p-10 rounded-[2.5rem] shadow-xl shadow-zinc-200/50 dark:shadow-none transition-all duration-300">
+            <div class="absolute -right-10 -top-10 text-zinc-100 dark:text-zinc-800/50 text-9xl select-none font-black opacity-20 pointer-events-none">
+                LOGS
             </div>
 
             <div class="relative z-10">
-                <h1 class="text-2xl md:text-3xl font-bold text-zinc-900 dark:text-zinc-100 uppercase tracking-tight mb-2">
-                    History Monitoring
+                <h1 class="text-3xl md:text-4xl font-extrabold text-zinc-900 dark:text-zinc-100 tracking-tight mb-2">
+                    History <span class="text-sky-500">Monitoring</span>
                 </h1>
-                <p class="text-zinc-500 dark:text-zinc-400 text-sm">
-                    > Arsip data sensor museum dalam urutan kronologis
+                <p class="text-zinc-500 dark:text-zinc-400 font-medium flex items-center gap-2">
+                    📍 Arsip kronologis data sensor museum
                 </p>
 
                 <div class="flex flex-wrap gap-3 mt-6">
-                    <div class="border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 px-3 py-1 text-zinc-600 dark:text-zinc-400 text-xs uppercase tracking-wider">
-                        [ TOTAL ENTRY: {{ $data->total() }} ]
+                    <div class="bg-sky-50 dark:bg-sky-500/10 border border-sky-200 dark:border-sky-500/20 px-4 py-2 text-sky-600 dark:text-sky-400 text-xs font-black uppercase tracking-widest rounded-2xl">
+                        Total Data: {{ $data->total() }}
                     </div>
                 </div>
             </div>
         </div>
 
         <!-- FILTER AREA -->
-        <div class="bg-white dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 p-6 mb-6">
-            <form action="{{ route('admin.history') }}" method="GET" class="grid grid-cols-1 md:grid-cols-5 gap-4">
+        <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 p-8 rounded-[2.5rem] shadow-xl shadow-zinc-200/30 dark:shadow-none">
+            <form action="{{ route('admin.history') }}" method="GET" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
                 <!-- Search -->
-                <div>
-                    <label class="block text-[10px] text-zinc-500 uppercase tracking-widest mb-1">> Search</label>
+                <div class="space-y-2">
+                    <label class="flex items-center gap-2 text-xs font-bold text-zinc-500 dark:text-zinc-400 uppercase tracking-widest ml-1">
+                        🔍 Telusuri
+                    </label>
                     <input type="text" name="search" value="{{ request('search') }}" 
-                        placeholder="Search value..."
-                        class="w-full bg-zinc-50 dark:bg-zinc-900 border-zinc-200 dark:border-zinc-800 text-zinc-900 dark:text-zinc-100 text-xs focus:ring-0 focus:border-zinc-400">
+                        placeholder="Cari data..."
+                        class="w-full bg-zinc-50 dark:bg-zinc-950 border-zinc-200 dark:border-zinc-800 rounded-2xl text-zinc-900 dark:text-zinc-100 text-sm focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 transition-all p-3">
                 </div>
 
                 <!-- Date Range -->
-                <div class="md:col-span-1">
-                    <label class="block text-[10px] text-zinc-500 uppercase tracking-widest mb-1">> Date Range</label>
+                <div class="space-y-2 lg:col-span-1">
+                    <label class="flex items-center gap-2 text-xs font-bold text-zinc-500 dark:text-zinc-400 uppercase tracking-widest ml-1">
+                        📅 Rentang Tanggal
+                    </label>
                     <div class="flex gap-2">
                         <input type="date" name="from" value="{{ request('from') }}"
-                            class="w-1/2 bg-zinc-50 dark:bg-zinc-900 border-zinc-200 dark:border-zinc-800 text-zinc-900 dark:text-zinc-100 text-xs focus:ring-0 focus:border-zinc-400 p-2">
+                            class="w-1/2 bg-zinc-50 dark:bg-zinc-950 border-zinc-200 dark:border-zinc-800 rounded-2xl text-zinc-900 dark:text-zinc-100 text-xs focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 transition-all p-3">
                         <input type="date" name="to" value="{{ request('to') }}"
-                            class="w-1/2 bg-zinc-50 dark:bg-zinc-900 border-zinc-200 dark:border-zinc-800 text-zinc-900 dark:text-zinc-100 text-xs focus:ring-0 focus:border-zinc-400 p-2">
+                            class="w-1/2 bg-zinc-50 dark:bg-zinc-950 border-zinc-200 dark:border-zinc-800 rounded-2xl text-zinc-900 dark:text-zinc-100 text-xs focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 transition-all p-3">
                     </div>
                 </div>
 
                 <!-- Temperature Range -->
-                <div class="md:col-span-1">
-                    <label class="block text-[10px] text-zinc-500 uppercase tracking-widest mb-1">> Temperature (°C)</label>
+                <div class="space-y-2">
+                    <label class="flex items-center gap-2 text-xs font-bold text-zinc-500 dark:text-zinc-400 uppercase tracking-widest ml-1">
+                        🌡️ Suhu (°C)
+                    </label>
                     <div class="flex gap-2">
                         <input type="number" name="min_suhu" value="{{ request('min_suhu') }}" placeholder="Min"
-                            class="w-1/2 bg-zinc-50 dark:bg-zinc-900 border-zinc-200 dark:border-zinc-800 text-zinc-900 dark:text-zinc-100 text-xs focus:ring-0 focus:border-zinc-400">
+                            class="w-1/2 bg-zinc-50 dark:bg-zinc-950 border-zinc-200 dark:border-zinc-800 rounded-2xl text-zinc-900 dark:text-zinc-100 text-sm focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 transition-all p-3">
                         <input type="number" name="max_suhu" value="{{ request('max_suhu') }}" placeholder="Max"
-                            class="w-1/2 bg-zinc-50 dark:bg-zinc-900 border-zinc-200 dark:border-zinc-800 text-zinc-900 dark:text-zinc-100 text-xs focus:ring-0 focus:border-zinc-400">
+                            class="w-1/2 bg-zinc-50 dark:bg-zinc-950 border-zinc-200 dark:border-zinc-800 rounded-2xl text-zinc-900 dark:text-zinc-100 text-sm focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 transition-all p-3">
                     </div>
                 </div>
 
                 <!-- Humidity Range -->
-                <div class="md:col-span-1">
-                    <label class="block text-[10px] text-zinc-500 uppercase tracking-widest mb-1">> Humidity (%)</label>
+                <div class="space-y-2">
+                    <label class="flex items-center gap-2 text-xs font-bold text-zinc-500 dark:text-zinc-400 uppercase tracking-widest ml-1">
+                        💧 Kelembaban (%)
+                    </label>
                     <div class="flex gap-2">
                         <input type="number" name="min_kelembaban" value="{{ request('min_kelembaban') }}" placeholder="Min"
-                            class="w-1/2 bg-zinc-50 dark:bg-zinc-900 border-zinc-200 dark:border-zinc-800 text-zinc-900 dark:text-zinc-100 text-xs focus:ring-0 focus:border-zinc-400">
+                            class="w-1/2 bg-zinc-50 dark:bg-zinc-950 border-zinc-200 dark:border-zinc-800 rounded-2xl text-zinc-900 dark:text-zinc-100 text-sm focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 transition-all p-3">
                         <input type="number" name="max_kelembaban" value="{{ request('max_kelembaban') }}" placeholder="Max"
-                            class="w-1/2 bg-zinc-50 dark:bg-zinc-900 border-zinc-200 dark:border-zinc-800 text-zinc-900 dark:text-zinc-100 text-xs focus:ring-0 focus:border-zinc-400">
+                            class="w-1/2 bg-zinc-50 dark:bg-zinc-950 border-zinc-200 dark:border-zinc-800 rounded-2xl text-zinc-900 dark:text-zinc-100 text-sm focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 transition-all p-3">
                     </div>
                 </div>
 
                 <!-- Actions -->
                 <div class="flex items-end gap-2">
-                    <button type="submit" title="Apply Filter" class="flex-1 bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 text-[10px] uppercase font-bold py-2 px-3 hover:bg-zinc-800 dark:hover:bg-zinc-200 transition-colors">
+                    <button type="submit" class="flex-1 flex items-center justify-center gap-2 bg-sky-500 hover:bg-sky-600 text-white text-xs font-black uppercase tracking-widest py-4 px-4 rounded-2xl transition-all shadow-lg shadow-sky-500/20">
                         Filter
                     </button>
-                    <a href="{{ route('admin.history.download', request()->all()) }}" title="Download CSV" class="flex-1 bg-emerald-600 text-white text-[10px] uppercase font-bold py-2 px-3 hover:bg-emerald-700 transition-colors text-center">
-                        CSV
-                    </a>
-                    <a href="{{ route('admin.history') }}" title="Reset" class="bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 text-[10px] uppercase font-bold py-2 px-3 hover:bg-zinc-200 dark:hover:bg-zinc-700 transition-colors">
-                        Reset
+                    <a href="{{ route('admin.history.download', request()->all()) }}" class="flex items-center justify-center bg-emerald-500 hover:bg-emerald-600 text-white p-4 rounded-2xl transition-all shadow-lg shadow-emerald-500/20 group font-bold text-xs" title="Download CSV">
+                        📥 Download
                     </a>
                 </div>
             </form>
         </div>
 
         <!-- TABLE AREA -->
-        <div class="bg-white dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 overflow-hidden">
-            
-            <!-- TABLE HEADER -->
-            <div class="p-4 border-b border-zinc-100 dark:border-zinc-800 bg-zinc-50/50 dark:bg-zinc-900/50">
-                <p class="text-[10px] text-zinc-500 uppercase tracking-[0.2em]">
-                    > Query Result: all records descending
-                </p>
-            </div>
-
+        <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-[2.5rem] shadow-2xl shadow-zinc-200/50 dark:shadow-none overflow-hidden">
             <div class="overflow-x-auto">
                 <table class="w-full text-left border-collapse">
                     <thead>
-                        <tr class="border-b border-zinc-200 dark:border-zinc-800 text-zinc-500 dark:text-zinc-400 text-xs uppercase tracking-widest">
-                            <th class="px-6 py-4 font-bold"># ID</th>
-                            <th class="px-6 py-4 font-bold">Data Metrics (Suhu & Lembab)</th>
-                            <th class="px-6 py-4 font-bold text-center">Status</th>
-                            <th class="px-6 py-4 font-bold text-right">Timestamp</th>
+                        <tr class="bg-zinc-50/50 dark:bg-zinc-950/50 border-b border-zinc-100 dark:border-zinc-800 text-zinc-500 dark:text-zinc-400 text-xs font-black uppercase tracking-[0.2em]">
+                            <th class="px-8 py-6">ID Data</th>
+                            <th class="px-8 py-6">Parameter Lingkungan</th>
+                            <th class="px-8 py-6 text-center">Status Analitik</th>
+                            <th class="px-8 py-6 text-right">Waktu Perekaman</th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-zinc-100 dark:divide-zinc-800">
                         @forelse ($data as $item)
-                        <tr class="hover:bg-zinc-50 dark:hover:bg-zinc-900 transition-colors">
+                        <tr class="group hover:bg-sky-50/30 dark:hover:bg-sky-500/5 transition-colors">
                             
                             <!-- ID -->
-                            <td class="px-6 py-4 text-sm font-bold text-zinc-400 dark:text-zinc-600">
-                                [{{ str_pad($data->firstItem() + $loop->index, 3, '0', STR_PAD_LEFT) }}]
+                            <td class="px-8 py-6">
+                                <span class="text-xs font-black text-zinc-300 dark:text-zinc-700 group-hover:text-sky-500 transition-colors">
+                                    #{{ str_pad($data->firstItem() + $loop->index, 4, '0', STR_PAD_LEFT) }}
+                                </span>
                             </td>
 
                             <!-- METRICS -->
-                            <td class="px-6 py-4">
-                                <div class="flex gap-6 items-center">
+                            <td class="px-8 py-6">
+                                <div class="flex gap-8 items-center">
                                     <div class="flex flex-col">
-                                        <span class="text-[9px] text-zinc-400 uppercase">Suhu</span>
-                                        <span class="text-lg font-bold text-zinc-900 dark:text-zinc-100">{{ $item->suhu }}°C</span>
+                                        <span class="text-[10px] font-bold text-zinc-400 uppercase tracking-widest mb-1">Suhu</span>
+                                        <div class="flex items-center gap-2">
+                                            <span class="text-sky-500">🌡️</span>
+                                            <span class="text-lg font-extrabold text-zinc-900 dark:text-zinc-100">{{ $item->suhu }}°C</span>
+                                        </div>
                                     </div>
-                                    <div class="flex flex-col border-l border-zinc-200 dark:border-zinc-800 pl-6">
-                                        <span class="text-[9px] text-zinc-400 uppercase">Lembab</span>
-                                        <span class="text-lg font-bold text-zinc-900 dark:text-zinc-100">{{ $item->kelembaban }}%</span>
+                                    <div class="w-px h-10 bg-zinc-100 dark:bg-zinc-800"></div>
+                                    <div class="flex flex-col">
+                                        <span class="text-[10px] font-bold text-zinc-400 uppercase tracking-widest mb-1">Lembab</span>
+                                        <div class="flex items-center gap-2">
+                                            <span class="text-indigo-500">💧</span>
+                                            <span class="text-lg font-extrabold text-zinc-900 dark:text-zinc-100">{{ $item->kelembaban }}%</span>
+                                        </div>
                                     </div>
                                 </div>
                             </td>
 
-                            <!-- STATUS (Versi Minimalist Bracket) -->
-                            <td class="px-6 py-4 text-center">
+                            <!-- STATUS -->
+                            <td class="px-8 py-6 text-center">
                                 @if($item->suhu > 28 || $item->kelembaban > 65)
-                                    <span class="text-red-600 dark:text-red-500 text-xs font-bold uppercase tracking-tighter">
-                                        [!!] TIDAK NYAMAN
+                                    <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 text-[10px] font-black uppercase tracking-widest border border-red-100 dark:border-red-900/30">
+                                        ⚠️ Bahaya
                                     </span>
                                 @elseif($item->suhu < 18 || $item->kelembaban < 50)
-                                    <span class="text-blue-600 dark:text-blue-500 text-xs font-bold uppercase tracking-tighter">
-                                        [**] TIDAK NYAMAN
+                                    <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 text-[10px] font-black uppercase tracking-widest border border-blue-100 dark:border-blue-900/30">
+                                        ❄️ Ekstrem
                                     </span>
                                 @else
-                                    <span class="text-green-600 dark:text-green-400 text-xs font-bold uppercase tracking-tighter">
-                                        [OK] NYAMAN
+                                    <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-50 dark:bg-emerald-900/20 text-emerald-600 dark:text-emerald-400 text-[10px] font-black uppercase tracking-widest border border-emerald-100 dark:border-emerald-900/30">
+                                        ✨ Normal
                                     </span>
                                 @endif
                             </td>
 
                             <!-- TIMESTAMP -->
-                            <td class="px-6 py-4 text-right">
-                                <div class="text-xs flex flex-col">
-                                    <span class="text-zinc-900 dark:text-zinc-100 font-bold uppercase">
-                                        {{ $item->created_at->
-                                        format('d.M.Y') }}
+                            <td class="px-8 py-6 text-right">
+                                <div class="flex flex-col items-end">
+                                    <span class="text-sm font-extrabold text-zinc-900 dark:text-zinc-100">
+                                        {{ $item->created_at->format('d M Y') }}
                                     </span>
-                                    <span class="text-zinc-500 dark:text-zinc-500 text-[10px]">
-                                        {{ $item->created_at->format('H:i:s') }}
+                                    <span class="text-[10px] font-bold text-zinc-400 uppercase tracking-tighter mt-1">
+                                        {{ $item->created_at->format('H:i:s') }} WIB
                                     </span>
                                 </div>
                             </td>
@@ -158,8 +163,11 @@
                         </tr>
                         @empty
                         <tr>
-                            <td colspan="4" class="px-6 py-12 text-center text-zinc-500 text-xs uppercase tracking-[0.3em]">
-                                > Data Tidak Ditemukan
+                            <td colspan="4" class="px-8 py-20 text-center">
+                                <div class="flex flex-col items-center gap-4">
+                                    <span class="text-6xl">📁</span>
+                                    <p class="text-zinc-500 dark:text-zinc-400 font-bold uppercase tracking-[0.3em] text-xs">Data Tidak Ditemukan</p>
+                                </div>
                             </td>
                         </tr>
                         @endforelse
@@ -168,9 +176,11 @@
             </div>
         </div>
 
-        <!-- PAGINATION (Minimalist Style) -->
-        <div class="mt-6 dark:text-zinc-400">
-            {{ $data->links() }}
+        <!-- PAGINATION -->
+        <div class="flex justify-center">
+            <div class="bg-white dark:bg-zinc-900 p-2 rounded-2xl border border-zinc-200 dark:border-zinc-800 shadow-xl shadow-zinc-200/50 dark:shadow-none">
+                {{ $data->links() }}
+            </div>
         </div>
 
     </div>

@@ -5,48 +5,31 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>{{ config('app.name', 'Laravel') }}</title>
+        <title>Museum Monitor</title>
 
         <!-- Fonts -->
-        <link rel="preconnect" href="https://fonts.bunny.net">
-        <link href="https://fonts.bunny.net/css?family=jetbrains-mono:400,500,600,700&display=swap" rel="stylesheet" />
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
-
-        <style>
-            body {
-                font-family: 'JetBrains Mono', monospace;
-                background-color: #09090b; /* Zinc 950 */
-                color: #e4e4e7; /* Zinc 200 */
-            }
-        </style>
     </head>
-    <body class="antialiased selection:bg-cyan-500/30">
-        <div class="min-h-screen flex flex-col items-center justify-center relative overflow-hidden">
-            <!-- BACKGROUND DECOR -->
-            <div class="absolute inset-0 opacity-[0.03] pointer-events-none" 
-                 style="background-image: radial-gradient(#fff 1px, transparent 1px); background-size: 40px 40px;"></div>
+    <body class="font-sans antialiased text-zinc-900 dark:text-zinc-100 bg-zinc-50 dark:bg-[#09090b] selection:bg-sky-500/30 transition-colors duration-300">
+        <div class="min-h-screen flex flex-col items-center justify-center p-4">
             
-            <!-- SYSTEM STATUS BAR -->
-            <div class="absolute top-0 left-0 w-full p-4 flex justify-between items-center text-[10px] uppercase tracking-[0.2em] text-zinc-500 border-b border-zinc-800/50 backdrop-blur-sm z-10">
-                <div class="flex items-center gap-4">
-                    <span class="flex h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
-                    <span>System Active: {{ config('app.name') }}</span>
-                </div>
-                <div class="hidden sm:block">
-                    Node: Auth_Gate_v1.0.4
-                </div>
-            </div>
+
 
             <!-- MAIN CONTENT -->
-            <div class="w-full flex items-center justify-center p-6 z-0">
+            <div class="w-full flex items-center justify-center">
                 {{ $slot }}
             </div>
 
-            <!-- FOOTER DECOR -->
-            <div class="absolute bottom-0 right-0 p-4 text-[9px] text-zinc-600 uppercase tracking-widest">
-                &copy; {{ date('Y') }} // Secure Terminal
+            <!-- FOOTER -->
+            <div class="mt-12 text-center text-[10px] font-black text-zinc-400 uppercase tracking-widest">
+                &copy; {{ date('Y') }} Museum Monitoring System
             </div>
         </div>
     </body>

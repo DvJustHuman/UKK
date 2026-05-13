@@ -1,106 +1,136 @@
 <x-app-layout>
-
-    <div class="p-6 max-w-7xl mx-auto" style="font-family: 'JetBrains Mono', monospace;">
+    <div class="p-6 max-w-7xl mx-auto space-y-8">
 
         <!-- HEADER -->
-        <div class="bg-white dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 p-6 md:p-8 mb-6 relative">
-            <div class="absolute right-6 top-6 text-zinc-200 dark:text-zinc-800 text-4xl select-none font-bold italic">
-                [SYSTEM]
+        <div class="relative overflow-hidden bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 p-8 md:p-10 rounded-[2.5rem] shadow-xl shadow-zinc-200/50 dark:shadow-none transition-all duration-300">
+            <div class="absolute -right-10 -top-10 text-zinc-100 dark:text-zinc-800/50 text-9xl select-none font-black opacity-20 pointer-events-none">
+                IOT
             </div>
 
-            <div class="relative z-10">
-                <h1 class="text-2xl md:text-3xl font-bold text-zinc-900 dark:text-zinc-100 uppercase tracking-tight mb-2">
-                    Monitoring Suhu Museum
-                </h1>
-                <p class="text-zinc-500 dark:text-zinc-400 text-sm">
-                    > Sistem monitoring suhu & kelembaban realtime berbasis IoT
-                </p>
+            <div class="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
+                <div>
+                    <h1 class="text-3xl md:text-4xl font-extrabold text-zinc-900 dark:text-zinc-100 tracking-tight mb-2">
+                        Dashboard <span class="text-sky-500">Monitoring</span>
+                    </h1>
+                    <p class="text-zinc-500 dark:text-zinc-400 font-medium flex items-center gap-2">
+                        📍 Sistem Pemantauan Museum Realtime
+                    </p>
+                </div>
 
-               <div class="flex flex-wrap gap-3 mt-6">
+                <div class="flex items-center gap-3">
+                    <div class="hidden sm:flex items-center gap-2 p-1 bg-zinc-50 dark:bg-zinc-950 rounded-2xl border border-zinc-200 dark:border-zinc-800">
+                        <a href="{{ route('admin.history') }}" 
+                           class="flex items-center gap-2 px-4 py-2 text-[10px] font-black text-zinc-600 dark:text-zinc-400 hover:text-sky-500 uppercase tracking-widest transition-all">
+                            Riwayat
+                        </a>
+                        <div class="w-px h-4 bg-zinc-200 dark:border-zinc-800"></div>
+                        <a href="{{ route('admin.history.download') }}" 
+                           class="flex items-center gap-2 px-4 py-2 text-[10px] font-black text-zinc-600 dark:text-zinc-400 hover:text-emerald-500 uppercase tracking-widest transition-all">
+                            Unduh CSV
+                        </a>
+                    </div>
 
-    <div class="border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 px-3 py-1 text-zinc-600 dark:text-zinc-400 text-xs uppercase tracking-wider">
-        [ STATUS: REALTIME ]
-    </div>
-
-    <!-- STATUS SENSOR LIVE -->
-    <div id="systemStatus"
-        class="border border-red-500 bg-red-50 dark:bg-red-950/30 px-3 py-1 text-red-600 dark:text-red-400 text-xs uppercase tracking-wider">
-        ● SENSOR OFFLINE
-    </div>
-
-</div>
+                    <div class="flex items-center gap-3 bg-zinc-50 dark:bg-zinc-950 p-2 rounded-2xl border border-zinc-200 dark:border-zinc-800">
+                        <div id="systemStatus"
+                            class="flex items-center gap-2 px-4 py-2 text-xs font-bold uppercase tracking-wider rounded-xl transition-all duration-300">
+                            <span class="w-2 h-2 rounded-full animate-pulse bg-zinc-400"></span>
+                            INITIALIZING...
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
         <!-- ALERT -->
-        <div id="alertBox" class="hidden mb-6 bg-red-50 dark:bg-red-950/30 border border-red-500 text-red-700 dark:text-red-400 p-4">
-            <div class="flex items-center gap-4">
-                <div class="text-2xl font-bold">[!]</div>
+        <div id="alertBox" class="hidden animate-bounce-subtle">
+            <div class="bg-red-50 dark:bg-red-950/20 border border-red-200 dark:border-red-900/50 p-6 rounded-[2rem] flex items-center gap-5">
+                <div class="w-14 h-14 bg-red-100 dark:bg-red-900/40 rounded-2xl flex items-center justify-center text-red-600 dark:text-red-400 text-2xl shadow-lg shadow-red-500/10">
+                    ⚠️
+                </div>
                 <div>
-                    <h2 class="text-sm font-bold uppercase tracking-wider">Peringatan Suhu Tinggi</h2>
-                    <p class="text-xs mt-1">Suhu museum melebihi batas aman. Segera lakukan tindakan.</p>
+                    <h2 class="text-red-900 dark:text-red-100 font-extrabold text-lg leading-tight uppercase tracking-tight">Kondisi Tidak Ideal</h2>
+                    <p class="text-red-700 dark:text-red-400 text-sm font-medium mt-1">Sistem mendeteksi anomali pada lingkungan museum.</p>
                 </div>
             </div>
         </div>
 
         <!-- CARD SENSOR -->
-        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 mb-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             <!-- SUHU -->
-            <div class="bg-white dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 p-5 hover:border-zinc-400 dark:hover:border-zinc-600 transition-colors">
-                <div class="flex justify-between items-start mb-2">
-                    <p class="text-zinc-500 dark:text-zinc-400 text-xs uppercase tracking-wider">[ Suhu ]</p>
-                    <div class="text-zinc-400 dark:text-zinc-600">°C</div>
+            <div class="group bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 p-8 rounded-[2.5rem] hover:border-sky-500/50 hover:shadow-2xl hover:shadow-sky-500/10 transition-all duration-500">
+                <div class="flex justify-between items-start mb-6">
+                    <div class="w-12 h-12 bg-sky-50 dark:bg-sky-500/10 rounded-2xl flex items-center justify-center text-xl shadow-sm">
+                        🌡️
+                    </div>
+                    <span class="text-zinc-400 dark:text-zinc-600 font-black text-xl">°C</span>
                 </div>
-                <h2 id="suhuText" class="text-3xl font-bold text-zinc-900 dark:text-zinc-100 mt-2">-- °C</h2>
-                <div class="mt-4 text-[10px] text-zinc-400 dark:text-zinc-500 uppercase">> Update: 3s</div>
+                <p class="text-zinc-500 dark:text-zinc-400 text-xs font-bold uppercase tracking-[0.2em] mb-2">Suhu Ruangan</p>
+                <h2 id="suhuText" class="text-4xl font-extrabold text-zinc-900 dark:text-zinc-100 tracking-tighter">-- °C</h2>
+                <div class="mt-6 flex items-center gap-2 text-[10px] font-bold text-zinc-400 dark:text-zinc-500 uppercase tracking-widest">
+                    🕒 Update Langsung
+                </div>
             </div>
 
             <!-- KELEMBABAN -->
-            <div class="bg-white dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 p-5 hover:border-zinc-400 dark:hover:border-zinc-600 transition-colors">
-                <div class="flex justify-between items-start mb-2">
-                    <p class="text-zinc-500 dark:text-zinc-400 text-xs uppercase tracking-wider">[ Kelembaban ]</p>
-                    <div class="text-zinc-400 dark:text-zinc-600">%</div>
+            <div class="group bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 p-8 rounded-[2.5rem] hover:border-sky-500/50 hover:shadow-2xl hover:shadow-sky-500/10 transition-all duration-500">
+                <div class="flex justify-between items-start mb-6">
+                    <div class="w-12 h-12 bg-sky-50 dark:bg-sky-500/10 rounded-2xl flex items-center justify-center text-xl shadow-sm">
+                        💧
+                    </div>
+                    <span class="text-zinc-400 dark:text-zinc-600 font-black text-xl">%</span>
                 </div>
-                <h2 id="kelembabanText" class="text-3xl font-bold text-zinc-900 dark:text-zinc-100 mt-2">-- %</h2>
-                <div class="mt-4 text-[10px] text-zinc-400 dark:text-zinc-500 uppercase">> Kelembaban Relatif</div>
+                <p class="text-zinc-500 dark:text-zinc-400 text-xs font-bold uppercase tracking-[0.2em] mb-2">Kelembaban</p>
+                <h2 id="kelembabanText" class="text-4xl font-extrabold text-zinc-900 dark:text-zinc-100 tracking-tighter">-- %</h2>
+                <div class="mt-6 flex items-center gap-2 text-[10px] font-bold text-zinc-400 dark:text-zinc-500 uppercase tracking-widest">
+                    ☁️ Kelembaban Relatif
+                </div>
             </div>
 
             <!-- STATUS -->
-            <div class="bg-white dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 p-5 hover:border-zinc-400 dark:hover:border-zinc-600 transition-colors">
-                <div class="flex justify-between items-start mb-2">
-                    <p class="text-zinc-500 dark:text-zinc-400 text-xs uppercase tracking-wider">[ Status Ruangan ]</p>
-                    <div id="statusIcon" class="text-zinc-400 dark:text-zinc-600">--</div>
+            <div class="group bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 p-8 rounded-[2.5rem] hover:border-sky-500/50 hover:shadow-2xl hover:shadow-sky-500/10 transition-all duration-500">
+                <div class="flex justify-between items-start mb-6">
+                    <div id="statusIconBg" class="w-12 h-12 bg-zinc-50 dark:bg-zinc-800/50 rounded-2xl flex items-center justify-center text-xl transition-all duration-500 shadow-sm">
+                        <span id="statusIconEmoji">🔍</span>
+                    </div>
+                    <span class="text-zinc-300 dark:text-zinc-700 text-xl">🔒</span>
                 </div>
-                <h2 id="statusText" class="text-2xl font-bold text-zinc-900 dark:text-zinc-100 mt-2 uppercase tracking-tight">--</h2>
-                <div class="mt-4 text-[10px] text-zinc-400 dark:text-zinc-500 uppercase">> Kondisi Lingkungan</div>
+                <p class="text-zinc-500 dark:text-zinc-400 text-xs font-bold uppercase tracking-[0.2em] mb-2">Kondisi</p>
+                <h2 id="statusText" class="text-2xl font-extrabold text-zinc-900 dark:text-zinc-100 tracking-tight uppercase">--</h2>
+                <div class="mt-6 flex items-center gap-2 text-[10px] font-bold text-zinc-400 dark:text-zinc-500 uppercase tracking-widest">
+                    🛡️ Analisis Keamanan
+                </div>
             </div>
 
-            <!-- STATUS KIPAS -->
-            <div class="bg-white dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 p-5 hover:border-zinc-400 dark:hover:border-zinc-600 transition-colors">
-                <div class="flex justify-between items-start mb-2">
-                    <p class="text-zinc-500 dark:text-zinc-400 text-xs uppercase tracking-wider">[ Kipas ]</p>
-                    <div id="fanStatusIcon" class="text-zinc-400 dark:text-zinc-600">OFF</div>
+            <!-- KIPAS -->
+            <div class="group bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 p-8 rounded-[2.5rem] hover:border-sky-500/50 hover:shadow-2xl hover:shadow-sky-500/10 transition-all duration-500">
+                <div class="flex justify-between items-start mb-6">
+                    <div id="fanStatusIconBg" class="w-12 h-12 bg-zinc-50 dark:bg-zinc-800/50 rounded-2xl flex items-center justify-center text-xl transition-all duration-500 shadow-sm">
+                        <span id="fanStatusIconEmoji">🌀</span>
+                    </div>
+                    <div id="fanBadge" class="text-[10px] font-black px-2 py-1 bg-zinc-100 dark:bg-zinc-800 text-zinc-400 rounded-lg">OFF</div>
                 </div>
-                <h2 id="fanStatusText" class="text-2xl font-bold text-zinc-900 dark:text-zinc-100 mt-2 uppercase tracking-tight">[ MATI ]</h2>
-                <div class="mt-4 text-[10px] text-zinc-400 dark:text-zinc-500 uppercase">> Auto Cooling</div>
+                <p class="text-zinc-500 dark:text-zinc-400 text-xs font-bold uppercase tracking-[0.2em] mb-2">Kipas</p>
+                <h2 id="fanStatusText" class="text-2xl font-extrabold text-zinc-900 dark:text-zinc-100 tracking-tight uppercase">Siaga</h2>
+                <div class="mt-6 flex items-center gap-2 text-[10px] font-bold text-zinc-400 dark:text-zinc-500 uppercase tracking-widest">
+                    ⚙️ Sistem Otomatis
+                </div>
             </div>
-
-
         </div>
 
         <!-- GRAFIK -->
-        <div class="bg-white dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 p-6 mb-6">
-            <div class="flex justify-between items-center mb-6 pb-4 border-b border-zinc-100 dark:border-zinc-800">
+        <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 p-8 rounded-[2.5rem] shadow-xl shadow-zinc-200/30 dark:shadow-none transition-all duration-300">
+            <div class="flex flex-col md:flex-row justify-between md:items-center gap-6 mb-10 pb-6 border-b border-zinc-100 dark:border-zinc-800">
                 <div>
-                    <h2 class="text-lg font-bold text-zinc-900 dark:text-zinc-100 uppercase tracking-wider">Grafik Suhu Realtime</h2>
-                    <p class="text-zinc-500 dark:text-zinc-400 text-xs mt-1">> Timeline perubahan suhu</p>
+                    <h2 class="text-2xl font-extrabold text-zinc-900 dark:text-zinc-100 tracking-tight">Statistik <span class="text-sky-500">Waktu</span></h2>
+                    <p class="text-zinc-500 dark:text-zinc-400 font-medium text-sm mt-1">Visualisasi data 10 rekaman terakhir</p>
                 </div>
-                <div class="border border-green-500 bg-green-50 dark:bg-green-950/30 text-green-600 dark:text-green-400 px-3 py-1 text-xs uppercase tracking-wider animate-pulse">
-                    [ LIVE DATA ]
+                <div class="flex items-center gap-2 px-4 py-2 bg-sky-50 dark:bg-sky-500/10 text-sky-600 dark:text-sky-400 text-xs font-black uppercase tracking-widest rounded-2xl border border-sky-200 dark:border-sky-500/20">
+                    <span class="w-2 h-2 bg-sky-500 rounded-full animate-ping"></span>
+                    Live Stream
                 </div>
             </div>
 
-            <div class="w-full relative" style="height: 350px;">
+            <div class="w-full relative px-4" style="height: 400px;">
                 <canvas id="chartSuhu"></canvas>
             </div>
         </div>
@@ -121,21 +151,29 @@
                         {
                             label: 'SUHU (°C)',
                             data: [],
-                            borderColor: '#ef4444', 
-                            borderWidth: 2,
-                            fill: false,
-                            tension: 0.35,
-                            pointRadius: 3,
+                            borderColor: '#0ea5e9', 
+                            backgroundColor: 'rgba(14, 165, 233, 0.1)',
+                            borderWidth: 4,
+                            fill: true,
+                            tension: 0.4,
+                            pointRadius: 6,
+                            pointBackgroundColor: '#0ea5e9',
+                            pointBorderColor: '#fff',
+                            pointBorderWidth: 2,
                             yAxisID: 'y'
                         },
                         {
                             label: 'KELEMBABAN (%)',
                             data: [],
-                            borderColor: '#3b82f6', 
-                            borderWidth: 2,
-                            fill: false,
-                            tension: 0.35,
-                            pointRadius: 3,
+                            borderColor: '#6366f1', 
+                            backgroundColor: 'rgba(99, 102, 241, 0.05)',
+                            borderWidth: 4,
+                            fill: true,
+                            tension: 0.4,
+                            pointRadius: 6,
+                            pointBackgroundColor: '#6366f1',
+                            pointBorderColor: '#fff',
+                            pointBorderWidth: 2,
                             yAxisID: 'y1'
                         }
                     ]
@@ -143,12 +181,14 @@
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
+                    interaction: { mode: 'index', intersect: false },
                     scales: {
                         x: {
                             grid: { display: false },
                             ticks: { 
-                                font: { family: "'JetBrains Mono', monospace", size: 10 },
-                                color: '#71717a'
+                                font: { weight: '700', size: 11 },
+                                color: '#71717a',
+                                padding: 10
                             }
                         },
                         y: {
@@ -158,8 +198,9 @@
                             beginAtZero: false,
                             grid: { color: 'rgba(113, 113, 122, 0.05)' },
                             ticks: { 
-                                font: { family: "'JetBrains Mono', monospace", size: 10 },
-                                color: '#71717a'
+                                font: { weight: '700', size: 11 },
+                                color: '#71717a',
+                                padding: 10
                             }
                         },
                         y1: {
@@ -169,26 +210,31 @@
                             beginAtZero: false,
                             grid: { drawOnChartArea: false },
                             ticks: { 
-                                font: { family: "'JetBrains Mono', monospace", size: 10 },
-                                color: '#71717a'
+                                font: { weight: '700', size: 11 },
+                                color: '#71717a',
+                                padding: 10
                             }
                         }
                     },
                     plugins: {
                         legend: { 
                             display: true,
+                            position: 'top',
+                            align: 'end',
                             labels: {
-                                font: { family: "'JetBrains Mono', monospace", size: 10 },
+                                font: { weight: '800', size: 12 },
                                 color: '#71717a',
                                 usePointStyle: true,
-                                padding: 20
+                                padding: 30
                             }
                         },
                         tooltip: {
                             backgroundColor: '#18181b',
-                            titleFont: { family: "'JetBrains Mono', monospace" },
-                            bodyFont: { family: "'JetBrains Mono', monospace" },
-                            cornerRadius: 0
+                            padding: 15,
+                            titleFont: { size: 14, weight: '800' },
+                            bodyFont: { size: 13, weight: '600' },
+                            cornerRadius: 15,
+                            displayColors: true
                         }
                     }
                 }
@@ -202,92 +248,72 @@
 
                     const latest = data[0];
                     const suhu = parseFloat(latest.suhu);
+                    const kelembaban = parseFloat(latest.kelembaban);
 
                     // ================= STATUS ONLINE / OFFLINE =================
-const systemStatus = document.getElementById('systemStatus');
+                    const systemStatus = document.getElementById('systemStatus');
+                    const lastUpdate = new Date(latest.created_at.replace(' ', 'T'));
+                    const now = new Date();
+                    const diffSeconds = Math.abs(now - lastUpdate) / 1000;
 
-const lastUpdate = new Date(latest.created_at.replace(' ', 'T'));
-const now = new Date();
-const diffSeconds = Math.abs(now - lastUpdate) / 1000;
-
-if (diffSeconds <= 15) {
-
-    systemStatus.innerText = '● SENSOR AKTIF';
-
-    systemStatus.className =
-        'border border-green-500 bg-green-50 dark:bg-green-950/30 px-3 py-1 text-green-600 dark:text-green-400 text-xs uppercase tracking-wider';
-
-} else {
-
-    systemStatus.innerText = '● SENSOR OFFLINE';
-
-    systemStatus.className =
-        'border border-red-500 bg-red-50 dark:bg-red-950/30 px-3 py-1 text-red-600 dark:text-red-400 text-xs uppercase tracking-wider';
-}
+                    if (diffSeconds <= 15) {
+                        systemStatus.innerHTML = '<span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span> SENSOR ONLINE';
+                        systemStatus.className = 'flex items-center gap-2 px-4 py-2 text-xs font-extrabold bg-green-500/10 text-green-600 dark:text-green-400 rounded-xl transition-all duration-300';
+                    } else {
+                        systemStatus.innerHTML = '<span class="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span> SENSOR OFFLINE';
+                        systemStatus.className = 'flex items-center gap-2 px-4 py-2 text-xs font-extrabold bg-red-500/10 text-red-600 dark:text-red-400 rounded-xl transition-all duration-300';
+                    }
 
                     document.getElementById('suhuText').innerText = suhu.toFixed(1) + ' °C';
-                    document.getElementById('kelembabanText').innerText = latest.kelembaban + ' %';
+                    document.getElementById('kelembabanText').innerText = kelembaban.toFixed(1) + ' %';
 
-                    // Update Status & Alert
-                    let statusEl = document.getElementById('statusText');
-                    let statusIcon = document.getElementById('statusIcon');
-                    let alertBox = document.getElementById('alertBox');
-                    let alertTitle = alertBox.querySelector('h2');
-                    let alertDesc = alertBox.querySelector('p');
+                    // Update UI Elements
+                    const statusText = document.getElementById('statusText');
+                    const statusIconBg = document.getElementById('statusIconBg');
+                    const statusIconEmoji = document.getElementById('statusIconEmoji');
+                    const alertBox = document.getElementById('alertBox');
                     
-                    let fanText = document.getElementById('fanStatusText');
-                    let fanIcon = document.getElementById('fanStatusIcon');
-
-
-                    const kelembaban = parseFloat(latest.kelembaban);
+                    const fanText = document.getElementById('fanStatusText');
+                    const fanIconBg = document.getElementById('fanStatusIconBg');
+                    const fanIconEmoji = document.getElementById('fanStatusIconEmoji');
+                    const fanBadge = document.getElementById('fanBadge');
 
                     // LOGIC ANALOGY
                     if (suhu > 28 || kelembaban > 65) {
-                        // Kondisi Panas & Lembab
-                        statusEl.innerText = 'Tidak Nyaman';
-                        statusIcon.innerText = '⚠️';
+                        statusText.innerText = 'Tidak Ideal';
+                        statusIconBg.className = 'w-12 h-12 bg-orange-500 rounded-2xl flex items-center justify-center shadow-lg shadow-orange-500/20 animate-pulse';
+                        statusIconEmoji.innerText = '⚠️';
                         
-                        fanText.innerText = '[ AKTIF ]';
-                        fanIcon.innerText = 'ON';
-                        fanIcon.className = 'text-green-500 font-bold';
-                        
-
-                        
+                        fanText.innerText = 'Aktif';
+                        fanIconBg.className = 'w-12 h-12 bg-green-500 rounded-2xl flex items-center justify-center shadow-lg shadow-green-500/20';
+                        fanIconEmoji.innerText = '🌀';
+                        fanBadge.innerText = 'On';
+                        fanBadge.className = 'text-[10px] font-black px-2 py-1 bg-green-500 text-white rounded-lg shadow-md shadow-green-500/10';
 
                         alertBox.classList.remove('hidden');
-                        alertTitle.innerText = 'Peringatan: Suhu Tidak Stabil';
-                        alertDesc.innerText = 'Sistem Otomatis Aktif Dikarenakan Suhu Tidak Stabil.';
-
                     } else if (suhu < 18 || kelembaban < 50) {
-                        // Kondisi Dingin & Kering
-                        statusEl.innerText = 'Tidak Nyaman';
-                        statusIcon.innerText = '❄️';
+                        statusText.innerText = 'Tidak Ideal';
+                        statusIconBg.className = 'w-12 h-12 bg-blue-500 rounded-2xl flex items-center justify-center shadow-lg shadow-blue-500/20 animate-pulse';
+                        statusIconEmoji.innerText = '❄️';
                         
-                        fanText.innerText = '[ MATI ]';
-                        fanIcon.innerText = 'OFF';
-                        fanIcon.className = 'text-zinc-400 dark:text-zinc-600';
+                        fanText.innerText = 'Nonaktif';
+                        fanIconBg.className = 'w-12 h-12 bg-zinc-100 dark:bg-zinc-800 rounded-2xl flex items-center justify-center';
+                        fanIconEmoji.innerText = '🌀';
+                        fanBadge.innerText = 'OFF';
+                        fanBadge.className = 'text-[10px] font-black px-2 py-1 bg-zinc-100 dark:bg-zinc-800 text-zinc-400 rounded-lg';
 
                         alertBox.classList.remove('hidden');
-                        alertTitle.innerText = 'Peringatan: Suhu Tidak Stabil';
-                        alertDesc.innerText = 'Sistem Otomatis Aktif Dikarenakan Suhu Tidak Stabil.';
-
-                    } else if (suhu >= 18 && suhu <= 28) {
-                        // Kondisi Nyaman (Range 18 - 28)
-                        statusEl.innerText = 'Nyaman';
-                        statusIcon.innerText = '✨';
-                        
-                        fanText.innerText = '[ MATI ]';
-                        fanIcon.innerText = 'OFF';
-                        fanIcon.className = 'text-zinc-400 dark:text-zinc-600';
-
-                        alertBox.classList.add('hidden');
                     } else {
-                        // Kondisi diluar range spesifik (Normal/Lainnya)
-                        statusEl.innerText = 'Normal';
-                        statusIcon.innerText = '●';
+                        statusText.innerText = 'Sangat Nyaman';
+                        statusIconBg.className = 'w-12 h-12 bg-sky-500 rounded-2xl flex items-center justify-center shadow-lg shadow-sky-500/20';
+                        statusIconEmoji.innerText = '✨';
                         
-                        fanText.innerText = '[ MATI ]';
-                        fanIcon.innerText = 'OFF';
+                        fanText.innerText = 'Optimal';
+                        fanIconBg.className = 'w-12 h-12 bg-zinc-100 dark:bg-zinc-800 rounded-2xl flex items-center justify-center';
+                        fanIconEmoji.innerText = '🌀';
+                        fanBadge.innerText = 'OFF';
+                        fanBadge.className = 'text-[10px] font-black px-2 py-1 bg-zinc-100 dark:bg-zinc-800 text-zinc-400 rounded-lg';
+
                         alertBox.classList.add('hidden');
                     }
 
@@ -310,4 +336,14 @@ if (diffSeconds <= 15) {
             setInterval(loadData, 3000);
         });
     </script>
+
+    <style>
+        @keyframes bounce-subtle {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+        .animate-bounce-subtle {
+            animation: bounce-subtle 3s infinite ease-in-out;
+        }
+    </style>
 </x-app-layout>

@@ -13,7 +13,7 @@ class AdminController extends Controller
     {
         $latest = Sensor::latest()->first();
 
-        return view('admin.dashboard', [
+        return view('dashboard', [
             'suhu' => $latest->suhu ?? 0,
             'kelembaban' => $latest->kelembaban ?? 0
         ]);

@@ -19,7 +19,7 @@ use App\Http\Controllers\UserDashboardController;
 
 // redirect awal
 Route::get('/', function () {
-    return redirect('/dashboard');
+    return redirect('/login');
 });
 
 Route::get('/api/sensor', function () {
@@ -35,18 +35,12 @@ Route::get('/help', [HelpController::class, 'index'])
 Route::get('/about', [HelpController::class, 'about'])
     ->name('about');
 Route::get('/dashboard', function () {
+    $user = Auth::user();
 
-    $user = Auth::user(); // ambil user
+    // Use UserDashboardController for the index view
+    return app(UserDashboardController::class)->index();
+})->name('dashboard');
 
-    // kalau admin → ke admin panel
-    if ($user->role === 'admin') {
-        return redirect('/admin');
-    }
-
-    // kalau user biasa → tampil dashboard sensor
-    return app(SensorController::class)->index();
-
-})->middleware(['auth', 'verified'])->name('dashboard');
 
 
 // ======================
@@ -57,8 +51,6 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin', [AdminController::class, 'index'])
         ->name('admin');
 
-    // contoh tambahan nanti:
-    Route::post('/admin/kipas', [AdminController::class, 'kipas']);
 });
 
 
@@ -91,12 +83,9 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::post('/admin/users/role/{id}', [UserController::class, 'changeRole']);
 });
 
-Route::middleware(['auth'])->group(function () {
+// Route::get('/dashboard', [UserDashboardController::class, 'index'])
+//     ->name('dashboard');
 
-    Route::get('/dashboard', [UserDashboardController::class, 'index'])
-        ->name('dashboard');
-
-});
 
 // ======================
 // AUTH (LOGIN, REGISTER)

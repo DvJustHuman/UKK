@@ -5,18 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>Monitoring Suhu Museum</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="{{ asset('favicon.png') }}">
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-<body class="font-mono antialiased text-zinc-900 dark:text-zinc-100">
-    <div class="min-h-screen bg-white dark:bg-zinc-950 flex flex-col">
+<body class="font-sans antialiased text-zinc-900 dark:text-zinc-100 selection:bg-sky-500/30">
+    <div class="min-h-screen bg-zinc-50 dark:bg-[#09090b] flex flex-col transition-colors duration-300">
 
         @include('layouts.navigation')
 
@@ -38,69 +43,17 @@
     </div>
 
     @stack('scripts')
-    <script>
-
-async function checkSensorStatus() {
-
-    try {
-
-        const res =
-            await fetch('/api/sensor/latest');
-
-        const data =
-            await res.json();
-
-        if (!data.length) return;
-
-        const latest = data[0];
-
-        const createdAt = new Date(latest.created_at.replace(' ', 'T') + 'Z');
-        const now = new Date();
-        const diff = (now - createdAt) / 1000;
-
-        const status =
-            document.getElementById('systemStatus');
-
-        if (diff > 10) {
-
-            status.innerText =
-                '● Sensor Offline';
-
-            status.className =
-                'bg-red-500/20 border border-red-500 px-4 py-2 rounded-2xl text-red-400 text-sm';
-
-        } else {
-
-            status.innerText =
-                '● Sensor Aktif';
-
-            status.className =
-                'bg-green-500/20 border border-green-500 px-4 py-2 rounded-2xl text-green-400 text-sm';
-
-        }
-
-    } catch (e) {
-
-        console.log(e);
-
-    }
-
-}
-
-checkSensorStatus();
-
-setInterval(checkSensorStatus, 5000);
-
-</script>
 <script>
 function updateClock() {
+    const clockEl = document.getElementById("live-clock");
+    if (!clockEl) return;
+    
     const now = new Date();
-
     let h = String(now.getHours()).padStart(2, '0');
     let m = String(now.getMinutes()).padStart(2, '0');
     let s = String(now.getSeconds()).padStart(2, '0');
 
-    document.getElementById("live-clock").innerText = `${h}:${m}:${s}`;
+    clockEl.innerText = `${h}:${m}:${s}`;
 }
 
 setInterval(updateClock, 1000);
