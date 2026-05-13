@@ -81,6 +81,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin/users', [UserController::class, 'index']);
     Route::post('/admin/users/update/{id}', [UserController::class, 'update']);
     Route::post('/admin/users/role/{id}', [UserController::class, 'changeRole']);
+    Route::delete('/admin/users/delete/{id}', [UserController::class, 'destroy']);
 });
 
 // Route::get('/dashboard', [UserDashboardController::class, 'index'])

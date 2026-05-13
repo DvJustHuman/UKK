@@ -50,10 +50,10 @@
                         @foreach ($users as $user)
                         <tr class="group hover:bg-sky-50/30 dark:hover:bg-sky-500/5 transition-colors">
                             
-                            <!-- ID -->
+                            <!-- NOMOR -->
                             <td class="px-8 py-6">
                                 <span class="text-xs font-black text-zinc-300 dark:text-zinc-700 group-hover:text-sky-500 transition-colors">
-                                    #{{ str_pad($user->id, 4, '0', STR_PAD_LEFT) }}
+                                    {{ str_pad($loop->iteration, 2, '0', STR_PAD_LEFT) }}
                                 </span>
                             </td>
 
@@ -105,72 +105,153 @@
         </div>
     </div>
 
-    <!-- MODAL -->
-    <div id="modal" class="hidden fixed inset-0 bg-zinc-950/60 backdrop-blur-md flex justify-center items-center z-50 p-4 transition-all duration-300">
-        <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 w-full max-w-md rounded-[2.5rem] shadow-2xl overflow-hidden animate-bounce-subtle">
-            
-            <div class="p-8 border-b border-zinc-100 dark:border-zinc-800 flex justify-between items-center bg-zinc-50/50 dark:bg-zinc-950/50">
-                <div class="flex items-center gap-3">
-                    <div class="w-10 h-10 bg-sky-500 rounded-2xl flex items-center justify-center text-white shadow-lg shadow-sky-500/20">
-                        📝
-                    </div>
-                    <h2 class="text-sm font-black text-zinc-900 dark:text-zinc-100 uppercase tracking-widest">
-                        Edit Parameter User
-                    </h2>
+<!-- MODAL -->
+<div id="modal" class="hidden fixed inset-0 bg-zinc-950/60 backdrop-blur-md flex justify-center items-center z-50 p-4 transition-all duration-300">
+
+    <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 w-full max-w-sm rounded-[2rem] shadow-2xl overflow-hidden animate-bounce-subtle">
+        <!-- HEADER -->
+        <div class="p-8 border-b border-zinc-100 dark:border-zinc-800 flex justify-between items-center bg-zinc-50/50 dark:bg-zinc-950/50">
+
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-sky-500 rounded-2xl flex items-center justify-center text-white shadow-lg shadow-sky-500/20">
+                    📝
                 </div>
-                <button onclick="closeModal()" class="w-8 h-8 rounded-full flex items-center justify-center bg-zinc-100 dark:bg-zinc-800 text-zinc-500 hover:bg-red-500 hover:text-white transition-all">
-                    ✕
-                </button>
+
+                <h2 class="text-sm font-black text-zinc-900 dark:text-zinc-100 uppercase tracking-widest">
+                    Edit Parameter User
+                </h2>
             </div>
 
-            <form id="editForm" method="POST" class="p-10 space-y-6">
-                @csrf
-                <div class="space-y-2">
-                    <label class="text-[10px] text-zinc-400 font-black uppercase tracking-widest ml-1">Nama Identitas</label>
-                    <input type="text" name="name" id="name"
-                        class="w-full bg-zinc-50 dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 rounded-2xl text-zinc-900 dark:text-zinc-100 p-4 text-sm font-bold focus:ring-4 focus:ring-sky-500/10 focus:border-sky-500 outline-none transition-all">
-                </div>
+            <button onclick="closeModal()"
+                class="w-8 h-8 rounded-full flex items-center justify-center bg-zinc-100 dark:bg-zinc-800 text-zinc-500 hover:bg-red-500 hover:text-white transition-all">
+                ✕
+            </button>
 
-                <div class="space-y-2">
-                    <label class="text-[10px] text-zinc-400 font-black uppercase tracking-widest ml-1">Protokol Email</label>
-                    <input type="email" name="email" id="email"
-                        class="w-full bg-zinc-50 dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 rounded-2xl text-zinc-900 dark:text-zinc-100 p-4 text-sm font-bold focus:ring-4 focus:ring-sky-500/10 focus:border-sky-500 outline-none transition-all">
-                </div>
-
-                <div class="space-y-2">
-                    <label class="text-[10px] text-zinc-400 font-black uppercase tracking-widest ml-1">Level Akses</label>
-                    <select name="role" id="role"
-                        class="w-full bg-zinc-50 dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 rounded-2xl text-zinc-900 dark:text-zinc-100 p-4 text-sm font-bold focus:ring-4 focus:ring-sky-500/10 focus:border-sky-500 outline-none transition-all appearance-none cursor-pointer">
-                        <option value="user">OPERATOR</option>
-                        <option value="admin">ADMINISTRATOR</option>
-                    </select>
-                </div>
-
-                <div class="flex flex-col gap-3 mt-10">
-                    <button type="submit"
-                        class="w-full bg-sky-500 hover:bg-sky-600 text-white py-4 rounded-2xl font-black uppercase tracking-[0.2em] text-xs transition-all shadow-xl shadow-sky-500/20">
-                        Simpan Perubahan
-                    </button>
-                    <button type="button" onclick="closeModal()"
-                        class="w-full bg-zinc-50 dark:bg-zinc-800 text-zinc-500 hover:bg-zinc-100 dark:hover:bg-zinc-700 py-4 rounded-2xl font-black uppercase tracking-[0.2em] text-xs transition-all">
-                        Batalkan
-                    </button>
-                </div>
-            </form>
         </div>
+
+        <!-- FORM EDIT -->
+        <form id="editForm" method="POST" class="p-6 space-y-4">
+            @csrf
+
+            <!-- NAMA -->
+            <div class="space-y-2">
+
+                <label class="text-[10px] text-zinc-400 font-black uppercase tracking-widest ml-1">
+                    Nama Identitas
+                </label>
+
+                <input type="text"
+                    name="name"
+                    id="name"
+                    class="w-full bg-zinc-50 dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 rounded-2xl text-zinc-900 dark:text-zinc-100 p-4 text-sm font-bold focus:ring-4 focus:ring-sky-500/10 focus:border-sky-500 outline-none transition-all">
+
+            </div>
+
+            <!-- EMAIL -->
+            <div class="space-y-2">
+
+                <label class="text-[10px] text-zinc-400 font-black uppercase tracking-widest ml-1">
+                    Protokol Email
+                </label>
+
+                <input type="email"
+                    name="email"
+                    id="email"
+                    class="w-full bg-zinc-50 dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 rounded-2xl text-zinc-900 dark:text-zinc-100 p-4 text-sm font-bold focus:ring-4 focus:ring-sky-500/10 focus:border-sky-500 outline-none transition-all">
+
+            </div>
+
+            <!-- ROLE -->
+            <div class="space-y-2">
+
+                <label class="text-[10px] text-zinc-400 font-black uppercase tracking-widest ml-1">
+                    Level Akses
+                </label>
+
+                <select name="role"
+                    id="role"
+                    class="w-full bg-zinc-50 dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 rounded-2xl text-zinc-900 dark:text-zinc-100 p-4 text-sm font-bold focus:ring-4 focus:ring-sky-500/10 focus:border-sky-500 outline-none transition-all appearance-none cursor-pointer">
+
+                    <option value="user">User</option>
+                    <option value="admin">Administrator</option>
+
+                </select>
+
+            </div>
+
+            <!-- TOMBOL -->
+            <div class="flex flex-col gap-3 mt-10">
+
+                <!-- SIMPAN -->
+                <button type="submit"
+                    class="w-full bg-sky-500 hover:bg-sky-600 text-white py-4 rounded-2xl font-black uppercase tracking-[0.2em] text-xs transition-all shadow-xl shadow-sky-500/20">
+
+                    Simpan Perubahan
+
+                </button>
+
+                <!-- BATAL -->
+                <button type="button"
+                    onclick="closeModal()"
+                    class="w-full bg-zinc-50 dark:bg-zinc-800 text-zinc-500 hover:bg-zinc-100 dark:hover:bg-zinc-700 py-4 rounded-2xl font-black uppercase tracking-[0.2em] text-xs transition-all">
+
+                    Batalkan
+
+                </button>
+
+            </div>
+
+        </form>
+
+        <!-- FORM DELETE -->
+        <form id="deleteForm"
+            method="POST"
+            class="px-10 pb-10"
+            onsubmit="return confirm('Yakin ingin menghapus user ini?')">
+
+            @csrf
+            @method('DELETE')
+
+            <button type="submit"
+                class="w-full bg-red-500 hover:bg-red-600 text-white py-4 rounded-2xl font-black uppercase tracking-[0.2em] text-xs transition-all shadow-xl shadow-red-500/20">
+
+                Hapus User
+
+            </button>
+
+        </form>
+
     </div>
 
-    <script>
-        function openModal(id, name, email, role) {
-            document.getElementById('modal').classList.remove('hidden');
-            document.getElementById('name').value = name;
-            document.getElementById('email').value = email;
-            document.getElementById('role').value = role;
-            document.getElementById('editForm').action = '/admin/users/update/' + id;
-        }
+</div>
 
-        function closeModal() {
-            document.getElementById('modal').classList.add('hidden');
-        }
-    </script>
+<!-- SCRIPT -->
+<script>
+
+    function openModal(id, name, email, role) {
+
+        // TAMPILKAN MODAL
+        document.getElementById('modal').classList.remove('hidden');
+
+        // ISI INPUT
+        document.getElementById('name').value = name;
+        document.getElementById('email').value = email;
+        document.getElementById('role').value = role;
+
+        // ACTION UPDATE
+        document.getElementById('editForm').action =
+            '/admin/users/update/' + id;
+
+        // ACTION DELETE
+        document.getElementById('deleteForm').action =
+            '/admin/users/delete/' + id;
+    }
+
+    function closeModal() {
+
+        document.getElementById('modal').classList.add('hidden');
+
+    }
+
+</script>
 </x-app-layout>
