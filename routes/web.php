@@ -32,6 +32,8 @@ Route::get('/api/sensor', function () {
 // ======================
 Route::get('/help', [HelpController::class, 'index'])
     ->name('help');
+Route::get('/about', [HelpController::class, 'about'])
+    ->name('about');
 Route::get('/dashboard', function () {
 
     $user = Auth::user(); // ambil user
@@ -76,7 +78,7 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::get('/admin/history', [AdminController::class, 'history'])
-    ->middleware(['auth', 'admin'])
+    ->middleware(['auth'])
     ->name('admin.history');
 
 Route::middleware(['auth', 'admin'])->group(function () {

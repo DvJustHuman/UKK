@@ -11,19 +11,15 @@ class SensorController extends Controller
     {
         $suhu = $request->suhu;
         $kelembaban = $request->kelembaban;
-if ($suhu < 20) {
-    $status = 'Dingin';
-} elseif ($suhu <= 30) {
-    $status = 'Normal';
-} else {
-    $status = 'Panas';
-}
 
-DB::table('sensors')->insert([
-    'suhu' => $suhu,
-    'kelembaban' => $kelembaban,
-    'status' => $status
-]);
+
+  DB::table('sensors')->insert([
+        'suhu' => $request->suhu,
+        'kelembaban' => $request->kelembaban,
+        'created_at' => now(),
+        'updated_at' => now()
+    ]);
+                                                
 
         return response()->json(['message' => 'OK']);
     }

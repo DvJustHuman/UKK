@@ -1,261 +1,215 @@
-<nav x-data="{ open: false }"
-    class="bg-gradient-to-r from-gray-900 to-gray-800 border-b border-gray-700 shadow-xl sticky top-0 z-50">
-
+<nav x-data="{ open: false }" class="bg-white dark:bg-zinc-950 border-b border-zinc-200 dark:border-zinc-800 sticky top-0 z-50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-
         <div class="flex justify-between h-16">
-
             <!-- LEFT -->
-            <div class="flex items-center gap-8">
-
+            <div class="flex items-center gap-6">
                 <!-- LOGO -->
-                <a href="{{ route('dashboard') }}"
-                    class="flex items-center gap-3">
-
-                    <div class="w-10 h-10 rounded-2xl bg-emerald-500 flex items-center justify-center text-white text-lg shadow-lg">
+                <a href="{{ route('dashboard') }}" class="flex items-center gap-3">
+                    <div class="w-8 h-8 flex items-center justify-center text-zinc-900 dark:text-zinc-100 border border-zinc-200 dark:border-zinc-800 rounded bg-zinc-50 dark:bg-zinc-900 text-sm">
                         🏛️
                     </div>
-
                     <div>
-                        <h1 class="text-white font-bold text-lg leading-none">
-                            Museum Monitoring
+                        <h1 class="text-zinc-900 dark:text-zinc-100 font-bold text-sm tracking-tight leading-none uppercase">
+                            Museum
                         </h1>
-
-                        <p class="text-gray-400 text-xs">
-                            Smart Temperature System
+                        <p class="text-zinc-500 dark:text-zinc-400 text-[10px] uppercase tracking-wider mt-0.5">
+                            Monitoring System
                         </p>
                     </div>
-
                 </a>
 
                 <!-- DESKTOP MENU -->
-                <div class="hidden md:flex items-center gap-3">
-
-                    <!-- USER -->                  
+                <div class="hidden md:flex items-center gap-2">
                     <a href="{{ route('dashboard') }}"
-class="px-4 py-2 rounded-xl transition duration-300
-{{ request()->routeIs('dashboard')
-    ? 'bg-emerald-500 text-white shadow-lg'
-    : 'text-gray-200 hover:bg-gray-700 hover:text-white' }}">
-                        📊 Dashboard
+                       class="px-3 py-1.5 rounded border text-sm transition duration-200 
+                       {{ request()->routeIs('dashboard')
+                           ? 'bg-zinc-100 dark:bg-zinc-900 text-zinc-900 dark:text-zinc-100 border-zinc-200 dark:border-zinc-800 shadow-sm'
+                           : 'border-transparent text-zinc-600 dark:text-zinc-400 hover:bg-zinc-50 dark:hover:bg-zinc-900/50 hover:text-zinc-900 dark:hover:text-zinc-100' }}">
+                        [ Dashboard ]
+                    </a>
+
+                    <a href="{{ route('admin.history') }}"
+                       class="px-3 py-1.5 rounded border text-sm transition duration-200 
+                       {{ request()->routeIs('admin.history')
+                           ? 'bg-zinc-100 dark:bg-zinc-900 text-zinc-900 dark:text-zinc-100 border-zinc-200 dark:border-zinc-800 shadow-sm'
+                           : 'border-transparent text-zinc-600 dark:text-zinc-400 hover:bg-zinc-50 dark:hover:bg-zinc-900/50 hover:text-zinc-900 dark:hover:text-zinc-100' }}">
+                        [ History ]
                     </a>
 
                     {{-- ADMIN ONLY --}}
                     @if(Auth::user()->role == 'admin')
-
-
-<a href="{{ route('admin.history') }}"
-class="px-4 py-2 rounded-xl transition duration-300
-{{ request()->routeIs('admin.history')
-    ? 'bg-emerald-500 text-white shadow-lg'
-    : 'text-gray-200 hover:bg-gray-700 hover:text-white' }}">
-                            📜 History
+                        <a href="{{ url('/admin/users') }}"
+                           class="px-3 py-1.5 rounded border text-sm transition duration-200 
+                           {{ request()->is('admin/users')
+                               ? 'bg-zinc-100 dark:bg-zinc-900 text-zinc-900 dark:text-zinc-100 border-zinc-200 dark:border-zinc-800 shadow-sm'
+                               : 'border-transparent text-zinc-600 dark:text-zinc-400 hover:bg-zinc-50 dark:hover:bg-zinc-900/50 hover:text-zinc-900 dark:hover:text-zinc-100' }}">
+                            [ Users ]
                         </a>
-
-                       <a href="{{ url('/admin/users') }}"
-class="px-4 py-2 rounded-xl transition duration-300
-{{ request()->is('admin/users')
-    ? 'bg-emerald-500 text-white shadow-lg'
-    : 'text-gray-200 hover:bg-gray-700 hover:text-white' }}">
-                            👥 Users
-                        </a>
-
                     @endif
 
                     <a href="{{ route('help') }}"
-                        class="px-4 py-2 rounded-xl transition duration-300
-                        {{ request()->routeIs('help')
-                            ? 'bg-emerald-500 text-white shadow-lg'
-                            : 'text-gray-200 hover:bg-gray-700 hover:text-white' }}">
-                        ❓ Bantuan
+                       class="px-3 py-1.5 rounded border text-sm transition duration-200 
+                       {{ request()->routeIs('help')
+                           ? 'bg-zinc-100 dark:bg-zinc-900 text-zinc-900 dark:text-zinc-100 border-zinc-200 dark:border-zinc-800 shadow-sm'
+                           : 'border-transparent text-zinc-600 dark:text-zinc-400 hover:bg-zinc-50 dark:hover:bg-zinc-900/50 hover:text-zinc-900 dark:hover:text-zinc-100' }}">
+                        [ Help ]
                     </a>
 
-                    <div class="ml-4 text-sm text-emerald-400 font-semibold">
-    🕒 <span id="live-clock">--:--:--</span>
-</div>
+                    <a href="{{ route('about') }}"
+                       class="px-3 py-1.5 rounded border text-sm transition duration-200 
+                       {{ request()->routeIs('about')
+                           ? 'bg-zinc-100 dark:bg-zinc-900 text-zinc-900 dark:text-zinc-100 border-zinc-200 dark:border-zinc-800 shadow-sm'
+                           : 'border-transparent text-zinc-600 dark:text-zinc-400 hover:bg-zinc-50 dark:hover:bg-zinc-900/50 hover:text-zinc-900 dark:hover:text-zinc-100' }}">
+                        [ About ]
+                    </a>
 
+                    <div class="ml-4 text-xs text-zinc-500 dark:text-zinc-400 bg-zinc-50 dark:bg-zinc-900 px-2 py-1 rounded border border-zinc-200 dark:border-zinc-800">
+                        <span id="live-clock">--:--:--</span>
+                    </div>
                 </div>
-
             </div>
 
             <!-- RIGHT -->
             <div class="hidden md:flex items-center gap-4">
 
-             <!-- STATUS -->
-            <div id="systemStatus"
-            class="bg-green-500/20 border border-green-500 px-4 py-2 rounded-2xl text-green-400 text-sm">
-
-            ● Sensor Aktif  
-
-             </div>
-
                 <!-- USER DROPDOWN -->
-                <div class="relative" x-data="{ dropdown: false }">
+ <div class="relative" x-data="{ dropdown: false }" x-cloak>
 
-                    <button @click="dropdown = !dropdown"
-                        class="flex items-center gap-3 bg-gray-800 hover:bg-gray-700 border border-gray-700 px-4 py-2 rounded-2xl transition duration-300">
+    <button @click="dropdown = !dropdown"
+        class="flex items-center gap-3 bg-white dark:bg-zinc-950 hover:bg-zinc-50 dark:hover:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 px-3 py-1.5 rounded transition duration-200">
 
-                        <div class="w-10 h-10 rounded-full bg-emerald-500 flex items-center justify-center text-white font-bold shadow-lg">
-                            {{ strtoupper(substr(Auth::user()->name, 0, 1)) }}
-                        </div>
+        <div class="text-right">
+            <p class="text-zinc-900 dark:text-zinc-100 text-sm font-bold leading-none">
+                {{ Auth::user()->name }}
+            </p>
+            <p class="text-zinc-500 dark:text-zinc-400 text-[10px] uppercase mt-1">
+                {{ Auth::user()->role }}
+            </p>
+        </div>
 
-                        <div class="text-left">
-                            <p class="text-white text-sm font-semibold leading-none">
-                                {{ Auth::user()->name }}
-                            </p>
+        <div class="w-8 h-8 rounded bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center text-zinc-900 dark:text-zinc-100 font-bold border border-zinc-200 dark:border-zinc-700 text-sm">
+            {{ strtoupper(substr(Auth::user()->name, 0, 1)) }}
+        </div>
 
-                            <p class="text-gray-400 text-xs mt-1">
-                                {{ Auth::user()->role }}
-                            </p>
-                        </div>
+    </button>
 
-                        <svg class="w-4 h-4 text-gray-400"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24">
+    <div x-show="dropdown"
+         x-cloak
+         @click.outside="dropdown = false"
+         x-transition:enter="transition ease-out duration-200"
+         x-transition:enter-start="opacity-0 scale-95"
+         x-transition:enter-end="opacity-100 scale-100"
+         x-transition:leave="transition ease-in duration-75"
+         x-transition:leave-start="opacity-100 scale-100"
+         x-transition:leave-end="opacity-0 scale-95"
+         class="absolute right-0 mt-2 w-48 bg-white dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 rounded shadow-lg overflow-hidden z-50">
 
-                            <path stroke-linecap="round"
-                                stroke-linejoin="round"
-                                stroke-width="2"
-                                d="M19 9l-7 7-7-7" />
-                        </svg>
+        <a href="{{ route('profile.edit') }}"
+           class="block px-4 py-2 text-sm hover:bg-zinc-50 dark:hover:bg-zinc-900 border-b">
+            > Profile
+        </a>
 
-                    </button>
+        <form method="POST" action="{{ route('logout') }}">
+            @csrf
+            <button type="submit"
+                class="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50">
+                > Logout
+            </button>
+        </form>
 
-                    <!-- DROPDOWN -->
-                    <div x-show="dropdown"
-                        @click.away="dropdown = false"
-                        x-transition
-                        class="absolute right-0 mt-3 w-56 bg-gray-800 border border-gray-700 rounded-2xl shadow-2xl overflow-hidden">
+    </div>
 
-                        <a href="{{ route('profile.edit') }}"
-                            class="block px-5 py-3 text-gray-200 hover:bg-gray-700 transition">
-                            ⚙️ Profile
-                        </a>
-
-                        <form method="POST" action="{{ route('logout') }}">
-                            @csrf
-
-                            <button type="submit"
-                                class="w-full text-left px-5 py-3 text-red-400 hover:bg-red-500/20 transition">
-                                🚪 Logout
-                            </button>
-                        </form>
-
-                    </div>
-
-                </div>
-
+</div>
             </div>
-
+            
             <!-- MOBILE BUTTON -->
             <div class="flex items-center md:hidden">
-
-                <button @click="open = ! open"
-                    class="text-white p-2 rounded-xl bg-gray-800 hover:bg-gray-700 transition">
-
-                    <svg class="h-6 w-6"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24">
-
-                        <path x-show="!open"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
-                            d="M4 6h16M4 12h16M4 18h16" />
-
-                        <path x-show="open"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
-                            d="M6 18L18 6M6 6l12 12" />
-
+                <button @click.stop="open = !open"
+                    class="text-zinc-500 dark:text-zinc-400 p-2 rounded border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 hover:bg-zinc-50 dark:hover:bg-zinc-900 transition">
+                    <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path :class="{ 'hidden': open, 'inline-flex': !open }" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 6h16M4 12h16M4 18h16" />
+                        <path :class="{ 'hidden': !open, 'inline-flex': open }" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12" />
                     </svg>
-
                 </button>
-
             </div>
 
         </div>
-
     </div>
 
     <!-- MOBILE MENU -->
     <div x-show="open"
-        x-transition
-        class="md:hidden bg-gray-900 border-t border-gray-700">
+         x-cloak
+         x-transition:enter="transition ease-out duration-200"
+         x-transition:enter-start="opacity-0 -translate-y-2"
+         x-transition:enter-end="opacity-100 translate-y-0"
+         x-transition:leave="transition ease-in duration-150"
+         x-transition:leave-start="opacity-100 translate-y-0"
+         x-transition:leave-end="opacity-0 -translate-y-2"
+         @click.outside="open = false"
+         class="md:hidden bg-white dark:bg-zinc-950 border-t border-zinc-200 dark:border-zinc-800 px-4 py-4 space-y-3">
 
-        <div class="px-4 py-4 space-y-3">
+        <!-- DASHBOARD -->
+        <a href="{{ route('dashboard') }}"
+           class="block text-zinc-700 dark:text-zinc-300 px-3 py-2 border border-zinc-200 dark:border-zinc-700 rounded hover:bg-zinc-100 dark:hover:bg-zinc-800 text-sm transition duration-200
+           {{ request()->routeIs('dashboard') ? 'bg-zinc-100 dark:bg-zinc-900 border-zinc-300 dark:border-zinc-600 font-bold' : '' }}">
+            > Dashboard
+        </a>
 
-            {{-- ADMIN ONLY --}}
-            @if(Auth::user()->role == 'admin')
+        <!-- HISTORY -->
+        <a href="{{ route('admin.history') }}"
+           class="block text-zinc-700 dark:text-zinc-300 px-3 py-2 border border-zinc-200 dark:border-zinc-700 rounded hover:bg-zinc-100 dark:hover:bg-zinc-800 text-sm transition duration-200
+           {{ request()->routeIs('admin.history') ? 'bg-zinc-100 dark:bg-zinc-900 border-zinc-300 dark:border-zinc-600 font-bold' : '' }}">
+            > History
+        </a>
 
-                <a href="{{ route('dashboard') }}"
-                    class="block bg-gray-800 hover:bg-gray-700 text-white px-4 py-3 rounded-2xl transition">
-                    📊 Dashboard
-                </a>
-
-                <a href="{{ route('admin.history') }}"
-                    class="block bg-gray-800 hover:bg-gray-700 text-white px-4 py-3 rounded-2xl transition">
-                    📜 History
-                </a>
-
-                <a href="{{ url('/admin/users') }}"
-                    class="block bg-gray-800 hover:bg-gray-700 text-white px-4 py-3 rounded-2xl transition">
-                    👥 Users
-                </a>
-
-            @endif
-
-            <a href="{{ route('dashboard') }}"
-                class="block bg-emerald-500 hover:bg-emerald-600 text-white px-4 py-3 rounded-2xl transition shadow-lg">
-                🖥️ Dashboard User
+        <!-- ADMIN ONLY -->
+        @if(Auth::user()->role == 'admin')
+            <a href="{{ url('/admin/users') }}"
+               class="block text-zinc-700 dark:text-zinc-300 px-3 py-2 border border-zinc-200 dark:border-zinc-700 rounded hover:bg-zinc-100 dark:hover:bg-zinc-800 text-sm transition duration-200
+               {{ request()->is('admin/users') ? 'bg-zinc-100 dark:bg-zinc-900 border-zinc-300 dark:border-zinc-600 font-bold' : '' }}">
+                > Users
             </a>
+        @endif
 
-            <a href="{{ route('help') }}"
-                class="block bg-gray-800 hover:bg-gray-700 text-white px-4 py-3 rounded-2xl transition">
-                ❓ Bantuan
-            </a>
+        <!-- HELP -->
+        <a href="{{ route('help') }}"
+           class="block text-zinc-700 dark:text-zinc-300 px-3 py-2 border border-zinc-200 dark:border-zinc-700 rounded hover:bg-zinc-100 dark:hover:bg-zinc-800 text-sm transition duration-200
+           {{ request()->routeIs('help') ? 'bg-zinc-100 dark:bg-zinc-900 border-zinc-300 dark:border-zinc-600 font-bold' : '' }}">
+            > Help
+        </a>
 
-            <div class="border-t border-gray-700 pt-4 mt-4">
+        <a href="{{ route('about') }}"
+           class="block text-zinc-700 dark:text-zinc-300 px-3 py-2 border border-zinc-200 dark:border-zinc-700 rounded hover:bg-zinc-100 dark:hover:bg-zinc-800 text-sm transition duration-200
+           {{ request()->routeIs('about') ? 'bg-zinc-100 dark:bg-zinc-900 border-zinc-300 dark:border-zinc-600 font-bold' : '' }}">
+            > About
+        </a>
 
-                <div class="flex items-center gap-3 mb-4">
-
-                    <div class="w-12 h-12 rounded-full bg-emerald-500 flex items-center justify-center text-white font-bold shadow-lg">
-                        {{ strtoupper(substr(Auth::user()->name, 0, 1)) }}
-                    </div>
-
-                    <div>
-                        <p class="text-white font-semibold">
-                            {{ Auth::user()->name }}
-                        </p>
-
-                        <p class="text-gray-400 text-sm">
-                            {{ Auth::user()->email }}
-                        </p>
-                    </div>
-
+        <!-- USER SECTION -->
+        <div class="border-t border-zinc-200 dark:border-zinc-800 pt-4 mt-4">
+            <div class="flex items-center gap-3 mb-4">
+                <div class="w-10 h-10 rounded bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center font-bold border border-zinc-200 dark:border-zinc-700">
+                    {{ strtoupper(substr(Auth::user()->name, 0, 1)) }}
                 </div>
+                <div>
+                    <p class="font-bold text-sm text-zinc-900 dark:text-zinc-100 leading-none">{{ Auth::user()->name }}</p>
+                    <p class="text-xs text-zinc-500 dark:text-zinc-400 mt-1 uppercase tracking-tight">{{ Auth::user()->role }}</p>
+                </div>
+            </div>
 
+            <div class="space-y-2">
                 <a href="{{ route('profile.edit') }}"
-                    class="block bg-gray-800 hover:bg-gray-700 text-white px-4 py-3 rounded-2xl mb-3 transition">
-                    ⚙️ Profile
+                   class="block px-3 py-2 border border-zinc-200 dark:border-zinc-700 rounded hover:bg-zinc-100 dark:hover:bg-zinc-800 text-sm transition duration-200">
+                    > Profile
                 </a>
 
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
-
-                    <button type="submit"
-                        class="w-full bg-red-500 hover:bg-red-600 text-white px-4 py-3 rounded-2xl transition shadow-lg">
-                        🚪 Logout
+                    <button class="w-full text-left px-3 py-2 border border-red-200 dark:border-red-900/50 text-red-600 rounded hover:bg-red-50 dark:hover:bg-red-950/50 text-sm transition duration-200">
+                        > Logout
                     </button>
                 </form>
-
             </div>
-
         </div>
-
     </div>
-
+    <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
 </nav>

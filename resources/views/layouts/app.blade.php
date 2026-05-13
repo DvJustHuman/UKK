@@ -7,11 +7,16 @@
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap" rel="stylesheet">
+
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-<body class="font-sans antialiased">
-    <div class="min-h-screen bg-gray-100 dark:bg-gray-900 flex flex-col">
+<body class="font-mono antialiased text-zinc-900 dark:text-zinc-100">
+    <div class="min-h-screen bg-white dark:bg-zinc-950 flex flex-col">
 
         @include('layouts.navigation')
 
@@ -49,14 +54,9 @@ async function checkSensorStatus() {
 
         const latest = data[0];
 
-        const createdAt =
-            new Date(latest.created_at);
-
-        const now =
-            new Date();
-
-        const diff =
-            (now - createdAt) / 1000;
+        const createdAt = new Date(latest.created_at.replace(' ', 'T') + 'Z');
+        const now = new Date();
+        const diff = (now - createdAt) / 1000;
 
         const status =
             document.getElementById('systemStatus');

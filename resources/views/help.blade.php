@@ -9,24 +9,17 @@
             <div class="space-y-3">
 
                 <div class="flex items-center gap-3">
-                    <span class="bg-blue-500 text-white px-3 py-1 rounded">
-                        Dingin
+                    <span class="bg-green-500 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
+                        ✨ Nyaman
                     </span>
-                    <p>Suhu di bawah 20°C</p>
+                    <p class="text-sm text-zinc-600 dark:text-zinc-400 font-medium">Suhu 18°C - 28°C & Kelembaban 50% - 65%. Kondisi ruangan ideal.</p>
                 </div>
 
                 <div class="flex items-center gap-3">
-                    <span class="bg-green-500 text-white px-3 py-1 rounded">
-                        Aman
+                    <span class="bg-red-500 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
+                        ⚠️ Tidak Nyaman
                     </span>
-                    <p>Suhu antara 20°C - 30°C</p>
-                </div>
-
-                <div class="flex items-center gap-3">
-                    <span class="bg-red-500 text-white px-3 py-1 rounded">
-                        Panas
-                    </span>
-                    <p>Suhu di atas 30°C</p>
+                    <p class="text-sm text-zinc-600 dark:text-zinc-400 font-medium">Suhu > 28°C / < 18°C, atau Kelembaban > 65% / < 50%. Sistem otomatis aktif.</p>
                 </div>
 
             </div>
@@ -42,10 +35,12 @@
                 <li>Login menggunakan akun yang telah terdaftar.</li>
                 <li>Buka halaman dashboard untuk melihat data sensor realtime.</li>
                 <li>Perhatikan status suhu ruangan.</li>
-                <li>Gunakan kontrol kipas jika suhu terlalu panas.</li>
-                <li>Admin dapat membuka menu user untuk mengatur pengguna.</li>
+                <li>Jika kondisi ruangan tidak nyaman, maka sistem akan otomatis menstabilkan.</li>
+                <li>Anda dapat melihat riwayat suhu di halaman riwayat.</li>
+                <li>Buka halaman about untuk melihat informasi lebih detail.</li>
             </ol>
         </div>
+
 
         <!-- FOOTER -->
         <div class="text-center text-gray-500 mt-8">

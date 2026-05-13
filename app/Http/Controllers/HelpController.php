@@ -10,4 +10,9 @@ class HelpController extends Controller
     {
         return view('help');
     }
+
+    public function about()
+    {
+        return view('about');
+    }
 }
