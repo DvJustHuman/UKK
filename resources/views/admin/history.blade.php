@@ -25,16 +25,7 @@
 
         <!-- FILTER AREA -->
         <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 p-8 rounded-[2.5rem] shadow-xl shadow-zinc-200/30 dark:shadow-none">
-            <form action="{{ route('admin.history') }}" method="GET" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
-                <!-- Search -->
-                <div class="space-y-2">
-                    <label class="flex items-center gap-2 text-xs font-bold text-zinc-500 dark:text-zinc-400 uppercase tracking-widest ml-1">
-                        🔍 Telusuri
-                    </label>
-                    <input type="text" name="search" value="{{ request('search') }}" 
-                        placeholder="Cari data..."
-                        class="w-full bg-zinc-50 dark:bg-zinc-950 border-zinc-200 dark:border-zinc-800 rounded-2xl text-zinc-900 dark:text-zinc-100 text-sm focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 transition-all p-3">
-                </div>
+            <form action="{{ route('admin.history') }}" method="GET" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-6">
 
                 <!-- Date Range -->
                 <div class="space-y-2 lg:col-span-1">
@@ -76,11 +67,14 @@
                 </div>
 
                 <!-- Actions -->
-                <div class="flex items-end gap-2">
-                    <button type="submit" class="flex-1 flex items-center justify-center gap-2 bg-sky-500 hover:bg-sky-600 text-white text-xs font-black uppercase tracking-widest py-4 px-4 rounded-2xl transition-all shadow-lg shadow-sky-500/20">
+                <div class="flex items-end gap-2 w-full md:col-span-2 lg:col-span-2">
+                    <button type="submit" class="flex-1 flex items-center justify-center gap-1 sm:gap-2 bg-sky-500 hover:bg-sky-600 text-white text-[10px] sm:text-xs font-black uppercase tracking-wider sm:tracking-widest py-4 px-2 sm:px-4 rounded-2xl transition-all shadow-lg shadow-sky-500/20 border border-transparent whitespace-nowrap">
                         Filter
                     </button>
-                    <a href="{{ route('admin.history.download', request()->all()) }}" class="flex items-center justify-center bg-emerald-500 hover:bg-emerald-600 text-white p-4 rounded-2xl transition-all shadow-lg shadow-emerald-500/20 group font-bold text-xs" title="Download CSV">
+                    <a href="{{ route('admin.history') }}" class="flex-1 flex items-center justify-center gap-1 sm:gap-2 bg-zinc-50 hover:bg-zinc-100 dark:bg-zinc-800 dark:hover:bg-zinc-700 text-zinc-700 dark:text-zinc-300 text-[10px] sm:text-xs font-black uppercase tracking-wider sm:tracking-widest py-4 px-2 sm:px-4 rounded-2xl transition-all shadow-lg shadow-zinc-200/10 dark:shadow-none border border-zinc-200 dark:border-zinc-700 whitespace-nowrap" title="Reset Filter">
+                        🔄 Reset
+                    </a>
+                    <a href="{{ route('admin.history.download', request()->all()) }}" class="flex-1 flex items-center justify-center gap-1 sm:gap-2 bg-emerald-500 hover:bg-emerald-600 text-white text-[10px] sm:text-xs font-black uppercase tracking-wider sm:tracking-widest py-4 px-2 sm:px-4 rounded-2xl transition-all shadow-lg shadow-emerald-500/20 border border-transparent whitespace-nowrap" title="Download CSV">
                         📥 Download
                     </a>
                 </div>
