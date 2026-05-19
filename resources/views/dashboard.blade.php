@@ -257,8 +257,9 @@ const kelembaban = parseFloat(latest.kelembaban);
 const systemStatus = document.getElementById('systemStatus');
 
 const now = new Date();
-const lastUpdate = new Date(latest.created_at);
-
+const lastUpdate = new Date(
+    latest.created_at.replace(' ', 'T')
+);
 const diffSeconds = Math.abs(now - lastUpdate) / 1000;
 
 if (diffSeconds <= 30) {
