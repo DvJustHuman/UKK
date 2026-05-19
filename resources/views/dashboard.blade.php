@@ -246,9 +246,12 @@
                     const data = await res.json();
                     if (!data.length) return;
 
-                    const latest = data[0];
-                    const suhu = parseFloat(latest.suhu);
-                    const kelembaban = parseFloat(latest.kelembaban);
+const latest = data[0];
+
+console.log("CREATED AT:", latest.created_at);
+
+const suhu = parseFloat(latest.suhu);
+const kelembaban = parseFloat(latest.kelembaban);
 
 // ================= STATUS ONLINE / OFFLINE =================
 const systemStatus = document.getElementById('systemStatus');
