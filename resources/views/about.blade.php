@@ -18,8 +18,8 @@
             </div>
         </div>
 
-        <!-- GRID ANGGOTA -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- LIST ANGGOTA (ONE-BY-ONE) -->
+        <div class="flex flex-col items-center gap-8 max-w-md mx-auto w-full">
 
             @php
                 $members = [
@@ -110,8 +110,7 @@
             @endphp
 
             <!-- KETUA KELOMPOK (LEADER) -->
-            <div class="col-span-1 md:col-span-2 lg:col-span-3 flex justify-center mb-6">
-                <div class="w-full max-w-sm group relative overflow-hidden bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-[2.5rem] p-8 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-sky-500/10 hover:border-sky-500/50">
+            <div class="w-full group relative overflow-hidden bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-[2.5rem] p-8 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-sky-500/10 hover:border-sky-500/50">
                     
                     <!-- Background Watermark -->
                     <div class="absolute -right-6 -bottom-6 text-9xl font-black text-zinc-100 dark:text-zinc-800/50 select-none pointer-events-none transform -rotate-12 group-hover:scale-110 transition-transform duration-500 opacity-50 z-0">
@@ -197,7 +196,6 @@
                         </div>
                     </div>
                 </div>
-            </div>
 
             <!-- ANGGOTA (MEMBERS) -->
             @foreach($anggotas as $index => $m)
