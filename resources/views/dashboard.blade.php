@@ -301,7 +301,7 @@ document.getElementById('kelembabanText').innerText =
                     const fanBadge = document.getElementById('fanBadge');
 
                     // LOGIC ANALOGY
-                    if (suhu > 25 || kelembaban > 65) {
+                    if (suhu > 28 || kelembaban > 65) {
                         statusText.innerText = 'Tidak Ideal';
                         statusIconBg.className = 'w-12 h-12 bg-orange-500 rounded-2xl flex items-center justify-center shadow-lg shadow-orange-500/20 animate-pulse';
                         statusIconEmoji.innerText = '⚠️';

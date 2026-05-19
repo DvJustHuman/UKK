@@ -67,17 +67,25 @@
                 </div>
 
                 <!-- Actions: Filter & Reset -->
-                <div class="flex items-end gap-2 w-full col-span-1 md:col-span-2 lg:col-span-2">
-                    <button type="submit" class="flex-1 h-12 flex items-center justify-center gap-1 sm:gap-2 bg-sky-500 hover:bg-sky-600 text-white text-[10px] sm:text-xs font-black uppercase tracking-wider sm:tracking-widest px-2 sm:px-4 rounded-2xl transition-all shadow-lg shadow-sky-500/20 border border-transparent whitespace-nowrap">
-                        Filter
-                    </button>
-                    <a href="{{ route('admin.history') }}" class="flex-1 h-12 flex items-center justify-center gap-1 sm:gap-2 bg-zinc-50 hover:bg-zinc-100 dark:bg-zinc-800 dark:hover:bg-zinc-700 text-zinc-700 dark:text-zinc-300 text-[10px] sm:text-xs font-black uppercase tracking-wider sm:tracking-widest px-2 sm:px-4 rounded-2xl transition-all shadow-lg shadow-zinc-200/10 dark:shadow-none border border-zinc-200 dark:border-zinc-700 whitespace-nowrap" title="Reset Filter">
-                        🔄 Reset
-                    </a>
+                <div class="space-y-2 col-span-1 md:col-span-2 lg:col-span-2">
+                    <span class="hidden md:block text-xs font-bold text-transparent select-none uppercase tracking-widest ml-1">
+                        Aksi
+                    </span>
+                    <div class="flex gap-2 min-w-0">
+                        <button type="submit" class="flex-1 h-12 flex items-center justify-center gap-1 sm:gap-2 bg-sky-500 hover:bg-sky-600 text-white text-[10px] sm:text-xs font-black uppercase tracking-wider sm:tracking-widest px-2 sm:px-4 rounded-2xl transition-all shadow-lg shadow-sky-500/20 border border-transparent whitespace-nowrap">
+                            Filter
+                        </button>
+                        <a href="{{ route('admin.history') }}" class="flex-1 h-12 flex items-center justify-center gap-1 sm:gap-2 bg-zinc-50 hover:bg-zinc-100 dark:bg-zinc-800 dark:hover:bg-zinc-700 text-zinc-700 dark:text-zinc-300 text-[10px] sm:text-xs font-black uppercase tracking-wider sm:tracking-widest px-2 sm:px-4 rounded-2xl transition-all shadow-lg shadow-zinc-200/10 dark:shadow-none border border-zinc-200 dark:border-zinc-700 whitespace-nowrap" title="Reset Filter">
+                            🔄 Reset
+                        </a>
+                    </div>
                 </div>
 
                 <!-- Actions: Download -->
-                <div class="flex items-end w-full col-span-1 md:col-span-1 lg:col-span-1">
+                <div class="space-y-2 col-span-1 md:col-span-1 lg:col-span-1">
+                    <span class="hidden md:block text-xs font-bold text-transparent select-none uppercase tracking-widest ml-1">
+                        Unduh
+                    </span>
                     <a href="{{ route('admin.history.download', request()->all()) }}" class="w-full h-12 flex items-center justify-center gap-1 sm:gap-2 bg-emerald-500 hover:bg-emerald-600 text-white text-[10px] sm:text-xs font-black uppercase tracking-wider sm:tracking-widest px-2 sm:px-4 rounded-2xl transition-all shadow-lg shadow-emerald-500/20 border border-transparent whitespace-nowrap" title="Download CSV">
                         📥 Download
                     </a>
