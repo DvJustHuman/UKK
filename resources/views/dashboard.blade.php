@@ -260,7 +260,12 @@ const now = new Date();
 const lastUpdate = new Date(
     latest.created_at.replace(' ', 'T')
 );
+
 const diffSeconds = Math.abs(now - lastUpdate) / 1000;
+
+console.log("NOW:", now);
+console.log("LAST UPDATE:", lastUpdate);
+console.log("DIFF:", diffSeconds);
 
 if (diffSeconds <= 30) {
     systemStatus.innerHTML =
