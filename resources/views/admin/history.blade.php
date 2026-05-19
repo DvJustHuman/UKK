@@ -25,68 +25,79 @@
 
         <!-- FILTER AREA -->
         <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 p-8 rounded-[2.5rem] shadow-xl shadow-zinc-200/30 dark:shadow-none">
-            <form action="{{ route('admin.history') }}" method="GET" class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-6">
+            <form action="{{ route('admin.history') }}" method="GET" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-6">
 
-                <!-- Date Range -->
-                <div class="space-y-2 col-span-1 md:col-span-1 lg:col-span-1">
+                <!-- Date From -->
+                <div class="space-y-2 col-span-1">
                     <label class="flex items-center gap-2 text-xs font-bold text-zinc-500 dark:text-zinc-400 uppercase tracking-widest ml-1">
-                        📅 Rentang Tanggal
+                        📅 Dari Tanggal
                     </label>
-                    <div class="flex gap-2 min-w-0">
-                        <input type="date" name="from" value="{{ request('from') }}"
-                            class="flex-1 min-w-0 h-12 bg-zinc-50 dark:bg-zinc-950 border-zinc-200 dark:border-zinc-800 rounded-2xl text-zinc-900 dark:text-zinc-100 text-xs focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 transition-all px-3">
-                        <input type="date" name="to" value="{{ request('to') }}"
-                            class="flex-1 min-w-0 h-12 bg-zinc-50 dark:bg-zinc-950 border-zinc-200 dark:border-zinc-800 rounded-2xl text-zinc-900 dark:text-zinc-100 text-xs focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 transition-all px-3">
-                    </div>
+                    <input type="date" name="from" value="{{ request('from') }}"
+                        class="w-full h-12 bg-zinc-50 dark:bg-zinc-950 border-zinc-200 dark:border-zinc-800 rounded-2xl text-zinc-900 dark:text-zinc-100 text-xs focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 transition-all px-3">
                 </div>
 
-                <!-- Temperature Range -->
-                <div class="space-y-2 col-span-1 md:col-span-1 lg:col-span-1">
+                <!-- Date To -->
+                <div class="space-y-2 col-span-1">
                     <label class="flex items-center gap-2 text-xs font-bold text-zinc-500 dark:text-zinc-400 uppercase tracking-widest ml-1">
-                        🌡️ Suhu (°C)
+                        📅 Sampai Tanggal
                     </label>
-                    <div class="flex gap-2 min-w-0">
-                        <input type="number" name="min_suhu" value="{{ request('min_suhu') }}" placeholder="Min"
-                            class="flex-1 min-w-0 h-12 bg-zinc-50 dark:bg-zinc-950 border-zinc-200 dark:border-zinc-800 rounded-2xl text-zinc-900 dark:text-zinc-100 text-sm focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 transition-all px-4">
-                        <input type="number" name="max_suhu" value="{{ request('max_suhu') }}" placeholder="Max"
-                            class="flex-1 min-w-0 h-12 bg-zinc-50 dark:bg-zinc-950 border-zinc-200 dark:border-zinc-800 rounded-2xl text-zinc-900 dark:text-zinc-100 text-sm focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 transition-all px-4">
-                    </div>
+                    <input type="date" name="to" value="{{ request('to') }}"
+                        class="w-full h-12 bg-zinc-50 dark:bg-zinc-950 border-zinc-200 dark:border-zinc-800 rounded-2xl text-zinc-900 dark:text-zinc-100 text-xs focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 transition-all px-3">
                 </div>
 
-                <!-- Humidity Range -->
-                <div class="space-y-2 col-span-1 md:col-span-1 lg:col-span-1">
+                <!-- Temperature Min -->
+                <div class="space-y-2 col-span-1">
                     <label class="flex items-center gap-2 text-xs font-bold text-zinc-500 dark:text-zinc-400 uppercase tracking-widest ml-1">
-                        💧 Kelembaban (%RH)
+                        🌡️ Suhu Min (°C)
                     </label>
-                    <div class="flex gap-2 min-w-0">
-                        <input type="number" name="min_kelembaban" value="{{ request('min_kelembaban') }}" placeholder="Min"
-                            class="flex-1 min-w-0 h-12 bg-zinc-50 dark:bg-zinc-950 border-zinc-200 dark:border-zinc-800 rounded-2xl text-zinc-900 dark:text-zinc-100 text-sm focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 transition-all px-4">
-                        <input type="number" name="max_kelembaban" value="{{ request('max_kelembaban') }}" placeholder="Max"
-                            class="flex-1 min-w-0 h-12 bg-zinc-50 dark:bg-zinc-950 border-zinc-200 dark:border-zinc-800 rounded-2xl text-zinc-900 dark:text-zinc-100 text-sm focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 transition-all px-4">
-                    </div>
+                    <input type="number" name="min_suhu" value="{{ request('min_suhu') }}" placeholder="Min"
+                        class="w-full h-12 bg-zinc-50 dark:bg-zinc-950 border-zinc-200 dark:border-zinc-800 rounded-2xl text-zinc-900 dark:text-zinc-100 text-sm focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 transition-all px-4">
                 </div>
 
-                <!-- Actions: Filter & Reset -->
-                <div class="space-y-2 col-span-1 md:col-span-2 lg:col-span-2">
-                    <span class="hidden md:block text-xs font-bold text-transparent select-none uppercase tracking-widest ml-1">
-                        Aksi
-                    </span>
-                    <div class="flex gap-2 min-w-0">
-                        <button type="submit" class="flex-1 h-12 flex items-center justify-center gap-1 sm:gap-2 bg-sky-500 hover:bg-sky-600 text-white text-[10px] sm:text-xs font-black uppercase tracking-wider sm:tracking-widest px-2 sm:px-4 rounded-2xl transition-all shadow-lg shadow-sky-500/20 border border-transparent whitespace-nowrap">
-                            Filter
-                        </button>
-                        <a href="{{ route('admin.history') }}" class="flex-1 h-12 flex items-center justify-center gap-1 sm:gap-2 bg-zinc-50 hover:bg-zinc-100 dark:bg-zinc-800 dark:hover:bg-zinc-700 text-zinc-700 dark:text-zinc-300 text-[10px] sm:text-xs font-black uppercase tracking-wider sm:tracking-widest px-2 sm:px-4 rounded-2xl transition-all shadow-lg shadow-zinc-200/10 dark:shadow-none border border-zinc-200 dark:border-zinc-700 whitespace-nowrap" title="Reset Filter">
-                            🔄 Reset
-                        </a>
-                    </div>
+                <!-- Temperature Max -->
+                <div class="space-y-2 col-span-1">
+                    <label class="flex items-center gap-2 text-xs font-bold text-zinc-500 dark:text-zinc-400 uppercase tracking-widest ml-1">
+                        🌡️ Suhu Max (°C)
+                    </label>
+                    <input type="number" name="max_suhu" value="{{ request('max_suhu') }}" placeholder="Max"
+                        class="w-full h-12 bg-zinc-50 dark:bg-zinc-950 border-zinc-200 dark:border-zinc-800 rounded-2xl text-zinc-900 dark:text-zinc-100 text-sm focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 transition-all px-4">
                 </div>
 
-                <!-- Actions: Download -->
-                <div class="space-y-2 col-span-1 md:col-span-1 lg:col-span-1">
-                    <span class="hidden md:block text-xs font-bold text-transparent select-none uppercase tracking-widest ml-1">
-                        Unduh
-                    </span>
-                    <a href="{{ route('admin.history.download', request()->all()) }}" class="w-full h-12 flex items-center justify-center gap-1 sm:gap-2 bg-emerald-500 hover:bg-emerald-600 text-white text-[10px] sm:text-xs font-black uppercase tracking-wider sm:tracking-widest px-2 sm:px-4 rounded-2xl transition-all shadow-lg shadow-emerald-500/20 border border-transparent whitespace-nowrap" title="Download CSV">
+                <!-- Humidity Min -->
+                <div class="space-y-2 col-span-1">
+                    <label class="flex items-center gap-2 text-xs font-bold text-zinc-500 dark:text-zinc-400 uppercase tracking-widest ml-1">
+                        💧 Lembab Min (%RH)
+                    </label>
+                    <input type="number" name="min_kelembaban" value="{{ request('min_kelembaban') }}" placeholder="Min"
+                        class="w-full h-12 bg-zinc-50 dark:bg-zinc-950 border-zinc-200 dark:border-zinc-800 rounded-2xl text-zinc-900 dark:text-zinc-100 text-sm focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 transition-all px-4">
+                </div>
+
+                <!-- Humidity Max -->
+                <div class="space-y-2 col-span-1">
+                    <label class="flex items-center gap-2 text-xs font-bold text-zinc-500 dark:text-zinc-400 uppercase tracking-widest ml-1">
+                        💧 Lembab Max (%RH)
+                    </label>
+                    <input type="number" name="max_kelembaban" value="{{ request('max_kelembaban') }}" placeholder="Max"
+                        class="w-full h-12 bg-zinc-50 dark:bg-zinc-950 border-zinc-200 dark:border-zinc-800 rounded-2xl text-zinc-900 dark:text-zinc-100 text-sm focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 transition-all px-4">
+                </div>
+
+                <!-- Action: Filter -->
+                <div class="col-span-1 lg:col-span-2">
+                    <button type="submit" class="w-full h-12 flex items-center justify-center gap-2 bg-sky-500 hover:bg-sky-600 text-white text-xs font-black uppercase tracking-widest rounded-2xl transition-all shadow-lg shadow-sky-500/20 border border-transparent whitespace-nowrap">
+                        🔍 Filter
+                    </button>
+                </div>
+
+                <!-- Action: Reset -->
+                <div class="col-span-1 lg:col-span-2">
+                    <a href="{{ route('admin.history') }}" class="w-full h-12 flex items-center justify-center gap-2 bg-zinc-50 hover:bg-zinc-100 dark:bg-zinc-800 dark:hover:bg-zinc-700 text-zinc-700 dark:text-zinc-300 text-xs font-black uppercase tracking-widest rounded-2xl transition-all shadow-lg shadow-zinc-200/10 dark:shadow-none border border-zinc-200 dark:border-zinc-700 whitespace-nowrap" title="Reset Filter">
+                        🔄 Reset
+                    </a>
+                </div>
+
+                <!-- Action: Download -->
+                <div class="col-span-1 md:col-span-2 lg:col-span-2">
+                    <a href="{{ route('admin.history.download', request()->all()) }}" class="w-full h-12 flex items-center justify-center gap-2 bg-emerald-500 hover:bg-emerald-600 text-white text-xs font-black uppercase tracking-widest rounded-2xl transition-all shadow-lg shadow-emerald-500/20 border border-transparent whitespace-nowrap" title="Download CSV">
                         📥 Download
                     </a>
                 </div>
