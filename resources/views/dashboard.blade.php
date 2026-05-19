@@ -65,9 +65,9 @@
                     <span class="text-zinc-400 dark:text-zinc-600 font-black text-xl">°C</span>
                 </div>
                 <p class="text-zinc-500 dark:text-zinc-400 text-xs font-bold uppercase tracking-[0.2em] mb-2">Suhu Ruangan</p>
-                <div class="flex items-center justify-between gap-4">
-                    <h2 id="suhuText" class="text-4xl font-extrabold text-zinc-900 dark:text-zinc-100 tracking-tighter">-- °C</h2>
-                    <span id="suhuStatus" class="px-2.5 py-1 text-[10px] font-black uppercase tracking-widest rounded-xl transition-all duration-300">--</span>
+                <div class="flex items-center justify-between gap-2">
+                    <h2 id="suhuText" class="text-4xl font-extrabold text-zinc-900 dark:text-zinc-100 tracking-tighter whitespace-nowrap">-- °C</h2>
+                    <span id="suhuStatus" class="flex-shrink-0 px-2.5 py-1 text-[10px] font-black uppercase tracking-widest rounded-xl transition-all duration-300">--</span>
                 </div>
                 <div class="mt-6 flex items-center gap-2 text-[10px] font-bold text-zinc-400 dark:text-zinc-500 uppercase tracking-widest">
                     🕒 Update Langsung
@@ -83,9 +83,9 @@
                     <span class="text-zinc-400 dark:text-zinc-600 font-black text-xl">%RH</span>
                 </div>
                 <p class="text-zinc-500 dark:text-zinc-400 text-xs font-bold uppercase tracking-[0.2em] mb-2">Kelembaban</p>
-                <div class="flex items-center justify-between gap-4">
-                    <h2 id="kelembabanText" class="text-4xl font-extrabold text-zinc-900 dark:text-zinc-100 tracking-tighter">-- %RH</h2>
-                    <span id="kelembabanStatus" class="px-2.5 py-1 text-[10px] font-black uppercase tracking-widest rounded-xl transition-all duration-300">--</span>
+                <div class="flex items-center justify-between gap-2">
+                    <h2 id="kelembabanText" class="text-4xl font-extrabold text-zinc-900 dark:text-zinc-100 tracking-tighter whitespace-nowrap">-- %RH</h2>
+                    <span id="kelembabanStatus" class="flex-shrink-0 px-2.5 py-1 text-[10px] font-black uppercase tracking-widest rounded-xl transition-all duration-300">--</span>
                 </div>
                 <div class="mt-6 flex items-center gap-2 text-[10px] font-bold text-zinc-400 dark:text-zinc-500 uppercase tracking-widest">
                     ☁️ Kelembaban Relatif
