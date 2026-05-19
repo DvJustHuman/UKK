@@ -12,7 +12,7 @@
                     History <span class="text-sky-500">Monitoring</span>
                 </h1>
                 <p class="text-zinc-500 dark:text-zinc-400 font-medium flex items-center gap-2">
-                    📍 Arsip kronologis data sensor museum
+                    📍 Riwayat Data Suhu Ruang Pameran Museum
                 </p>
 
                 <div class="flex flex-wrap gap-3 mt-6">

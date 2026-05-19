@@ -13,7 +13,7 @@
                         Dashboard <span class="text-sky-500">Monitoring</span>
                     </h1>
                     <p class="text-zinc-500 dark:text-zinc-400 font-medium flex items-center gap-2">
-                        📍 Sistem Pemantauan Museum Realtime
+                        📍 Sistem Pemantauan Suhu Ruang Pameran Museum
                     </p>
                 </div>
 

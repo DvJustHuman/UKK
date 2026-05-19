@@ -42,7 +42,7 @@
                         'born' => '31/10/2007',
                         'gender' => 'Laki-laki',
                         'contact' => '083117168234',
-                        'email' => '-',
+                        'email' => '19.bintangaryaputramaulana@gmail.com',
                         'photo' => 'images/members/bintang.jpg'
                     ],
 
