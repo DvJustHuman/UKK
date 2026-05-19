@@ -115,7 +115,7 @@
                         <label class="flex items-center gap-2 text-xs font-bold text-zinc-500 dark:text-zinc-400 uppercase tracking-widest ml-1">
                             🌡️ Suhu Minimal (°C)
                         </label>
-                        <input type="number" name="min_suhu" value="{{ request('min_suhu') }}" placeholder="Contoh: 20" :disabled="filterType !== 'min_suhu'"
+                        <input type="number" step="any" name="min_suhu" value="{{ request('min_suhu') }}" placeholder="Contoh: 20" :disabled="filterType !== 'min_suhu'"
                             class="w-full h-12 bg-zinc-50 dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 rounded-2xl text-zinc-900 dark:text-zinc-100 text-sm focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 transition-all px-4">
                     </div>
 
@@ -124,7 +124,7 @@
                         <label class="flex items-center gap-2 text-xs font-bold text-zinc-500 dark:text-zinc-400 uppercase tracking-widest ml-1">
                             🌡️ Suhu Maksimal (°C)
                         </label>
-                        <input type="number" name="max_suhu" value="{{ request('max_suhu') }}" placeholder="Contoh: 28" :disabled="filterType !== 'max_suhu'"
+                        <input type="number" step="any" name="max_suhu" value="{{ request('max_suhu') }}" placeholder="Contoh: 28" :disabled="filterType !== 'max_suhu'"
                             class="w-full h-12 bg-zinc-50 dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 rounded-2xl text-zinc-900 dark:text-zinc-100 text-sm focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 transition-all px-4">
                     </div>
 
@@ -133,7 +133,7 @@
                         <label class="flex items-center gap-2 text-xs font-bold text-zinc-500 dark:text-zinc-400 uppercase tracking-widest ml-1">
                             💧 Lembab Minimal (%RH)
                         </label>
-                        <input type="number" name="min_kelembaban" value="{{ request('min_kelembaban') }}" placeholder="Contoh: 50" :disabled="filterType !== 'min_kelembaban'"
+                        <input type="number" step="any" name="min_kelembaban" value="{{ request('min_kelembaban') }}" placeholder="Contoh: 50" :disabled="filterType !== 'min_kelembaban'"
                             class="w-full h-12 bg-zinc-50 dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 rounded-2xl text-zinc-900 dark:text-zinc-100 text-sm focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 transition-all px-4">
                     </div>
 
@@ -142,7 +142,7 @@
                         <label class="flex items-center gap-2 text-xs font-bold text-zinc-500 dark:text-zinc-400 uppercase tracking-widest ml-1">
                             💧 Lembab Maksimal (%RH)
                         </label>
-                        <input type="number" name="max_kelembaban" value="{{ request('max_kelembaban') }}" placeholder="Contoh: 65" :disabled="filterType !== 'max_kelembaban'"
+                        <input type="number" step="any" name="max_kelembaban" value="{{ request('max_kelembaban') }}" placeholder="Contoh: 65" :disabled="filterType !== 'max_kelembaban'"
                             class="w-full h-12 bg-zinc-50 dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 rounded-2xl text-zinc-900 dark:text-zinc-100 text-sm focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 transition-all px-4">
                     </div>
                 </div>
