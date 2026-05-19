@@ -128,7 +128,7 @@
             <div class="flex flex-col md:flex-row justify-between md:items-center gap-6 mb-10 pb-6 border-b border-zinc-100 dark:border-zinc-800">
                 <div>
                     <h2 class="text-2xl font-extrabold text-zinc-900 dark:text-zinc-100 tracking-tight">Statistik <span class="text-sky-500">Waktu</span></h2>
-                    <p class="text-zinc-500 dark:text-zinc-400 font-medium text-sm mt-1">Visualisasi data 10 rekaman terakhir</p>
+                    <p class="text-zinc-500 dark:text-zinc-400 font-medium text-sm mt-1">Visualisasi data 1 menit terakhir</p>
                 </div>
                 <div class="flex items-center gap-2 px-4 py-2 bg-sky-50 dark:bg-sky-500/10 text-sky-600 dark:text-sky-400 text-xs font-black uppercase tracking-widest rounded-2xl border border-sky-200 dark:border-sky-500/20">
                     <span class="w-2 h-2 bg-sky-500 rounded-full animate-ping"></span>
@@ -365,10 +365,21 @@ if (kelembaban >= 50 && kelembaban <= 65) {
                     }
 
                     // Update Chart
-                    const reversed = [...data].reverse();
+                    const latestTime = new Date(latest.created_at.replace(' ', 'T'));
+                    const oneMinuteAgo = new Date(latestTime.getTime() - 60000);
+
+                    // Filter data to only include records from the last 1 minute of the latest record
+                    const filteredData = data.filter(d => {
+                        const recordTime = new Date(d.created_at.replace(' ', 'T'));
+                        return recordTime >= oneMinuteAgo;
+                    });
+
+                    const reversed = [...filteredData].reverse();
                     chart.data.labels = reversed.map(d => {
                         const date = new Date(d.created_at.replace(' ', 'T'));
-                        return date.getHours() + ":" + String(date.getMinutes()).padStart(2, '0');
+                        return String(date.getHours()).padStart(2, '0') + ":" + 
+                               String(date.getMinutes()).padStart(2, '0') + ":" + 
+                               String(date.getSeconds()).padStart(2, '0');
                     });
                     chart.data.datasets[0].data = reversed.map(d => parseFloat(d.suhu));
                     chart.data.datasets[1].data = reversed.map(d => parseFloat(d.kelembaban));

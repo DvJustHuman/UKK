@@ -36,7 +36,7 @@ public function latest()
 {
 return DB::table('sensors')
     ->orderBy('id','desc')
-    ->limit(10)
+    ->limit(100)
     ->get();
 }
 }
