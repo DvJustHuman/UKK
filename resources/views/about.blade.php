@@ -64,7 +64,7 @@
                         'born' => '28/01/2008',
                         'gender' => 'Laki-laki',
                         'contact' => '088989540329',
-                        'email' => '-',
+                        'email' => 'demassamed687@gmail.com',
                         'photo' => 'images/members/dimas.jpg'
                     ],
 

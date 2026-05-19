@@ -65,7 +65,10 @@
                     <span class="text-zinc-400 dark:text-zinc-600 font-black text-xl">°C</span>
                 </div>
                 <p class="text-zinc-500 dark:text-zinc-400 text-xs font-bold uppercase tracking-[0.2em] mb-2">Suhu Ruangan</p>
-                <h2 id="suhuText" class="text-4xl font-extrabold text-zinc-900 dark:text-zinc-100 tracking-tighter">-- °C</h2>
+                <div class="flex items-center justify-between gap-4">
+                    <h2 id="suhuText" class="text-4xl font-extrabold text-zinc-900 dark:text-zinc-100 tracking-tighter">-- °C</h2>
+                    <span id="suhuStatus" class="px-2.5 py-1 text-[10px] font-black uppercase tracking-widest rounded-xl transition-all duration-300">--</span>
+                </div>
                 <div class="mt-6 flex items-center gap-2 text-[10px] font-bold text-zinc-400 dark:text-zinc-500 uppercase tracking-widest">
                     🕒 Update Langsung
                 </div>
@@ -80,7 +83,10 @@
                     <span class="text-zinc-400 dark:text-zinc-600 font-black text-xl">%RH</span>
                 </div>
                 <p class="text-zinc-500 dark:text-zinc-400 text-xs font-bold uppercase tracking-[0.2em] mb-2">Kelembaban</p>
-                <h2 id="kelembabanText" class="text-4xl font-extrabold text-zinc-900 dark:text-zinc-100 tracking-tighter">-- %RH</h2>
+                <div class="flex items-center justify-between gap-4">
+                    <h2 id="kelembabanText" class="text-4xl font-extrabold text-zinc-900 dark:text-zinc-100 tracking-tighter">-- %RH</h2>
+                    <span id="kelembabanStatus" class="px-2.5 py-1 text-[10px] font-black uppercase tracking-widest rounded-xl transition-all duration-300">--</span>
+                </div>
                 <div class="mt-6 flex items-center gap-2 text-[10px] font-bold text-zinc-400 dark:text-zinc-500 uppercase tracking-widest">
                     ☁️ Kelembaban Relatif
                 </div>
@@ -288,6 +294,25 @@ document.getElementById('suhuText').innerText =
 
 document.getElementById('kelembabanText').innerText =
     kelembaban.toFixed(1) + ' %RH';
+
+// ================= DYNAMIC BADGE STATUS =================
+const suhuStatus = document.getElementById('suhuStatus');
+if (suhu >= 18 && suhu <= 28) {
+    suhuStatus.innerText = 'Aman';
+    suhuStatus.className = 'px-2.5 py-1 text-[10px] font-black uppercase tracking-widest rounded-xl bg-green-500/10 text-green-600 dark:text-green-400 border border-green-500/20 transition-all duration-300';
+} else {
+    suhuStatus.innerText = 'Tidak Aman';
+    suhuStatus.className = 'px-2.5 py-1 text-[10px] font-black uppercase tracking-widest rounded-xl bg-red-500/10 text-red-600 dark:text-red-400 border border-red-500/20 transition-all duration-300 animate-pulse';
+}
+
+const kelembabanStatus = document.getElementById('kelembabanStatus');
+if (kelembaban >= 50 && kelembaban <= 65) {
+    kelembabanStatus.innerText = 'Aman';
+    kelembabanStatus.className = 'px-2.5 py-1 text-[10px] font-black uppercase tracking-widest rounded-xl bg-green-500/10 text-green-600 dark:text-green-400 border border-green-500/20 transition-all duration-300';
+} else {
+    kelembabanStatus.innerText = 'Tidak Aman';
+    kelembabanStatus.className = 'px-2.5 py-1 text-[10px] font-black uppercase tracking-widest rounded-xl bg-red-500/10 text-red-600 dark:text-red-400 border border-red-500/20 transition-all duration-300 animate-pulse';
+}
 
                     // Update UI Elements
                     const statusText = document.getElementById('statusText');

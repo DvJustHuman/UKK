@@ -150,7 +150,7 @@
 
                             <!-- STATUS -->
                             <td class="px-8 py-6 text-center">
-                                @if($item->suhu > 25 || $item->kelembaban > 65)
+                                @if($item->suhu > 28 || $item->kelembaban > 65)
                                     <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 text-[10px] font-black uppercase tracking-widest border border-red-100 dark:border-red-900/30">
                                         ⚠️ Bahaya
                                     </span>
