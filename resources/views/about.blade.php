@@ -18,8 +18,8 @@
             </div>
         </div>
 
-        <!-- LIST ANGGOTA (ONE-BY-ONE) -->
-        <div class="flex flex-col items-center gap-8 max-w-md mx-auto w-full">
+        <!-- LIST ANGGOTA (ONE-BY-ONE HORIZONTAL) -->
+        <div class="flex flex-col items-center gap-8 max-w-5xl mx-auto w-full">
 
             @php
                 $members = [
@@ -110,182 +110,205 @@
             @endphp
 
             <!-- KETUA KELOMPOK (LEADER) -->
-            <div class="w-full group relative overflow-hidden bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-[2.5rem] p-8 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-sky-500/10 hover:border-sky-500/50">
+            <div class="w-full group relative overflow-hidden bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-[2.5rem] p-6 md:p-8 transition-all duration-500 hover:-translate-y-1 hover:shadow-2xl hover:shadow-sky-500/10 hover:border-sky-500/50">
+                
+                <!-- Background Watermark -->
+                <div class="absolute -right-6 -bottom-6 text-9xl font-black text-zinc-100 dark:text-zinc-800/50 select-none pointer-events-none transform -rotate-12 group-hover:scale-110 transition-transform duration-500 opacity-50 z-0">
+                    01
+                </div>
+
+                <div class="flex flex-col md:flex-row items-center md:items-start gap-6 md:gap-8 relative z-10">
                     
-                    <!-- Background Watermark -->
-                    <div class="absolute -right-6 -bottom-6 text-9xl font-black text-zinc-100 dark:text-zinc-800/50 select-none pointer-events-none transform -rotate-12 group-hover:scale-110 transition-transform duration-500 opacity-50 z-0">
-                        01
-                    </div>
-
-                    <!-- Badge Header -->
-                    <div class="flex justify-between items-center mb-6 relative z-10">
-                        <div class="px-4 py-1.5 rounded-full border border-sky-200 dark:border-sky-800/50 bg-sky-50 dark:bg-sky-950/30 text-sky-600 dark:text-sky-400">
-                            <span class="text-[10px] font-black uppercase tracking-wider">
-                                👑 {{ $leader['role'] }}
-                            </span>
-                        </div>
-                    </div>
-
-                    <!-- Profile Section -->
-                    <div class="flex flex-col items-center mb-8 relative z-10">
-                        <div class="w-28 h-28 aspect-square rounded-full p-1 border border-sky-400/50 dark:border-sky-500/30 shadow-md group-hover:border-sky-500 group-hover:scale-105 transition-all duration-500 mb-5">
+                    <!-- Left Side: Profile Photo -->
+                    <div class="flex-shrink-0">
+                        <div class="w-28 h-28 aspect-square rounded-full p-1 border border-sky-400/50 dark:border-sky-500/30 shadow-md group-hover:border-sky-500 group-hover:scale-105 transition-all duration-500">
                             <div class="w-full h-full aspect-square rounded-full border-4 border-white dark:border-zinc-900 overflow-hidden bg-zinc-100 dark:bg-zinc-800">
                                 <img src="{{ asset($leader['photo']) }}" alt="{{ $leader['name'] }}" class="w-full h-full aspect-square object-cover group-hover:scale-110 transition-transform duration-700">
                             </div>
                         </div>
-                        <h3 class="text-xl font-extrabold text-zinc-900 dark:text-zinc-100 text-center leading-tight">
-                            {{ $leader['name'] }}
-                        </h3>
-                        <p class="text-xs font-bold text-zinc-500 dark:text-zinc-400 uppercase tracking-widest mt-2 group-hover:text-sky-500 transition-colors">
-                            {{ $leader['gender'] }}
-                        </p>
                     </div>
 
-                    <!-- Details Grid -->
-                    <div class="space-y-3 relative z-10">
-                        <!-- Born -->
-                        <div class="flex items-center gap-4 p-3.5 rounded-2xl bg-zinc-50 dark:bg-zinc-800/30 border border-zinc-100 dark:border-zinc-800 group-hover:border-sky-500/30 transition-colors">
-                            <div class="flex-shrink-0 w-10 h-10 rounded-xl bg-white dark:bg-zinc-800 flex items-center justify-center border border-zinc-200 dark:border-zinc-700 shadow-sm">
-                                <svg class="w-5 h-5 text-zinc-400 group-hover:text-sky-500 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                                </svg>
-                            </div>
+                    <!-- Right Side: Details Info -->
+                    <div class="flex-1 w-full min-w-0 space-y-4">
+                        
+                        <!-- Header: Name & Role -->
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-center md:text-left">
                             <div>
-                                <p class="text-[10px] font-black uppercase tracking-wider text-zinc-400">Tgl Lahir</p>
-                                <p class="text-sm font-bold text-zinc-900 dark:text-zinc-100">{{ $leader['born'] }}</p>
+                                <h3 class="text-xl font-extrabold text-zinc-900 dark:text-zinc-100 leading-tight">
+                                    {{ $leader['name'] }}
+                                </h3>
+                                <p class="text-xs font-bold text-zinc-500 dark:text-zinc-400 uppercase tracking-widest mt-1">
+                                    {{ $leader['gender'] }}
+                                </p>
+                            </div>
+                            
+                            <div class="self-center sm:self-auto px-4 py-1.5 rounded-full border border-sky-200 dark:border-sky-800/50 bg-sky-50 dark:bg-sky-950/30 text-sky-600 dark:text-sky-400">
+                                <span class="text-[10px] font-black uppercase tracking-wider">
+                                    👑 {{ $leader['role'] }}
+                                </span>
                             </div>
                         </div>
 
-                        <!-- Tugas -->
-                        <div class="flex items-center gap-4 p-3.5 rounded-2xl bg-zinc-50 dark:bg-zinc-800/30 border border-zinc-100 dark:border-zinc-800 group-hover:border-sky-500/30 transition-colors">
-                            <div class="flex-shrink-0 w-10 h-10 rounded-xl bg-white dark:bg-zinc-800 flex items-center justify-center border border-zinc-200 dark:border-zinc-700 shadow-sm">
-                                <svg class="w-5 h-5 text-zinc-400 group-hover:text-sky-500 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
-                                </svg>
+                        <!-- Details Grid -->
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                            <!-- Born -->
+                            <div class="flex items-center gap-3 p-3 rounded-2xl bg-zinc-50 dark:bg-zinc-800/30 border border-zinc-100 dark:border-zinc-800 group-hover:border-sky-500/20 transition-colors">
+                                <div class="flex-shrink-0 w-8 h-8 rounded-lg bg-white dark:bg-zinc-800 flex items-center justify-center border border-zinc-200 dark:border-zinc-700 shadow-sm">
+                                    <svg class="w-4 h-4 text-zinc-400 group-hover:text-sky-500 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                    </svg>
+                                </div>
+                                <div class="min-w-0">
+                                    <p class="text-[9px] font-black uppercase tracking-wider text-zinc-400">Tgl Lahir</p>
+                                    <p class="text-xs font-bold text-zinc-900 dark:text-zinc-100 truncate">{{ $leader['born'] }}</p>
+                                </div>
                             </div>
-                            <div class="overflow-hidden">
-                                <p class="text-[10px] font-black uppercase tracking-wider text-zinc-400">Tugas / Peran</p>
-                                <p class="text-sm font-bold text-zinc-900 dark:text-zinc-100 truncate" title="{{ $leader['task'] }}">{{ $leader['task'] }}</p>
+
+                            <!-- Tugas -->
+                            <div class="flex items-center gap-3 p-3 rounded-2xl bg-zinc-50 dark:bg-zinc-800/30 border border-zinc-100 dark:border-zinc-800 group-hover:border-sky-500/20 transition-colors">
+                                <div class="flex-shrink-0 w-8 h-8 rounded-lg bg-white dark:bg-zinc-800 flex items-center justify-center border border-zinc-200 dark:border-zinc-700 shadow-sm">
+                                    <svg class="w-4 h-4 text-zinc-400 group-hover:text-sky-500 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
+                                    </svg>
+                                </div>
+                                <div class="min-w-0">
+                                    <p class="text-[9px] font-black uppercase tracking-wider text-zinc-400">Tugas / Peran</p>
+                                    <p class="text-xs font-bold text-zinc-900 dark:text-zinc-100 truncate" title="{{ $leader['task'] }}">{{ $leader['task'] }}</p>
+                                </div>
+                            </div>
+
+                            <!-- Contact -->
+                            <div class="flex items-center gap-3 p-3 rounded-2xl bg-zinc-50 dark:bg-zinc-800/30 border border-zinc-100 dark:border-zinc-800 group-hover:border-sky-500/20 transition-colors">
+                                <div class="flex-shrink-0 w-8 h-8 rounded-lg bg-white dark:bg-zinc-800 flex items-center justify-center border border-zinc-200 dark:border-zinc-700 shadow-sm">
+                                    <svg class="w-4 h-4 text-zinc-400 group-hover:text-sky-500 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                                    </svg>
+                                </div>
+                                <div class="min-w-0">
+                                    <p class="text-[9px] font-black uppercase tracking-wider text-zinc-400">Telepon</p>
+                                    <p class="text-xs font-bold text-zinc-900 dark:text-zinc-100 truncate">{{ $leader['contact'] }}</p>
+                                </div>
+                            </div>
+
+                            <!-- Email -->
+                            <div class="flex items-center gap-3 p-3 rounded-2xl bg-zinc-50 dark:bg-zinc-800/30 border border-zinc-100 dark:border-zinc-800 group-hover:border-sky-500/20 transition-colors">
+                                <div class="flex-shrink-0 w-8 h-8 rounded-lg bg-white dark:bg-zinc-800 flex items-center justify-center border border-zinc-200 dark:border-zinc-700 shadow-sm">
+                                    <svg class="w-4 h-4 text-zinc-400 group-hover:text-sky-500 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                                    </svg>
+                                </div>
+                                <div class="min-w-0">
+                                    <p class="text-[9px] font-black uppercase tracking-wider text-zinc-400">Email</p>
+                                    <p class="text-xs font-bold text-zinc-900 dark:text-zinc-100 truncate" title="{{ $leader['email'] }}">{{ $leader['email'] }}</p>
+                                </div>
                             </div>
                         </div>
 
-                        <!-- Contact -->
-                        <div class="flex items-center gap-4 p-3.5 rounded-2xl bg-zinc-50 dark:bg-zinc-800/30 border border-zinc-100 dark:border-zinc-800 group-hover:border-sky-500/30 transition-colors">
-                            <div class="flex-shrink-0 w-10 h-10 rounded-xl bg-white dark:bg-zinc-800 flex items-center justify-center border border-zinc-200 dark:border-zinc-700 shadow-sm">
-                                <svg class="w-5 h-5 text-zinc-400 group-hover:text-sky-500 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                                </svg>
-                            </div>
-                            <div>
-                                <p class="text-[10px] font-black uppercase tracking-wider text-zinc-400">Telepon</p>
-                                <p class="text-sm font-bold text-zinc-900 dark:text-zinc-100">{{ $leader['contact'] }}</p>
-                            </div>
-                        </div>
-
-                        <!-- Email -->
-                        <div class="flex items-center gap-4 p-3.5 rounded-2xl bg-zinc-50 dark:bg-zinc-800/30 border border-zinc-100 dark:border-zinc-800 group-hover:border-sky-500/30 transition-colors">
-                            <div class="flex-shrink-0 w-10 h-10 rounded-xl bg-white dark:bg-zinc-800 flex items-center justify-center border border-zinc-200 dark:border-zinc-700 shadow-sm">
-                                <svg class="w-5 h-5 text-zinc-400 group-hover:text-sky-500 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                                </svg>
-                            </div>
-                            <div class="overflow-hidden">
-                                <p class="text-[10px] font-black uppercase tracking-wider text-zinc-400">Email</p>
-                                <p class="text-sm font-bold text-zinc-900 dark:text-zinc-100 truncate">{{ $leader['email'] }}</p>
-                            </div>
-                        </div>
                     </div>
+
                 </div>
+            </div>
 
             <!-- ANGGOTA (MEMBERS) -->
             @foreach($anggotas as $index => $m)
 
-            <div class="group relative overflow-hidden bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-[2.5rem] p-8 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-sky-500/10 hover:border-sky-500/50">
+            <div class="w-full group relative overflow-hidden bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-[2.5rem] p-6 md:p-8 transition-all duration-500 hover:-translate-y-1 hover:shadow-2xl hover:shadow-sky-500/10 hover:border-sky-500/50">
                 
                 <!-- Background Watermark -->
                 <div class="absolute -right-6 -bottom-6 text-9xl font-black text-zinc-100 dark:text-zinc-800/50 select-none pointer-events-none transform -rotate-12 group-hover:scale-110 transition-transform duration-500 opacity-50 z-0">
                     {{ str_pad($index + 2, 2, '0', STR_PAD_LEFT) }}
                 </div>
 
-                <!-- Badge Header (Role only) -->
-               <div class="flex justify-between items-center mb-6 relative z-10">
-                   <div class="px-4 py-1.5 rounded-full border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800/50">
-                        <span class="text-[10px] font-black uppercase tracking-wider text-zinc-500 dark:text-zinc-400 group-hover:text-sky-500 transition-colors">
-                            {{ $m['role'] }}
-                        </span>
+                <div class="flex flex-col md:flex-row items-center md:items-start gap-6 md:gap-8 relative z-10">
+                    
+                    <!-- Left Side: Profile Photo -->
+                    <div class="flex-shrink-0">
+                        <div class="w-28 h-28 aspect-square rounded-full p-1 border border-zinc-200 dark:border-zinc-700 shadow-md group-hover:border-sky-500/50 group-hover:scale-105 transition-all duration-500">
+                            <div class="w-full h-full aspect-square rounded-full border-4 border-white dark:border-zinc-900 overflow-hidden bg-zinc-100 dark:bg-zinc-800">
+                                <img src="{{ asset($m['photo']) }}" alt="{{ $m['name'] }}" class="w-full h-full aspect-square object-cover group-hover:scale-110 transition-transform duration-700">
+                            </div>
+                        </div>
                     </div>
+
+                    <!-- Right Side: Details Info -->
+                    <div class="flex-1 w-full min-w-0 space-y-4">
+                        
+                        <!-- Header: Name & Role -->
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-center md:text-left">
+                            <div>
+                                <h3 class="text-xl font-extrabold text-zinc-900 dark:text-zinc-100 leading-tight">
+                                    {{ $m['name'] }}
+                                </h3>
+                                <p class="text-xs font-bold text-zinc-500 dark:text-zinc-400 uppercase tracking-widest mt-1">
+                                    {{ $m['gender'] }}
+                                </p>
+                            </div>
+                            
+                            <div class="self-center sm:self-auto px-4 py-1.5 rounded-full border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800/50">
+                                <span class="text-[10px] font-black uppercase tracking-wider text-zinc-500 dark:text-zinc-400 group-hover:text-sky-500 transition-colors">
+                                    {{ $m['role'] }}
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- Details Grid -->
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                            <!-- Born -->
+                            <div class="flex items-center gap-3 p-3 rounded-2xl bg-zinc-50 dark:bg-zinc-800/30 border border-zinc-100 dark:border-zinc-800 group-hover:border-sky-500/20 transition-colors">
+                                <div class="flex-shrink-0 w-8 h-8 rounded-lg bg-white dark:bg-zinc-800 flex items-center justify-center border border-zinc-200 dark:border-zinc-700 shadow-sm">
+                                    <svg class="w-4 h-4 text-zinc-400 group-hover:text-sky-500 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                    </svg>
+                                </div>
+                                <div class="min-w-0">
+                                    <p class="text-[9px] font-black uppercase tracking-wider text-zinc-400">Tgl Lahir</p>
+                                    <p class="text-xs font-bold text-zinc-900 dark:text-zinc-100 truncate">{{ $m['born'] }}</p>
+                                </div>
+                            </div>
+
+                            <!-- Tugas -->
+                            <div class="flex items-center gap-3 p-3 rounded-2xl bg-zinc-50 dark:bg-zinc-800/30 border border-zinc-100 dark:border-zinc-800 group-hover:border-sky-500/20 transition-colors">
+                                <div class="flex-shrink-0 w-8 h-8 rounded-lg bg-white dark:bg-zinc-800 flex items-center justify-center border border-zinc-200 dark:border-zinc-700 shadow-sm">
+                                    <svg class="w-4 h-4 text-zinc-400 group-hover:text-sky-500 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
+                                    </svg>
+                                </div>
+                                <div class="min-w-0">
+                                    <p class="text-[9px] font-black uppercase tracking-wider text-zinc-400">Tugas / Peran</p>
+                                    <p class="text-xs font-bold text-zinc-900 dark:text-zinc-100 truncate" title="{{ $m['task'] }}">{{ $m['task'] }}</p>
+                                </div>
+                            </div>
+
+                            <!-- Contact -->
+                            <div class="flex items-center gap-3 p-3 rounded-2xl bg-zinc-50 dark:bg-zinc-800/30 border border-zinc-100 dark:border-zinc-800 group-hover:border-sky-500/20 transition-colors">
+                                <div class="flex-shrink-0 w-8 h-8 rounded-lg bg-white dark:bg-zinc-800 flex items-center justify-center border border-zinc-200 dark:border-zinc-700 shadow-sm">
+                                    <svg class="w-4 h-4 text-zinc-400 group-hover:text-sky-500 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                                    </svg>
+                                </div>
+                                <div class="min-w-0">
+                                    <p class="text-[9px] font-black uppercase tracking-wider text-zinc-400">Telepon</p>
+                                    <p class="text-xs font-bold text-zinc-900 dark:text-zinc-100 truncate">{{ $m['contact'] }}</p>
+                                </div>
+                            </div>
+
+                            <!-- Email -->
+                            <div class="flex items-center gap-3 p-3 rounded-2xl bg-zinc-50 dark:bg-zinc-800/30 border border-zinc-100 dark:border-zinc-800 group-hover:border-sky-500/20 transition-colors">
+                                <div class="flex-shrink-0 w-8 h-8 rounded-lg bg-white dark:bg-zinc-800 flex items-center justify-center border border-zinc-200 dark:border-zinc-700 shadow-sm">
+                                    <svg class="w-4 h-4 text-zinc-400 group-hover:text-sky-500 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                                    </svg>
+                                </div>
+                                <div class="min-w-0">
+                                    <p class="text-[9px] font-black uppercase tracking-wider text-zinc-400">Email</p>
+                                    <p class="text-xs font-bold text-zinc-900 dark:text-zinc-100 truncate" title="{{ $m['email'] }}">{{ $m['email'] }}</p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
                 </div>
-
-                <!-- Profile Section -->
-                <div class="flex flex-col items-center mb-8 relative z-10">
-                    <div class="w-28 h-28 aspect-square rounded-full p-1 border border-zinc-200 dark:border-zinc-700 shadow-md group-hover:border-sky-500/50 group-hover:scale-105 transition-all duration-500 mb-5">
-                        <div class="w-full h-full aspect-square rounded-full border-4 border-white dark:border-zinc-900 overflow-hidden bg-zinc-100 dark:bg-zinc-800">
-                            <img src="{{ asset($m['photo']) }}" alt="{{ $m['name'] }}" class="w-full h-full aspect-square object-cover group-hover:scale-110 transition-transform duration-700">
-                        </div>
-                    </div>
-                    <h3 class="text-xl font-extrabold text-zinc-900 dark:text-zinc-100 text-center leading-tight">
-                        {{ $m['name'] }}
-                    </h3>
-                    <p class="text-xs font-bold text-zinc-500 dark:text-zinc-400 uppercase tracking-widest mt-2 group-hover:text-sky-500 transition-colors">
-                        {{ $m['gender'] }}
-                    </p>
-                </div>
-
-                <!-- Details Grid -->
-                <div class="space-y-3 relative z-10">
-                    <!-- Born -->
-                    <div class="flex items-center gap-4 p-3.5 rounded-2xl bg-zinc-50 dark:bg-zinc-800/30 border border-zinc-100 dark:border-zinc-800 group-hover:border-sky-500/30 transition-colors">
-                        <div class="flex-shrink-0 w-10 h-10 rounded-xl bg-white dark:bg-zinc-800 flex items-center justify-center border border-zinc-200 dark:border-zinc-700 shadow-sm">
-                            <svg class="w-5 h-5 text-zinc-400 group-hover:text-sky-500 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                            </svg>
-                        </div>
-                        <div>
-                            <p class="text-[10px] font-black uppercase tracking-wider text-zinc-400">Tgl Lahir</p>
-                            <p class="text-sm font-bold text-zinc-900 dark:text-zinc-100">{{ $m['born'] }}</p>
-                        </div>
-                    </div>
-
-                    <!-- Tugas -->
-                    <div class="flex items-center gap-4 p-3.5 rounded-2xl bg-zinc-50 dark:bg-zinc-800/30 border border-zinc-100 dark:border-zinc-800 group-hover:border-sky-500/30 transition-colors">
-                        <div class="flex-shrink-0 w-10 h-10 rounded-xl bg-white dark:bg-zinc-800 flex items-center justify-center border border-zinc-200 dark:border-zinc-700 shadow-sm">
-                            <svg class="w-5 h-5 text-zinc-400 group-hover:text-sky-500 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
-                            </svg>
-                        </div>
-                        <div class="overflow-hidden">
-                            <p class="text-[10px] font-black uppercase tracking-wider text-zinc-400">Tugas / Peran</p>
-                            <p class="text-sm font-bold text-zinc-900 dark:text-zinc-100 truncate" title="{{ $m['task'] }}">{{ $m['task'] }}</p>
-                        </div>
-                    </div>
-
-                    <!-- Contact -->
-                    <div class="flex items-center gap-4 p-3.5 rounded-2xl bg-zinc-50 dark:bg-zinc-800/30 border border-zinc-100 dark:border-zinc-800 group-hover:border-sky-500/30 transition-colors">
-                        <div class="flex-shrink-0 w-10 h-10 rounded-xl bg-white dark:bg-zinc-800 flex items-center justify-center border border-zinc-200 dark:border-zinc-700 shadow-sm">
-                            <svg class="w-5 h-5 text-zinc-400 group-hover:text-sky-500 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                            </svg>
-                        </div>
-                        <div>
-                            <p class="text-[10px] font-black uppercase tracking-wider text-zinc-400">Telepon</p>
-                            <p class="text-sm font-bold text-zinc-900 dark:text-zinc-100">{{ $m['contact'] }}</p>
-                        </div>
-                    </div>
-
-                    <!-- Email -->
-                    <div class="flex items-center gap-4 p-3.5 rounded-2xl bg-zinc-50 dark:bg-zinc-800/30 border border-zinc-100 dark:border-zinc-800 group-hover:border-sky-500/30 transition-colors">
-                        <div class="flex-shrink-0 w-10 h-10 rounded-xl bg-white dark:bg-zinc-800 flex items-center justify-center border border-zinc-200 dark:border-zinc-700 shadow-sm">
-                            <svg class="w-5 h-5 text-zinc-400 group-hover:text-sky-500 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                            </svg>
-                        </div>
-                        <div class="overflow-hidden">
-                            <p class="text-[10px] font-black uppercase tracking-wider text-zinc-400">Email</p>
-                            <p class="text-sm font-bold text-zinc-900 dark:text-zinc-100 truncate">{{ $m['email'] }}</p>
-                        </div>
-                    </div>
-                </div>
-
             </div>
 
             @endforeach
