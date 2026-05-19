@@ -96,7 +96,7 @@
                                     {{ Auth::user()->name }}
                                 </p>
                                 <p class="text-zinc-500 dark:text-zinc-400 text-[9px] uppercase font-bold mt-1 tracking-tighter">
-                                    {{ Auth::user()->role }}
+                                    {{ Auth::user()->role == 'admin' ? 'Administrator' : 'Pengunjung' }}
                                 </p>
                             </div>
                             <div class="w-8 h-8 rounded-xl bg-sky-500 flex items-center justify-center text-white font-bold text-sm shadow-md shadow-sky-500/20">
@@ -216,7 +216,7 @@
                 </div>
                 <div>
                     <p class="font-extrabold text-sm text-zinc-900 dark:text-zinc-100 leading-none">{{ Auth::user()->name }}</p>
-                    <p class="text-xs font-bold text-sky-500 mt-1 uppercase tracking-wider">{{ Auth::user()->role }}</p>
+                    <p class="text-xs font-bold text-sky-500 mt-1 uppercase tracking-wider">{{ Auth::user()->role == 'admin' ? 'Administrator' : 'Pengunjung' }}</p>
                 </div>
             </div>
 

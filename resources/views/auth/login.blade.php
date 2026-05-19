@@ -68,7 +68,7 @@
                 <div class="space-y-4 pt-4">
                     <button type="submit" 
                         class="w-full bg-sky-500 hover:bg-sky-600 text-white font-black py-4 rounded-2xl transition-all shadow-xl shadow-sky-500/20 text-xs uppercase tracking-[0.2em]">
-                        Masuk
+                        Masuk Sebagai Admin
                     </button>
 
                     <div class="relative flex items-center py-4">
@@ -80,22 +80,11 @@
                     <a href="{{ route('dashboard') }}" 
                        class="w-full flex items-center justify-center gap-3 border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 py-4 rounded-2xl text-xs font-black text-zinc-600 dark:text-zinc-400 hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-all uppercase tracking-widest shadow-sm">
                         <span>👥</span>
-                        Masuk Sebagai Tamu
+                        Masuk Sebagai Pengunjung
                     </a>
                 </div>
             </form>
 
-            <!-- FOOTER -->
-            @if (Route::has('register'))
-                <div class="mt-10 text-center">
-                    <p class="text-xs font-bold text-zinc-400">
-                        Tidak punya akun? 
-                        <a href="{{ route('register') }}" class="text-sky-500 hover:text-sky-600 font-black ml-1 transition-colors">
-                            Buat Akun
-                        </a>
-                    </p>
-                </div>
-            @endif
         </div>
     </div>
 </x-guest-layout>

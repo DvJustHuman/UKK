@@ -39,7 +39,19 @@ class AdminController extends Controller
 
         $data = $query->orderBy('id', 'desc')->paginate(10)->withQueryString();
 
-        return view('admin.history', compact('data'));
+        // Hitung rata-rata harian (24 jam terakhir)
+        $dailyAvg = \Illuminate\Support\Facades\DB::table('sensors')
+            ->where('created_at', '>=', now()->subDay())
+            ->selectRaw('AVG(suhu) as avg_suhu, AVG(kelembaban) as avg_kelembaban')
+            ->first();
+
+        // Hitung rata-rata mingguan (7 hari terakhir)
+        $weeklyAvg = \Illuminate\Support\Facades\DB::table('sensors')
+            ->where('created_at', '>=', now()->subWeek())
+            ->selectRaw('AVG(suhu) as avg_suhu, AVG(kelembaban) as avg_kelembaban')
+            ->first();
+
+        return view('admin.history', compact('data', 'dailyAvg', 'weeklyAvg'));
     }
 
     // 📥 DOWNLOAD CSV

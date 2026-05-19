@@ -22,7 +22,7 @@ class UserController extends Controller
         $request->validate([
             'name'  => 'required',
             'email' => 'required|email',
-            'role'  => 'required|in:admin,user'
+            'role'  => 'required|in:admin,pengunjung'
         ]);
 
         $user = User::findOrFail($id);

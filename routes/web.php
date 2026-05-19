@@ -70,11 +70,10 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::get('/admin/history', [AdminController::class, 'history'])
-    ->middleware(['auth'])
     ->name('admin.history');
 
 Route::get('/admin/history/download', [AdminController::class, 'download'])
-    ->middleware(['auth'])
+    ->middleware(['auth', 'admin'])
     ->name('admin.history.download');
 
 Route::middleware(['auth', 'admin'])->group(function () {

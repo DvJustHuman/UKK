@@ -23,11 +23,13 @@
                            class="flex items-center gap-2 px-4 py-2 text-[10px] font-black text-zinc-600 dark:text-zinc-400 hover:text-sky-500 uppercase tracking-widest transition-all">
                             Riwayat
                         </a>
-                        <div class="w-px h-4 bg-zinc-200 dark:border-zinc-800"></div>
-                        <a href="{{ route('admin.history.download') }}" 
-                           class="flex items-center gap-2 px-4 py-2 text-[10px] font-black text-zinc-600 dark:text-zinc-400 hover:text-emerald-500 uppercase tracking-widest transition-all">
-                            Unduh CSV
-                        </a>
+                        @if(Auth::check() && Auth::user()->role == 'admin')
+                            <div class="w-px h-4 bg-zinc-200 dark:border-zinc-800"></div>
+                            <a href="{{ route('admin.history.download') }}" 
+                               class="flex items-center gap-2 px-4 py-2 text-[10px] font-black text-zinc-600 dark:text-zinc-400 hover:text-emerald-500 uppercase tracking-widest transition-all">
+                                Unduh CSV
+                            </a>
+                        @endif
                     </div>
 
                     <div class="flex items-center gap-3 bg-zinc-50 dark:bg-zinc-950 p-2 rounded-2xl border border-zinc-200 dark:border-zinc-800">
