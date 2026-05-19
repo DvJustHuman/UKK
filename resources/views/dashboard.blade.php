@@ -77,10 +77,10 @@
                     <div class="w-12 h-12 bg-sky-50 dark:bg-sky-500/10 rounded-2xl flex items-center justify-center text-xl shadow-sm">
                         💧
                     </div>
-                    <span class="text-zinc-400 dark:text-zinc-600 font-black text-xl">%</span>
+                    <span class="text-zinc-400 dark:text-zinc-600 font-black text-xl">%RH</span>
                 </div>
                 <p class="text-zinc-500 dark:text-zinc-400 text-xs font-bold uppercase tracking-[0.2em] mb-2">Kelembaban</p>
-                <h2 id="kelembabanText" class="text-4xl font-extrabold text-zinc-900 dark:text-zinc-100 tracking-tighter">-- %</h2>
+                <h2 id="kelembabanText" class="text-4xl font-extrabold text-zinc-900 dark:text-zinc-100 tracking-tighter">-- %RH</h2>
                 <div class="mt-6 flex items-center gap-2 text-[10px] font-bold text-zinc-400 dark:text-zinc-500 uppercase tracking-widest">
                     ☁️ Kelembaban Relatif
                 </div>
@@ -163,7 +163,7 @@
                             yAxisID: 'y'
                         },
                         {
-                            label: 'KELEMBABAN (%)',
+                            label: 'KELEMBABAN (%RH)',
                             data: [],
                             borderColor: '#6366f1', 
                             backgroundColor: 'rgba(99, 102, 241, 0.05)',
@@ -250,22 +250,35 @@
                     const suhu = parseFloat(latest.suhu);
                     const kelembaban = parseFloat(latest.kelembaban);
 
-                    // ================= STATUS ONLINE / OFFLINE =================
-                    const systemStatus = document.getElementById('systemStatus');
-                    const lastUpdate = new Date(latest.created_at.replace(' ', 'T'));
-                    const now = new Date();
-                    const diffSeconds = Math.abs(now - lastUpdate) / 1000;
+// ================= STATUS ONLINE / OFFLINE =================
+const systemStatus = document.getElementById('systemStatus');
 
-                    if (diffSeconds <= 15) {
-                        systemStatus.innerHTML = '<span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span> SENSOR ONLINE';
-                        systemStatus.className = 'flex items-center gap-2 px-4 py-2 text-xs font-extrabold bg-green-500/10 text-green-600 dark:text-green-400 rounded-xl transition-all duration-300';
-                    } else {
-                        systemStatus.innerHTML = '<span class="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span> SENSOR OFFLINE';
-                        systemStatus.className = 'flex items-center gap-2 px-4 py-2 text-xs font-extrabold bg-red-500/10 text-red-600 dark:text-red-400 rounded-xl transition-all duration-300';
-                    }
+const now = new Date();
+const lastUpdate = new Date(latest.created_at);
 
-                    document.getElementById('suhuText').innerText = suhu.toFixed(1) + ' °C';
-                    document.getElementById('kelembabanText').innerText = kelembaban.toFixed(1) + ' %';
+const diffSeconds = Math.abs(now - lastUpdate) / 1000;
+
+if (diffSeconds <= 30) {
+    systemStatus.innerHTML =
+        '<span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span> SENSOR ONLINE';
+
+    systemStatus.className =
+        'flex items-center gap-2 px-4 py-2 text-xs font-extrabold bg-green-500/10 text-green-600 dark:text-green-400 rounded-xl transition-all duration-300';
+
+} else {
+
+    systemStatus.innerHTML =
+        '<span class="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span> SENSOR OFFLINE';
+
+    systemStatus.className =
+        'flex items-center gap-2 px-4 py-2 text-xs font-extrabold bg-red-500/10 text-red-600 dark:text-red-400 rounded-xl transition-all duration-300';
+}
+
+document.getElementById('suhuText').innerText =
+    suhu.toFixed(1) + ' °C';
+
+document.getElementById('kelembabanText').innerText =
+    kelembaban.toFixed(1) + ' %RH';
 
                     // Update UI Elements
                     const statusText = document.getElementById('statusText');
@@ -279,7 +292,7 @@
                     const fanBadge = document.getElementById('fanBadge');
 
                     // LOGIC ANALOGY
-                    if (suhu > 28 || kelembaban > 65) {
+                    if (suhu > 25 || kelembaban > 65) {
                         statusText.innerText = 'Tidak Ideal';
                         statusIconBg.className = 'w-12 h-12 bg-orange-500 rounded-2xl flex items-center justify-center shadow-lg shadow-orange-500/20 animate-pulse';
                         statusIconEmoji.innerText = '⚠️';
@@ -308,7 +321,7 @@
                         statusIconBg.className = 'w-12 h-12 bg-sky-500 rounded-2xl flex items-center justify-center shadow-lg shadow-sky-500/20';
                         statusIconEmoji.innerText = '✨';
                         
-                        fanText.innerText = 'Optimal';
+                        fanText.innerText = 'Standby';
                         fanIconBg.className = 'w-12 h-12 bg-zinc-100 dark:bg-zinc-800 rounded-2xl flex items-center justify-center';
                         fanIconEmoji.innerText = '🌀';
                         fanBadge.innerText = 'OFF';

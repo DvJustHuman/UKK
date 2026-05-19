@@ -54,12 +54,12 @@ class AdminController extends Controller
             $handle = fopen('php://output', 'w');
             
             // Header CSV
-            fputcsv($handle, ['ID', 'Temperature (C)', 'Humidity (%)', 'Status', 'Timestamp']);
+            fputcsv($handle, ['ID', 'Temperature (C)', 'Humidity (%RH)', 'Status', 'Timestamp']);
 
             foreach ($data as $item) {
                 // Logic status yang sama dengan di Blade
                 $status = '';
-                if($item->suhu > 28 || $item->kelembaban > 65) {
+                if($item->suhu > 25 || $item->kelembaban > 65) {
                     $status = 'TIDAK NYAMAN (PANAS/LEMBAB)';
                 } elseif($item->suhu < 18 || $item->kelembaban < 50) {
                     $status = 'TIDAK NYAMAN (DINGIN/KERING)';
