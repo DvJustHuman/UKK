@@ -24,15 +24,15 @@
                 <!-- QUICK DATE FILTERS -->
                 <div class="flex flex-wrap gap-3 mt-4">
                     <a href="{{ route('admin.history', ['from' => now()->toDateString(), 'to' => now()->toDateString()]) }}" 
-                       class="px-4 py-2 bg-zinc-100 dark:bg-zinc-800 hover:bg-sky-500 hover:text-white text-zinc-600 dark:text-zinc-300 text-[10px] font-black uppercase tracking-widest rounded-xl transition-all">
+                       class="px-4 py-2 text-[10px] font-black uppercase tracking-widest rounded-xl transition-all {{ request('from') == now()->toDateString() && request('to') == now()->toDateString() ? 'bg-sky-500 text-white shadow-lg shadow-sky-500/25' : 'bg-zinc-100 dark:bg-zinc-800 hover:bg-sky-500 hover:text-white text-zinc-600 dark:text-zinc-300' }}">
                         📅 Hari Ini
                     </a>
                     <a href="{{ route('admin.history', ['from' => now()->startOfWeek()->toDateString(), 'to' => now()->endOfWeek()->toDateString()]) }}" 
-                       class="px-4 py-2 bg-zinc-100 dark:bg-zinc-800 hover:bg-sky-500 hover:text-white text-zinc-600 dark:text-zinc-300 text-[10px] font-black uppercase tracking-widest rounded-xl transition-all">
+                       class="px-4 py-2 text-[10px] font-black uppercase tracking-widest rounded-xl transition-all {{ request('from') == now()->startOfWeek()->toDateString() && request('to') == now()->endOfWeek()->toDateString() ? 'bg-sky-500 text-white shadow-lg shadow-sky-500/25' : 'bg-zinc-100 dark:bg-zinc-800 hover:bg-sky-500 hover:text-white text-zinc-600 dark:text-zinc-300' }}">
                         📅 Minggu Ini
                     </a>
                     <a href="{{ route('admin.history', ['from' => now()->startOfMonth()->toDateString(), 'to' => now()->endOfMonth()->toDateString()]) }}" 
-                       class="px-4 py-2 bg-zinc-100 dark:bg-zinc-800 hover:bg-sky-500 hover:text-white text-zinc-600 dark:text-zinc-300 text-[10px] font-black uppercase tracking-widest rounded-xl transition-all">
+                       class="px-4 py-2 text-[10px] font-black uppercase tracking-widest rounded-xl transition-all {{ request('from') == now()->startOfMonth()->toDateString() && request('to') == now()->endOfMonth()->toDateString() ? 'bg-sky-500 text-white shadow-lg shadow-sky-500/25' : 'bg-zinc-100 dark:bg-zinc-800 hover:bg-sky-500 hover:text-white text-zinc-600 dark:text-zinc-300' }}">
                         📅 Bulan Ini
                     </a>
                 </div>
@@ -139,7 +139,7 @@
                             <option value="max_suhu">Suhu Maksimal (°C)</option>
                             <option value="min_kelembaban">Kelembaban Minimal (%RH)</option>
                             <option value="max_kelembaban">Kelembaban Maksimal (%RH)</option>
-                            <option value="tanggal">Rentang Tanggal</option>
+                            <option value="tanggal">Rentang Tanggal & Jam</option>
                         </select>
                     </div>
                 </div>
@@ -240,16 +240,16 @@
                 <div x-show="filterType === 'tanggal'" x-cloak class="col-span-1 md:col-span-2 lg:col-span-2 grid grid-cols-2 gap-4">
                     <div class="space-y-2">
                         <label class="flex items-center gap-2 text-xs font-bold text-zinc-500 dark:text-zinc-400 uppercase tracking-widest ml-1">
-                            📅 Dari Tanggal
+                            📅 Dari Waktu
                         </label>
-                        <input type="date" name="from" value="{{ request('from') }}" :disabled="filterType !== 'tanggal'"
+                        <input type="datetime-local" name="from" value="{{ request('from') }}" :disabled="filterType !== 'tanggal'"
                             class="w-full h-12 bg-zinc-50 dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 rounded-2xl text-zinc-900 dark:text-zinc-100 text-xs focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 transition-all px-3">
                     </div>
                     <div class="space-y-2">
                         <label class="flex items-center gap-2 text-xs font-bold text-zinc-500 dark:text-zinc-400 uppercase tracking-widest ml-1">
-                            📅 Sampai Tanggal
+                            📅 Sampai Waktu
                         </label>
-                        <input type="date" name="to" value="{{ request('to') }}" :disabled="filterType !== 'tanggal'"
+                        <input type="datetime-local" name="to" value="{{ request('to') }}" :disabled="filterType !== 'tanggal'"
                             class="w-full h-12 bg-zinc-50 dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 rounded-2xl text-zinc-900 dark:text-zinc-100 text-xs focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 transition-all px-3">
                     </div>
                 </div>
@@ -290,7 +290,7 @@
                 <table class="w-full text-left whitespace-nowrap">
                     <thead>
                         <tr class="bg-zinc-50/50 dark:bg-zinc-950/50 border-b border-zinc-100 dark:border-zinc-800 text-zinc-500 dark:text-zinc-400 text-xs font-black uppercase tracking-[0.2em]">
-                            <th class="px-8 py-6">ID Data</th>
+                            <th class="px-8 py-6">No.</th>
                             <th class="px-8 py-6">Parameter Lingkungan</th>
                             <th class="px-8 py-6 text-center">Ruang & Koleksi</th>
                             <th class="px-8 py-6 text-center">Status Analitik</th>
@@ -303,7 +303,7 @@
                             
                             <!-- ID -->
                             <td class="px-8 py-6">
-                                <div class="text-sm font-black text-zinc-900 dark:text-zinc-100">#{{ $item->id }}</div>
+                                <div class="text-sm font-black text-zinc-900 dark:text-zinc-100">{{ ($data->currentPage() - 1) * $data->perPage() + $loop->iteration }}</div>
                             </td>
 
                             <!-- METRICS -->

@@ -3,11 +3,11 @@
     <!-- HEADER -->
     <header class="mb-6">
         <h2 class="text-sm font-black text-zinc-400 uppercase tracking-widest">
-            {{ __('Security Protocol') }}
+            Protokol Keamanan
         </h2>
 
         <p class="mt-2 text-xs text-zinc-500 dark:text-zinc-400">
-            {{ __('Update your password to maintain museum system security.') }}
+            Perbarui kata sandi Anda untuk menjaga keamanan sistem museum.
         </p>
     </header>
 
@@ -20,7 +20,7 @@
         <!-- CURRENT PASSWORD -->
         <div>
             <x-input-label for="update_password_current_password"
-                :value="__('Current Password')"
+                value="Kata Sandi Saat Ini"
                 class="text-zinc-400" />
 
             <x-text-input
@@ -41,7 +41,7 @@
         <!-- NEW PASSWORD -->
         <div>
             <x-input-label for="update_password_password"
-                :value="__('New Password')"
+                value="Kata Sandi Baru"
                 class="text-zinc-400" />
 
             <x-text-input
@@ -62,7 +62,7 @@
         <!-- CONFIRM PASSWORD -->
         <div>
             <x-input-label for="update_password_password_confirmation"
-                :value="__('Confirm Password')"
+                value="Konfirmasi Kata Sandi"
                 class="text-zinc-400" />
 
             <x-text-input
@@ -85,7 +85,7 @@
 
             <x-primary-button
                 class="bg-sky-500 hover:bg-sky-600 text-white font-black uppercase tracking-widest px-8 py-4 rounded-2xl shadow-lg shadow-sky-500/20 transition-all">
-                {{ __('Save') }}
+                Simpan
             </x-primary-button>
 
             @if (session('status') === 'password-updated')
@@ -96,7 +96,7 @@
                     x-init="setTimeout(() => show = false, 2000)"
                     class="text-xs font-bold text-sky-500 uppercase tracking-widest"
                 >
-                    {{ __('Saved.') }}
+                    Tersimpan.
                 </p>
             @endif
 

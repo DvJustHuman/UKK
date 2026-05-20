@@ -159,12 +159,20 @@ class AdminController extends Controller
             });
         }
 
-        // 📅 Filter tanggal (Menggunakan whereDate agar lebih akurat untuk range harian)
+        // 📅 Filter tanggal (dan waktu jika ada)
         if ($request->from) {
-            $query->whereDate('created_at', '>=', $request->from);
+            if (strlen($request->from) > 10) {
+                $query->where('created_at', '>=', str_replace('T', ' ', $request->from));
+            } else {
+                $query->whereDate('created_at', '>=', $request->from);
+            }
         }
         if ($request->to) {
-            $query->whereDate('created_at', '<=', $request->to);
+            if (strlen($request->to) > 10) {
+                $query->where('created_at', '<=', str_replace('T', ' ', $request->to));
+            } else {
+                $query->whereDate('created_at', '<=', $request->to);
+            }
         }
 
         // 🌡️ Filter Suhu (Min/Max)

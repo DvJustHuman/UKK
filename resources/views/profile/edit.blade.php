@@ -26,7 +26,7 @@
                         👤
                     </div>
                     <h2 class="text-lg font-black text-zinc-900 dark:text-zinc-100 uppercase tracking-widest">
-                        Identity Information
+                        Informasi Identitas
                     </h2>
                 </div>
                 
@@ -42,7 +42,7 @@
                         🔐
                     </div>
                     <h2 class="text-lg font-black text-zinc-900 dark:text-zinc-100 uppercase tracking-widest">
-                        Security Protocol
+                        Protokol Keamanan
                     </h2>
                 </div>
 
@@ -60,7 +60,7 @@
                         ⚠️
                     </div>
                     <h2 class="text-lg font-black text-red-600 uppercase tracking-widest">
-                        Termination Zone
+                        Zona Penghapusan
                     </h2>
                 </div>
 

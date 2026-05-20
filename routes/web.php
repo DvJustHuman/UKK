@@ -19,7 +19,7 @@ use App\Http\Controllers\UserDashboardController;
 
 // redirect awal
 Route::get('/', function () {
-    return redirect('/login');
+    return redirect('/dashboard');
 });
 
 Route::get('/api/sensor', function () {

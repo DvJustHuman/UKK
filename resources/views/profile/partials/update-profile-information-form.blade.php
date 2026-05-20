@@ -3,11 +3,11 @@
     <!-- HEADER -->
     <header class="mb-6">
         <h2 class="text-sm font-black text-zinc-400 uppercase tracking-widest">
-            {{ __('Profile Information') }}
+            Informasi Profil
         </h2>
 
         <p class="mt-2 text-xs text-zinc-500 dark:text-zinc-400">
-            {{ __('Update your museum account identity & access.') }}
+            Perbarui identitas & akses akun museum Anda.
         </p>
     </header>
 
@@ -24,7 +24,7 @@
 
         <!-- NAME -->
         <div>
-            <x-input-label for="name" :value="__('Name')" class="text-zinc-400" />
+            <x-input-label for="name" value="Nama" class="text-zinc-400" />
 
             <x-text-input
                 id="name"
@@ -41,7 +41,7 @@
 
         <!-- EMAIL -->
         <div>
-            <x-input-label for="email" :value="__('Email')" class="text-zinc-400" />
+            <x-input-label for="email" value="Email" class="text-zinc-400" />
 
             <x-text-input
                 id="email"
@@ -59,17 +59,17 @@
                 <div class="mt-3 text-sm text-gray-300">
 
                     <p>
-                        {{ __('Your email address is unverified.') }}
+                        Alamat email Anda belum diverifikasi.
                     </p>
 
                     <button form="send-verification"
                         class="underline text-sky-500 hover:text-sky-600 mt-1">
-                        {{ __('Resend verification email') }}
+                        Kirim ulang email verifikasi
                     </button>
 
                     @if (session('status') === 'verification-link-sent')
                         <p class="mt-2 text-sky-500 font-medium">
-                            {{ __('Verification link sent.') }}
+                            Tautan verifikasi telah dikirim.
                         </p>
                     @endif
                 </div>
@@ -81,7 +81,7 @@
 
             <x-primary-button
                 class="bg-sky-500 hover:bg-sky-600 text-white font-black uppercase tracking-widest px-8 py-4 rounded-2xl shadow-lg shadow-sky-500/20 transition-all">
-                {{ __('Save') }}
+                Simpan
             </x-primary-button>
 
             @if (session('status') === 'profile-updated')
@@ -92,7 +92,7 @@
                     x-init="setTimeout(() => show = false, 2000)"
                     class="text-xs font-bold text-sky-500 uppercase tracking-widest"
                 >
-                    {{ __('Saved.') }}
+                    Tersimpan.
                 </p>
             @endif
 
