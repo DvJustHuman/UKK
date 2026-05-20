@@ -24,7 +24,7 @@
         </div>
 
         <!-- STATS / AVERAGES CARD ROW -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
             <!-- Daily Average -->
             <div class="relative overflow-hidden bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 p-8 rounded-[2.5rem] shadow-xl shadow-zinc-200/30 dark:shadow-none transition-all duration-300">
                 <div class="absolute -right-8 -bottom-8 text-zinc-100 dark:text-zinc-800/10 text-8xl select-none font-black opacity-30 pointer-events-none">
@@ -74,11 +74,37 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Security Stats -->
+            <div class="relative overflow-hidden bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 p-8 rounded-[2.5rem] shadow-xl shadow-zinc-200/30 dark:shadow-none transition-all duration-300">
+                <div class="absolute -right-8 -bottom-8 text-zinc-100 dark:text-zinc-800/10 text-8xl select-none font-black opacity-30 pointer-events-none">
+                    STATS
+                </div>
+                <div class="relative z-10">
+                    <span class="text-xs font-black uppercase tracking-widest text-emerald-500">🛡️ Keamanan Koleksi</span>
+                    <h3 class="text-sm font-bold text-zinc-400 dark:text-zinc-500 mt-1">30 Hari Terakhir</h3>
+                    <div class="mt-6">
+                        <span class="text-[10px] font-bold text-zinc-400 uppercase tracking-widest block mb-1">Rasio Kondisi Aman</span>
+                        <div class="flex items-center gap-3">
+                            <span class="text-3xl font-extrabold text-zinc-900 dark:text-zinc-100">
+                                {{ $securityStats }}%
+                            </span>
+                            @if($securityStats >= 80)
+                                <span class="px-3 py-1 bg-emerald-500/10 text-emerald-500 text-[10px] font-black uppercase tracking-widest rounded-full border border-emerald-500/20">Optimal</span>
+                            @elseif($securityStats >= 50)
+                                <span class="px-3 py-1 bg-amber-500/10 text-amber-500 text-[10px] font-black uppercase tracking-widest rounded-full border border-amber-500/20">Waspada</span>
+                            @else
+                                <span class="px-3 py-1 bg-red-500/10 text-red-500 text-[10px] font-black uppercase tracking-widest rounded-full border border-red-500/20">Kritis</span>
+                            @endif
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <!-- FILTER AREA -->
         <div x-data="{ 
-            filterType: '{{ request('min_suhu') ? 'min_suhu' : (request('max_suhu') ? 'max_suhu' : (request('min_kelembaban') ? 'min_kelembaban' : (request('max_kelembaban') ? 'max_kelembaban' : (request('from') || request('to') ? 'tanggal' : '')))) }}'
+            filterType: '{{ request('min_suhu') ? 'min_suhu' : (request('max_suhu') ? 'max_suhu' : (request('min_kelembaban') ? 'min_kelembaban' : (request('max_kelembaban') ? 'max_kelembaban' : (request('from') || request('to') ? 'tanggal' : (request('kondisi') ? 'kondisi' : (request('ruang_museum') ? 'ruang_museum' : (request('jenis_koleksi') ? 'jenis_koleksi' : ''))))))) }}'
         }" class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 p-8 rounded-[2.5rem] shadow-xl shadow-zinc-200/30 dark:shadow-none">
             <form action="{{ route('admin.history') }}" method="GET" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 items-end">
 
@@ -90,6 +116,9 @@
                     <div class="relative">
                         <select x-model="filterType" class="w-full h-12 bg-zinc-50 dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 rounded-2xl text-zinc-900 dark:text-zinc-100 text-xs font-bold focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 transition-all pl-4 pr-10 appearance-none cursor-pointer">
                             <option value="">-- Pilih Jenis Filter --</option>
+                            <option value="kondisi">Kondisi Ruangan</option>
+                            <option value="ruang_museum">Ruang Museum</option>
+                            <option value="jenis_koleksi">Jenis Koleksi</option>
                             <option value="min_suhu">Suhu Minimal (°C)</option>
                             <option value="max_suhu">Suhu Maksimal (°C)</option>
                             <option value="min_kelembaban">Kelembaban Minimal (%RH)</option>
@@ -144,6 +173,50 @@
                         </label>
                         <input type="number" step="any" name="max_kelembaban" value="{{ request('max_kelembaban') }}" placeholder="Contoh: 65" :disabled="filterType !== 'max_kelembaban'"
                             class="w-full h-12 bg-zinc-50 dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 rounded-2xl text-zinc-900 dark:text-zinc-100 text-sm focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 transition-all px-4">
+                    </div>
+
+                    <!-- Kondisi Ruangan -->
+                    <div x-show="filterType === 'kondisi'" x-cloak class="space-y-2">
+                        <label class="flex items-center gap-2 text-xs font-bold text-zinc-500 dark:text-zinc-400 uppercase tracking-widest ml-1">
+                            🏛️ Kondisi Ruangan
+                        </label>
+                        <select name="kondisi" :disabled="filterType !== 'kondisi'"
+                            class="w-full h-12 bg-zinc-50 dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 rounded-2xl text-zinc-900 dark:text-zinc-100 text-sm focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 transition-all px-4">
+                            <option value="">-- Pilih Kondisi --</option>
+                            <option value="aman" {{ request('kondisi') == 'aman' ? 'selected' : '' }}>Aman</option>
+                            <option value="lembap" {{ request('kondisi') == 'lembap' ? 'selected' : '' }}>Terlalu Lembap</option>
+                            <option value="panas" {{ request('kondisi') == 'panas' ? 'selected' : '' }}>Terlalu Panas</option>
+                            <option value="berisiko" {{ request('kondisi') == 'berisiko' ? 'selected' : '' }}>Berisiko Merusak Lukisan</option>
+                        </select>
+                    </div>
+
+                    <!-- Ruang Museum -->
+                    <div x-show="filterType === 'ruang_museum'" x-cloak class="space-y-2">
+                        <label class="flex items-center gap-2 text-xs font-bold text-zinc-500 dark:text-zinc-400 uppercase tracking-widest ml-1">
+                            🖼️ Ruang Museum
+                        </label>
+                        <select name="ruang_museum" :disabled="filterType !== 'ruang_museum'"
+                            class="w-full h-12 bg-zinc-50 dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 rounded-2xl text-zinc-900 dark:text-zinc-100 text-sm focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 transition-all px-4">
+                            <option value="">-- Pilih Ruang Museum --</option>
+                            <option value="Ruang Pameran 1" {{ request('ruang_museum') == 'Ruang Pameran 1' ? 'selected' : '' }}>Ruang Pameran 1</option>
+                            <option value="Ruang Pameran 2" {{ request('ruang_museum') == 'Ruang Pameran 2' ? 'selected' : '' }}>Ruang Pameran 2</option>
+                            <option value="Galeri Utama" {{ request('ruang_museum') == 'Galeri Utama' ? 'selected' : '' }}>Galeri Utama</option>
+                        </select>
+                    </div>
+
+                    <!-- Jenis Koleksi -->
+                    <div x-show="filterType === 'jenis_koleksi'" x-cloak class="space-y-2">
+                        <label class="flex items-center gap-2 text-xs font-bold text-zinc-500 dark:text-zinc-400 uppercase tracking-widest ml-1">
+                            🏺 Jenis Koleksi
+                        </label>
+                        <select name="jenis_koleksi" :disabled="filterType !== 'jenis_koleksi'"
+                            class="w-full h-12 bg-zinc-50 dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 rounded-2xl text-zinc-900 dark:text-zinc-100 text-sm focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 transition-all px-4">
+                            <option value="">-- Pilih Jenis Koleksi --</option>
+                            <option value="Lukisan" {{ request('jenis_koleksi') == 'Lukisan' ? 'selected' : '' }}>Lukisan</option>
+                            <option value="Patung" {{ request('jenis_koleksi') == 'Patung' ? 'selected' : '' }}>Patung</option>
+                            <option value="Tekstil" {{ request('jenis_koleksi') == 'Tekstil' ? 'selected' : '' }}>Tekstil</option>
+                            <option value="Artefak Logam" {{ request('jenis_koleksi') == 'Artefak Logam' ? 'selected' : '' }}>Artefak Logam</option>
+                        </select>
                     </div>
                 </div>
 
