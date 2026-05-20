@@ -56,6 +56,26 @@
             </div>
         </div>
 
+        <!-- DASHBOARD STATISTIK -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 p-5 rounded-3xl flex flex-col justify-center shadow-sm hover:border-sky-500/50 transition-all">
+                <span class="text-[10px] font-bold text-zinc-400 uppercase tracking-widest mb-1">Rata-rata Suhu</span>
+                <span class="text-2xl font-extrabold text-sky-500">{{ isset($todayAvg) && $todayAvg->avg_suhu ? number_format($todayAvg->avg_suhu, 1) : '--' }}°C</span>
+            </div>
+            <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 p-5 rounded-3xl flex flex-col justify-center shadow-sm hover:border-indigo-500/50 transition-all">
+                <span class="text-[10px] font-bold text-zinc-400 uppercase tracking-widest mb-1">Rata-rata Lembap</span>
+                <span class="text-2xl font-extrabold text-indigo-500">{{ isset($todayAvg) && $todayAvg->avg_kelembaban ? number_format($todayAvg->avg_kelembaban, 1) : '--' }}%</span>
+            </div>
+            <div class="bg-white dark:bg-zinc-900 border border-emerald-500/30 p-5 rounded-3xl flex flex-col justify-center shadow-sm hover:border-emerald-500 transition-all">
+                <span class="text-[10px] font-bold text-emerald-600/70 dark:text-emerald-400/70 uppercase tracking-widest mb-1">Total Aman</span>
+                <span class="text-2xl font-extrabold text-emerald-600 dark:text-emerald-400">{{ $amanCount ?? 0 }}</span>
+            </div>
+            <div class="bg-white dark:bg-zinc-900 border border-red-500/30 p-5 rounded-3xl flex flex-col justify-center shadow-sm hover:border-red-500 transition-all">
+                <span class="text-[10px] font-bold text-red-600/70 dark:text-red-400/70 uppercase tracking-widest mb-1">Total Bahaya</span>
+                <span class="text-2xl font-extrabold text-red-600 dark:text-red-400">{{ $bahayaCount ?? 0 }}</span>
+            </div>
+        </div>
+
         <!-- CARD SENSOR -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             <!-- SUHU -->

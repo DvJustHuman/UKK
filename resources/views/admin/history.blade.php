@@ -20,6 +20,22 @@
                         Total Data: {{ $data->total() }}
                     </div>
                 </div>
+
+                <!-- QUICK DATE FILTERS -->
+                <div class="flex flex-wrap gap-3 mt-4">
+                    <a href="{{ route('admin.history', ['from' => now()->toDateString(), 'to' => now()->toDateString()]) }}" 
+                       class="px-4 py-2 bg-zinc-100 dark:bg-zinc-800 hover:bg-sky-500 hover:text-white text-zinc-600 dark:text-zinc-300 text-[10px] font-black uppercase tracking-widest rounded-xl transition-all">
+                        📅 Hari Ini
+                    </a>
+                    <a href="{{ route('admin.history', ['from' => now()->startOfWeek()->toDateString(), 'to' => now()->endOfWeek()->toDateString()]) }}" 
+                       class="px-4 py-2 bg-zinc-100 dark:bg-zinc-800 hover:bg-sky-500 hover:text-white text-zinc-600 dark:text-zinc-300 text-[10px] font-black uppercase tracking-widest rounded-xl transition-all">
+                        📅 Minggu Ini
+                    </a>
+                    <a href="{{ route('admin.history', ['from' => now()->startOfMonth()->toDateString(), 'to' => now()->endOfMonth()->toDateString()]) }}" 
+                       class="px-4 py-2 bg-zinc-100 dark:bg-zinc-800 hover:bg-sky-500 hover:text-white text-zinc-600 dark:text-zinc-300 text-[10px] font-black uppercase tracking-widest rounded-xl transition-all">
+                        📅 Bulan Ini
+                    </a>
+                </div>
             </div>
         </div>
 
@@ -255,8 +271,11 @@
                 </div>
 
                 @if(Auth::check() && Auth::user()->role == 'admin')
-                    <!-- Action: Download -->
-                    <div class="col-span-1 md:col-span-2 lg:col-span-4 mt-6 pt-6 border-t border-zinc-100 dark:border-zinc-800 flex justify-end">
+                    <!-- Action: Download & Print -->
+                    <div class="col-span-1 md:col-span-2 lg:col-span-4 mt-6 pt-6 border-t border-zinc-100 dark:border-zinc-800 flex flex-wrap justify-end gap-4">
+                        <button type="button" onclick="window.print()" class="h-12 px-8 flex items-center justify-center gap-2 bg-indigo-500 hover:bg-indigo-600 text-white text-xs font-black uppercase tracking-widest rounded-2xl transition-all shadow-lg shadow-indigo-500/20 whitespace-nowrap" title="Print Laporan">
+                            🖨️ Cetak Laporan
+                        </button>
                         <a href="{{ route('admin.history.download', request()->all()) }}" class="h-12 px-8 flex items-center justify-center gap-2 bg-emerald-500 hover:bg-emerald-600 text-white text-xs font-black uppercase tracking-widest rounded-2xl transition-all shadow-lg shadow-emerald-500/20 whitespace-nowrap" title="Download CSV">
                             📥 Unduh Data CSV
                         </a>
