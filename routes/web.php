@@ -76,6 +76,10 @@ Route::get('/admin/history/download', [AdminController::class, 'download'])
     ->middleware(['auth', 'admin'])
     ->name('admin.history.download');
 
+Route::get('/admin/history/pdf', [AdminController::class, 'pdf'])
+    ->middleware(['auth', 'admin'])
+    ->name('admin.history.pdf');
+
 Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin/users', [UserController::class, 'index']);
     Route::post('/admin/users/update/{id}', [UserController::class, 'update']);

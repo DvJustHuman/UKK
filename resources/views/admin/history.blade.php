@@ -273,11 +273,11 @@
                 @if(Auth::check() && Auth::user()->role == 'admin')
                     <!-- Action: Download & Print -->
                     <div class="col-span-1 md:col-span-2 lg:col-span-4 mt-6 pt-6 border-t border-zinc-100 dark:border-zinc-800 flex flex-wrap justify-end gap-4">
-                        <button type="button" onclick="window.print()" class="h-12 px-8 flex items-center justify-center gap-2 bg-indigo-500 hover:bg-indigo-600 text-white text-xs font-black uppercase tracking-widest rounded-2xl transition-all shadow-lg shadow-indigo-500/20 whitespace-nowrap" title="Print Laporan">
-                            🖨️ Cetak Laporan
-                        </button>
-                        <a href="{{ route('admin.history.download', request()->all()) }}" class="h-12 px-8 flex items-center justify-center gap-2 bg-emerald-500 hover:bg-emerald-600 text-white text-xs font-black uppercase tracking-widest rounded-2xl transition-all shadow-lg shadow-emerald-500/20 whitespace-nowrap" title="Download CSV">
-                            📥 Unduh Data CSV
+                        <a href="{{ route('admin.history.pdf', request()->all()) }}" target="_blank" class="h-12 px-8 flex items-center justify-center gap-2 bg-indigo-500 hover:bg-indigo-600 text-white text-xs font-black uppercase tracking-widest rounded-2xl transition-all shadow-lg shadow-indigo-500/20 whitespace-nowrap" title="Unduh PDF">
+                            🖨️ Cetak PDF
+                        </a>
+                        <a href="{{ route('admin.history.download', request()->all()) }}" class="h-12 px-8 flex items-center justify-center gap-2 bg-emerald-500 hover:bg-emerald-600 text-white text-xs font-black uppercase tracking-widest rounded-2xl transition-all shadow-lg shadow-emerald-500/20 whitespace-nowrap" title="Download Excel (CSV)">
+                            📥 Unduh Excel (CSV)
                         </a>
                     </div>
                 @endif

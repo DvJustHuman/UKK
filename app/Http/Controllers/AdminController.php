@@ -133,6 +133,19 @@ class AdminController extends Controller
         return $response;
     }
 
+    // 🖨️ CETAK LAPORAN PDF
+    public function pdf(Request $request)
+    {
+        $query = Sensor::query();
+        $query = $this->applyFilters($query, $request);
+        
+        $data = $query->orderBy('id', 'desc')->get();
+
+        $pdf = \Barryvdh\DomPDF\Facade\Pdf::loadView('admin.report_pdf', compact('data'));
+        
+        return $pdf->download('laporan_monitoring_'.date('Ymd_His').'.pdf');
+    }
+
     // 🛠️ PRIVATE FILTER LOGIC
     private function applyFilters($query, Request $request)
     {
