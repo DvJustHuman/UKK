@@ -120,7 +120,7 @@
 
         <!-- FILTER AREA -->
         <div x-data="{ 
-            filterType: '{{ request('min_suhu') ? 'min_suhu' : (request('max_suhu') ? 'max_suhu' : (request('min_kelembaban') ? 'min_kelembaban' : (request('max_kelembaban') ? 'max_kelembaban' : (request('from') || request('to') ? 'tanggal' : (request('kondisi') ? 'kondisi' : (request('ruang_museum') ? 'ruang_museum' : (request('jenis_koleksi') ? 'jenis_koleksi' : ''))))))) }}'
+            filterType: '{{ request('min_suhu') ? 'min_suhu' : (request('max_suhu') ? 'max_suhu' : (request('min_kelembaban') ? 'min_kelembaban' : (request('max_kelembaban') ? 'max_kelembaban' : (request('from') || request('to') ? 'tanggal' : (request('kondisi') ? 'kondisi' : ''))))) }}'
         }" class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 p-8 rounded-[2.5rem] shadow-xl shadow-zinc-200/30 dark:shadow-none">
             <form action="{{ route('admin.history') }}" method="GET" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 items-end">
 
@@ -133,8 +133,6 @@
                         <select x-model="filterType" class="w-full h-12 bg-zinc-50 dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 rounded-2xl text-zinc-900 dark:text-zinc-100 text-xs font-bold focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 transition-all pl-4 pr-10 appearance-none cursor-pointer">
                             <option value="">-- Pilih Jenis Filter --</option>
                             <option value="kondisi">Kondisi Ruangan</option>
-                            <option value="ruang_museum">Ruang Museum</option>
-                            <option value="jenis_koleksi">Jenis Koleksi</option>
                             <option value="min_suhu">Suhu Minimal (°C)</option>
                             <option value="max_suhu">Suhu Maksimal (°C)</option>
                             <option value="min_kelembaban">Kelembaban Minimal (%RH)</option>
@@ -206,34 +204,7 @@
                         </select>
                     </div>
 
-                    <!-- Ruang Museum -->
-                    <div x-show="filterType === 'ruang_museum'" x-cloak class="space-y-2">
-                        <label class="flex items-center gap-2 text-xs font-bold text-zinc-500 dark:text-zinc-400 uppercase tracking-widest ml-1">
-                            🖼️ Ruang Museum
-                        </label>
-                        <select name="ruang_museum" :disabled="filterType !== 'ruang_museum'"
-                            class="w-full h-12 bg-zinc-50 dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 rounded-2xl text-zinc-900 dark:text-zinc-100 text-sm focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 transition-all px-4">
-                            <option value="">-- Pilih Ruang Museum --</option>
-                            <option value="Ruang Pameran 1" {{ request('ruang_museum') == 'Ruang Pameran 1' ? 'selected' : '' }}>Ruang Pameran 1</option>
-                            <option value="Ruang Pameran 2" {{ request('ruang_museum') == 'Ruang Pameran 2' ? 'selected' : '' }}>Ruang Pameran 2</option>
-                            <option value="Galeri Utama" {{ request('ruang_museum') == 'Galeri Utama' ? 'selected' : '' }}>Galeri Utama</option>
-                        </select>
-                    </div>
 
-                    <!-- Jenis Koleksi -->
-                    <div x-show="filterType === 'jenis_koleksi'" x-cloak class="space-y-2">
-                        <label class="flex items-center gap-2 text-xs font-bold text-zinc-500 dark:text-zinc-400 uppercase tracking-widest ml-1">
-                            🏺 Jenis Koleksi
-                        </label>
-                        <select name="jenis_koleksi" :disabled="filterType !== 'jenis_koleksi'"
-                            class="w-full h-12 bg-zinc-50 dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 rounded-2xl text-zinc-900 dark:text-zinc-100 text-sm focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 transition-all px-4">
-                            <option value="">-- Pilih Jenis Koleksi --</option>
-                            <option value="Lukisan" {{ request('jenis_koleksi') == 'Lukisan' ? 'selected' : '' }}>Lukisan</option>
-                            <option value="Patung" {{ request('jenis_koleksi') == 'Patung' ? 'selected' : '' }}>Patung</option>
-                            <option value="Tekstil" {{ request('jenis_koleksi') == 'Tekstil' ? 'selected' : '' }}>Tekstil</option>
-                            <option value="Artefak Logam" {{ request('jenis_koleksi') == 'Artefak Logam' ? 'selected' : '' }}>Artefak Logam</option>
-                        </select>
-                    </div>
                 </div>
 
                 <!-- Date Range (From & To) -->
@@ -292,7 +263,6 @@
                         <tr class="bg-zinc-50/50 dark:bg-zinc-950/50 border-b border-zinc-100 dark:border-zinc-800 text-zinc-500 dark:text-zinc-400 text-xs font-black uppercase tracking-[0.2em]">
                             <th class="px-8 py-6">No.</th>
                             <th class="px-8 py-6">Parameter Lingkungan</th>
-                            <th class="px-8 py-6 text-center">Ruang & Koleksi</th>
                             <th class="px-8 py-6 text-center">Status Analitik</th>
                             <th class="px-8 py-6 text-right">Waktu Perekaman</th>
                         </tr>
@@ -330,23 +300,15 @@
                                 </div>
                             </td>
 
-                            <!-- RUANG & KOLEKSI -->
-                            <td class="px-8 py-6 text-center">
-                                <div class="text-xs font-bold text-zinc-700 dark:text-zinc-300">
-                                    {{ $item->ruang_museum ?? 'Semua Ruang' }}
-                                </div>
-                                <div class="text-[10px] font-medium text-zinc-500 mt-1">
-                                    {{ $item->jenis_koleksi ?? 'Umum' }}
-                                </div>
-                            </td>
+
 
                             <!-- STATUS -->
                             <td class="px-8 py-6 text-center">
-                                @if($item->suhu >= 18 && $item->suhu <= 28 && $item->kelembaban >= 50 && $item->kelembaban <= 65)
+                                @if($item->suhu >= 29 && $item->suhu <= 30 && $item->kelembaban >= 50 && $item->kelembaban <= 70)
                                     <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-100/50 dark:bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 text-xs font-bold border border-emerald-200 dark:border-emerald-500/20">
                                         <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> Aman
                                     </span>
-                                @elseif($item->suhu > 28 || $item->kelembaban > 65)
+                                @elseif($item->suhu > 30 || $item->kelembaban > 70)
                                     <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-red-100/50 dark:bg-red-500/10 text-red-700 dark:text-red-400 text-xs font-bold border border-red-200 dark:border-red-500/20">
                                         <span class="w-1.5 h-1.5 rounded-full bg-red-500"></span> Bahaya (Panas/Lembap)
                                     </span>
@@ -366,7 +328,7 @@
                         </tr>
                         @empty
                         <tr>
-                            <td colspan="5" class="px-8 py-12 text-center">
+                            <td colspan="4" class="px-8 py-12 text-center">
                                 <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-zinc-100 dark:bg-zinc-800 text-2xl mb-4">
                                     🔍
                                 </div>

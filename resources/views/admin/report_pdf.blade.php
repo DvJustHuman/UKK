@@ -28,8 +28,7 @@
                 <th>Waktu Perekaman</th>
                 <th class="text-center">Suhu (°C)</th>
                 <th class="text-center">Kelembapan (%RH)</th>
-                <th>Ruang Museum</th>
-                <th>Jenis Koleksi</th>
+
                 <th>Status</th>
             </tr>
         </thead>
@@ -37,9 +36,9 @@
             @forelse($data as $index => $item)
                 @php
                     $status = 'Aman';
-                    if($item->suhu > 28 || $item->kelembaban > 65) {
+                    if($item->suhu > 30 || $item->kelembaban > 70) {
                         $status = 'Bahaya (Panas/Lembap)';
-                    } elseif($item->suhu < 18 || $item->kelembaban < 50) {
+                    } elseif($item->suhu < 29 || $item->kelembaban < 50) {
                         $status = 'Berisiko (Dingin/Kering)';
                     }
                 @endphp
@@ -48,13 +47,12 @@
                     <td>{{ $item->created_at }}</td>
                     <td class="text-center">{{ $item->suhu }}</td>
                     <td class="text-center">{{ $item->kelembaban }}</td>
-                    <td>{{ $item->ruang_museum ?? '-' }}</td>
-                    <td>{{ $item->jenis_koleksi ?? '-' }}</td>
+
                     <td>{{ $status }}</td>
                 </tr>
             @empty
                 <tr>
-                    <td colspan="7" class="text-center">Data tidak ditemukan.</td>
+                    <td colspan="5" class="text-center">Data tidak ditemukan.</td>
                 </tr>
             @endforelse
         </tbody>

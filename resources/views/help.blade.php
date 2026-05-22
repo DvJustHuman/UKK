@@ -35,7 +35,7 @@
                         <div>
                             <p class="text-sm font-black text-emerald-700 dark:text-emerald-400 uppercase tracking-widest mb-1">Status: Nyaman</p>
                             <p class="text-xs font-medium text-zinc-600 dark:text-zinc-400 leading-relaxed">
-                                Suhu 18°C - 28°C & Kelembaban 50% - 65%. 
+                                Suhu 29°C - 30°C & Kelembaban 50% - 70%. 
                                 <br><span class="font-bold">Kondisi ruangan ideal untuk koleksi museum.</span>
                             </p>
                         </div>
@@ -46,7 +46,7 @@
                         <div>
                             <p class="text-sm font-black text-red-700 dark:text-red-400 uppercase tracking-widest mb-1">Status: Tidak Nyaman</p>
                             <p class="text-xs font-medium text-zinc-600 dark:text-zinc-400 leading-relaxed">
-                                Suhu > 28°C / < 18°C, atau Kelembaban > 65% / < 50%. 
+                                Suhu > 30°C / < 29°C, atau Kelembaban > 70% / < 50%. 
                                 <br><span class="font-bold">Sistem kontrol otomatis akan aktif (Fan/Heater).</span>
                             </p>
                         </div>

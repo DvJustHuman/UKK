@@ -17,16 +17,16 @@ class UserDashboardController extends Controller
             ->first();
             
         $amanCount = \Illuminate\Support\Facades\DB::table('sensors')
-            ->whereBetween('suhu', [18, 28])
-            ->whereBetween('kelembaban', [50, 65])
+            ->whereBetween('suhu', [29, 30])
+            ->whereBetween('kelembaban', [50, 70])
             ->count();
             
         $bahayaCount = \Illuminate\Support\Facades\DB::table('sensors')
             ->where(function($q) {
-                $q->where('suhu', '<', 18)
-                  ->orWhere('suhu', '>', 28)
+                $q->where('suhu', '<', 29)
+                  ->orWhere('suhu', '>', 30)
                   ->orWhere('kelembaban', '<', 50)
-                  ->orWhere('kelembaban', '>', 65);
+                  ->orWhere('kelembaban', '>', 70);
             })
             ->count();
 

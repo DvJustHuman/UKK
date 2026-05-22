@@ -319,7 +319,7 @@ document.getElementById('kelembabanText').innerText =
 
 // ================= DYNAMIC BADGE STATUS =================
 const suhuStatus = document.getElementById('suhuStatus');
-if (suhu >= 18 && suhu <= 28) {
+if (suhu >= 29 && suhu <= 30) {
     suhuStatus.innerText = 'Aman';
     suhuStatus.className = 'px-2.5 py-1 text-[10px] font-black uppercase tracking-widest rounded-xl bg-green-500/10 text-green-600 dark:text-green-400 border border-green-500/20 transition-all duration-300';
 } else {
@@ -328,7 +328,7 @@ if (suhu >= 18 && suhu <= 28) {
 }
 
 const kelembabanStatus = document.getElementById('kelembabanStatus');
-if (kelembaban >= 50 && kelembaban <= 65) {
+if (kelembaban >= 50 && kelembaban <= 70) {
     kelembabanStatus.innerText = 'Aman';
     kelembabanStatus.className = 'px-2.5 py-1 text-[10px] font-black uppercase tracking-widest rounded-xl bg-green-500/10 text-green-600 dark:text-green-400 border border-green-500/20 transition-all duration-300';
 } else {
@@ -348,7 +348,7 @@ if (kelembaban >= 50 && kelembaban <= 65) {
                     const fanBadge = document.getElementById('fanBadge');
 
                     // LOGIC ANALOGY
-                    if (suhu > 28 || kelembaban > 65) {
+                    if (suhu > 30 || kelembaban > 70) {
                         statusText.innerText = 'Tidak Ideal';
                         statusIconBg.className = 'w-12 h-12 bg-orange-500 rounded-2xl flex items-center justify-center shadow-lg shadow-orange-500/20 animate-pulse';
                         statusIconEmoji.innerText = '⚠️';
@@ -360,7 +360,7 @@ if (kelembaban >= 50 && kelembaban <= 65) {
                         fanBadge.className = 'text-[10px] font-black px-2 py-1 bg-green-500 text-white rounded-lg shadow-md shadow-green-500/10';
 
                         alertBox.classList.remove('hidden');
-                    } else if (suhu < 18 || kelembaban < 50) {
+                    } else if (suhu < 29 || kelembaban < 50) {
                         statusText.innerText = 'Tidak Ideal';
                         statusIconBg.className = 'w-12 h-12 bg-blue-500 rounded-2xl flex items-center justify-center shadow-lg shadow-blue-500/20 animate-pulse';
                         statusIconEmoji.innerText = '❄️';

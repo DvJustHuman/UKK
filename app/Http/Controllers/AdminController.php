@@ -20,16 +20,16 @@ class AdminController extends Controller
             ->first();
             
         $amanCount = \Illuminate\Support\Facades\DB::table('sensors')
-            ->whereBetween('suhu', [18, 28])
-            ->whereBetween('kelembaban', [50, 65])
+            ->whereBetween('suhu', [29, 30])
+            ->whereBetween('kelembaban', [50, 70])
             ->count();
             
         $bahayaCount = \Illuminate\Support\Facades\DB::table('sensors')
             ->where(function($q) {
-                $q->where('suhu', '<', 18)
-                  ->orWhere('suhu', '>', 28)
+                $q->where('suhu', '<', 29)
+                  ->orWhere('suhu', '>', 30)
                   ->orWhere('kelembaban', '<', 50)
-                  ->orWhere('kelembaban', '>', 65);
+                  ->orWhere('kelembaban', '>', 70);
             })
             ->count();
 
@@ -81,8 +81,8 @@ class AdminController extends Controller
             
         $safe30Days = \Illuminate\Support\Facades\DB::table('sensors')
             ->where('created_at', '>=', now()->subDays(30))
-            ->whereBetween('suhu', [18, 28])
-            ->whereBetween('kelembaban', [50, 65])
+            ->whereBetween('suhu', [29, 30])
+            ->whereBetween('kelembaban', [50, 70])
             ->count();
             
         $securityStats = $total30Days > 0 ? round(($safe30Days / $total30Days) * 100, 1) : 0;
@@ -102,14 +102,14 @@ class AdminController extends Controller
             $handle = fopen('php://output', 'w');
             
             // Header CSV
-            fputcsv($handle, ['ID', 'Temperature (C)', 'Humidity (%RH)', 'Ruang Museum', 'Jenis Koleksi', 'Status', 'Timestamp']);
+            fputcsv($handle, ['ID', 'Temperature (C)', 'Humidity (%RH)', 'Status', 'Timestamp']);
 
             foreach ($data as $item) {
                 // Logic status yang sama dengan di Blade
                 $status = '';
-                if ($item->suhu > 28 || $item->kelembaban > 65) {
+                if ($item->suhu > 30 || $item->kelembaban > 70) {
                     $status = 'Bahaya (Panas/Lembap)';
-                } elseif ($item->suhu < 18 || $item->kelembaban < 50) {
+                } elseif ($item->suhu < 29 || $item->kelembaban < 50) {
                     $status = 'Ekstrem (Dingin/Kering)';
                 } else {
                     $status = 'Aman';
@@ -119,8 +119,6 @@ class AdminController extends Controller
                     $item->id,
                     $item->suhu,
                     $item->kelembaban,
-                    $item->ruang_museum ?? '-',
-                    $item->jenis_koleksi ?? '-',
                     $status,
                     $item->created_at->toDateTimeString()
                 ]);
@@ -194,31 +192,23 @@ class AdminController extends Controller
         // 🏛️ Filter Kondisi Ruangan
         if ($request->kondisi) {
             if ($request->kondisi === 'aman') {
-                $query->whereBetween('suhu', [18, 28])
-                      ->whereBetween('kelembaban', [50, 65]);
+                $query->whereBetween('suhu', [29, 30])
+                      ->whereBetween('kelembaban', [50, 70]);
             } elseif ($request->kondisi === 'lembap') {
-                $query->where('kelembaban', '>', 65);
+                $query->where('kelembaban', '>', 70);
             } elseif ($request->kondisi === 'panas') {
-                $query->where('suhu', '>', 28);
+                $query->where('suhu', '>', 30);
             } elseif ($request->kondisi === 'berisiko') {
                 $query->where(function($q) {
-                    $q->where('suhu', '<', 18)
-                      ->orWhere('suhu', '>', 28)
+                    $q->where('suhu', '<', 29)
+                      ->orWhere('suhu', '>', 30)
                       ->orWhere('kelembaban', '<', 50)
-                      ->orWhere('kelembaban', '>', 65);
+                      ->orWhere('kelembaban', '>', 70);
                 });
             }
         }
 
-        // 🖼️ Filter Ruang Museum
-        if ($request->ruang_museum) {
-            $query->where('ruang_museum', $request->ruang_museum);
-        }
 
-        // 🏺 Filter Jenis Koleksi
-        if ($request->jenis_koleksi) {
-            $query->where('jenis_koleksi', $request->jenis_koleksi);
-        }
 
         return $query;
     }
