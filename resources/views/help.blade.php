@@ -33,10 +33,10 @@
                     <div class="flex items-start gap-4 p-4 rounded-3xl bg-emerald-50 dark:bg-emerald-950/20 border border-emerald-100 dark:border-emerald-900/30">
                         <span class="text-2xl mt-1">✨</span>
                         <div>
-                            <p class="text-sm font-black text-emerald-700 dark:text-emerald-400 uppercase tracking-widest mb-1">Status: Nyaman</p>
+                            <p class="text-sm font-black text-emerald-700 dark:text-emerald-400 uppercase tracking-widest mb-1">Status: Sangat Nyaman</p>
                             <p class="text-xs font-medium text-zinc-600 dark:text-zinc-400 leading-relaxed">
                                 Suhu 29°C - 30°C & Kelembaban 50% - 70%. 
-                                <br><span class="font-bold">Kondisi ruangan ideal untuk koleksi museum.</span>
+                                <br><span class="font-bold">Kondisi ruangan ideal untuk koleksi museum. Kipas dalam mode Standby.</span>
                             </p>
                         </div>
                     </div>
@@ -44,10 +44,10 @@
                     <div class="flex items-start gap-4 p-4 rounded-3xl bg-red-50 dark:bg-red-950/20 border border-red-100 dark:border-red-900/30">
                         <span class="text-2xl mt-1">⚠️</span>
                         <div>
-                            <p class="text-sm font-black text-red-700 dark:text-red-400 uppercase tracking-widest mb-1">Status: Tidak Nyaman</p>
+                            <p class="text-sm font-black text-red-700 dark:text-red-400 uppercase tracking-widest mb-1">Status: Tidak Ideal</p>
                             <p class="text-xs font-medium text-zinc-600 dark:text-zinc-400 leading-relaxed">
-                                Suhu > 30°C / < 29°C, atau Kelembaban > 70% / < 50%. 
-                                <br><span class="font-bold">Sistem kontrol otomatis akan aktif (Fan/Heater).</span>
+                                Suhu di luar batas 29°C - 30°C, atau Kelembaban di luar 50% - 70%.
+                                <br><span class="font-bold">Jika suhu > 30°C atau kelembaban > 70%, Kipas Aktif. Jika suhu < 29°C atau kelembaban < 50%, Kipas Nonaktif.</span>
                             </p>
                         </div>
                     </div>
@@ -68,11 +68,11 @@
                 <div class="space-y-4">
                     @php
                         $steps = [
-                            ['icon' => '🔑', 'text' => 'Login menggunakan akun terverifikasi.'],
-                            ['icon' => '📱', 'text' => 'Pantau metrik sensor secara realtime di Dashboard.'],
+                            ['icon' => '📱', 'text' => 'Pantau metrik sensor secara realtime di Dashboard tanpa perlu login.'],
+                            ['icon' => '🔑', 'text' => 'Login khusus untuk Admin (mengakses dan mengunduh riwayat data).'],
                             ['icon' => '✅', 'text' => 'Verifikasi status kenyamanan lingkungan museum.'],
                             ['icon' => '⚡', 'text' => 'Sistem menstabilkan kondisi secara otomatis jika anomali terdeteksi.'],
-                            ['icon' => '📂', 'text' => 'Akses menu History untuk audit data masa lampau.'],
+                            ['icon' => '📂', 'text' => 'Akses menu History untuk audit data masa lampau (Khusus Admin).'],
                             ['icon' => '👥', 'text' => 'Menu About berisi detail pengembang sistem.'],
                         ];
                     @endphp
