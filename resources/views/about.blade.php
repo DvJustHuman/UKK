@@ -49,7 +49,7 @@
                     [
                         'name' => 'Devina Aulia Azzahra',
                         'role' => 'Anggota',
-                        'task' => '-',
+                        'task' => 'Dokumentasi',
                         'born' => '06/07/2006',
                         'gender' => 'Perempuan',
                         'contact' => '089520385898',
